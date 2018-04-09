@@ -38,6 +38,13 @@ CREATE TABLE t_brand
 	code varchar(100) DEFAULT '' COMMENT '编码',
 	active tinyint DEFAULT 1 COMMENT '是否启用,1-启用;0-不启用',
 	remark varchar(200) DEFAULT '' COMMENT '备注',
+  created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+  created_time datetime  COMMENT '创建时间',
+  updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
+  updated_time datetime  COMMENT '更新时间',
+  deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
+  deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
+  deleted_time datetime COMMENT '删除时间',
 	PRIMARY KEY (id)
 ) COMMENT = '品牌表';
 
@@ -49,6 +56,13 @@ CREATE TABLE t_category
 	name varchar(50) DEFAULT '' NOT NULL COMMENT '名称',
 	-- 类别的类型, 1-供应商类别;2-客户类别3-商品类别
 	type smallint DEFAULT -1 NOT NULL COMMENT '类型',
+  created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+  created_time datetime  COMMENT '创建时间',
+  updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
+  updated_time datetime  COMMENT '更新时间',
+  deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
+  deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
+  deleted_time datetime COMMENT '删除时间',
 	PRIMARY KEY (id)
 ) COMMENT = '分类表';
 
@@ -60,6 +74,13 @@ CREATE TABLE t_category_relation
 	parent_id int DEFAULT -1 NOT NULL COMMENT '父结点ID',
 	child_id int DEFAULT -1 NOT NULL COMMENT '子结点ID',
 	parent_ind tinyint DEFAULT 0 NOT NULL COMMENT '是否直接父结点',
+  deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
+  created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+  created_time datetime  COMMENT '创建时间',
+  updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
+  updated_time datetime  COMMENT '更新时间',
+  deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
+  deleted_time datetime COMMENT '删除时间',
 	PRIMARY KEY (id)
 ) COMMENT = '分类关系表';
 
@@ -71,8 +92,13 @@ CREATE TABLE t_check_record
 	code varchar(100) DEFAULT '' COMMENT '编码',
 	inventory int DEFAULT -1 COMMENT '盘点库存',
 	profit int DEFAULT -1 COMMENT '盘盈盘亏',
-	create_time datetime COMMENT '创建时间',
-	create_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+	created_time datetime COMMENT '创建时间',
+	created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+  updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
+  updated_time datetime  COMMENT '更新时间',
+  deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
+  deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
+  deleted_time datetime COMMENT '删除时间',
 	PRIMARY KEY (id)
 ) COMMENT = '盘点记录表';
 
@@ -92,6 +118,13 @@ CREATE TABLE t_product
 	parameter text COMMENT '参数',
 	active tinyint DEFAULT 1 COMMENT '是否启用,1-启用;0-不启用',
 	remark varchar(200) DEFAULT '' COMMENT '备注',
+  created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+  created_time datetime  COMMENT '创建时间',
+  updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
+  updated_time datetime  COMMENT '更新时间',
+  deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
+  deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
+  deleted_time datetime COMMENT '删除时间',
 	PRIMARY KEY (id)
 ) COMMENT = '商品表';
 
@@ -111,6 +144,13 @@ CREATE TABLE t_product_warehouse
 	layer varchar(10) DEFAULT '' COMMENT '货架层',
 	place varchar(10) DEFAULT '' COMMENT '位置',
 	remark varchar(200) COMMENT '备注',
+  created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+  created_time datetime  COMMENT '创建时间',
+  updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
+  updated_time datetime  COMMENT '更新时间',
+  deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
+  deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
+  deleted_time datetime COMMENT '删除时间',
 	PRIMARY KEY (id)
 ) COMMENT = '商品仓库关系表';
 
@@ -127,6 +167,13 @@ CREATE TABLE t_contact
 	primary_ind tinyint DEFAULT 0 NOT NULL COMMENT '首要联系人标识',
 	merchant_id int DEFAULT -1 NOT NULL COMMENT '供应商/客户id',
 	active tinyint DEFAULT 1 COMMENT '是否启用,1-启用;0-不启用',
+  created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+  created_time datetime  COMMENT '创建时间',
+  updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
+  updated_time datetime  COMMENT '更新时间',
+  deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
+  deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
+  deleted_time datetime COMMENT '删除时间',
 	PRIMARY KEY (id)
 ) COMMENT = '联系人表';
 
@@ -140,6 +187,13 @@ CREATE TABLE t_merchant
 	category_id int NOT NULL COMMENT '类别id',
 	type tinyint DEFAULT 1 NOT NULL COMMENT '类别,1-供应商;2-客户',
   remark varchar(200) COMMENT '备注',
+  created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+  created_time datetime  COMMENT '创建时间',
+  updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
+  updated_time datetime  COMMENT '更新时间',
+  deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
+  deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
+  deleted_time datetime COMMENT '删除时间',
 	PRIMARY KEY (id)
 ) COMMENT = '供应商客户表';
 
@@ -153,6 +207,13 @@ CREATE TABLE t_picture
 	path text NOT NULL COMMENT '路径',
 	name varchar(100) DEFAULT '' COMMENT '名称',
   seq int DEFAULT 0 COMMENT '顺序',
+  created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+  created_time datetime  COMMENT '创建时间',
+  updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
+  updated_time datetime  COMMENT '更新时间',
+  deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
+  deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
+  deleted_time datetime COMMENT '删除时间',
 	PRIMARY KEY (id)
 ) COMMENT = '图片表';
 
@@ -163,6 +224,13 @@ CREATE TABLE t_rack
 	id int NOT NULL AUTO_INCREMENT COMMENT 'id',
 	code varchar(100) DEFAULT '' NOT NULL COMMENT '编码',
 	warehouse_id int DEFAULT -1 NOT NULL COMMENT '仓库id',
+  created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+  created_time datetime  COMMENT '创建时间',
+  updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
+  updated_time datetime  COMMENT '更新时间',
+  deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
+  deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
+  deleted_time datetime COMMENT '删除时间',
 	PRIMARY KEY (id)
 ) COMMENT = '货架表';
 
@@ -172,6 +240,13 @@ CREATE TABLE t_unit
 (
 	id int NOT NULL AUTO_INCREMENT COMMENT 'id',
 	name varchar(10) DEFAULT '' NOT NULL COMMENT '名称',
+  created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+  created_time datetime  COMMENT '创建时间',
+  updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
+  updated_time datetime  COMMENT '更新时间',
+  deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
+  deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
+  deleted_time datetime COMMENT '删除时间',
 	PRIMARY KEY (id)
 ) COMMENT = '计量单位表';
 
@@ -185,6 +260,13 @@ CREATE TABLE t_user
 	code varchar(100) DEFAULT '' COMMENT '编码',
 	active tinyint DEFAULT 1 COMMENT '是否启用,1-启用;0-不启用',
 	password varchar(200) DEFAULT '' COMMENT '密码',
+  created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+  created_time datetime  COMMENT '创建时间',
+  updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
+  updated_time datetime  COMMENT '更新时间',
+  deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
+  deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
+  deleted_time datetime COMMENT '删除时间',
 	PRIMARY KEY (id)
 ) COMMENT = '用户表';
 
@@ -196,6 +278,13 @@ CREATE TABLE t_warehouse
 	code varchar(100) DEFAULT '' NOT NULL COMMENT '编码',
 	name varchar(100) DEFAULT '' NOT NULL COMMENT '名称',
 	active tinyint DEFAULT 1 NOT NULL COMMENT '是否启用,1-启用;0-不启用',
+  created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+  created_time datetime  COMMENT '创建时间',
+  updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
+  updated_time datetime  COMMENT '更新时间',
+  deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
+  deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
+  deleted_time datetime COMMENT '删除时间',
 	PRIMARY KEY (id)
 ) COMMENT = '仓库表';
 
@@ -208,8 +297,13 @@ CREATE TABLE t_warehousing
 	quantity int DEFAULT -1 NOT NULL COMMENT '数量',
 	warehouse_id int DEFAULT -1 NOT NULL COMMENT '仓库ID',
 	merchant_id int DEFAULT -1 NOT NULL COMMENT '供应商/客户ID',
-	create_by int DEFAULT -1 NOT NULL COMMENT '创建人',
-	create_time datetime NOT NULL COMMENT '创建时间',
+	created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+	created_time datetime  COMMENT '创建时间',
+  updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
+  updated_time datetime  COMMENT '更新时间',
+  deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
+  deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
+  deleted_time datetime COMMENT '删除时间',
 	PRIMARY KEY (id)
 ) COMMENT = '出库入库记录表';
 

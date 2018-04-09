@@ -11,3 +11,8 @@ spring:
     database: 1
   cache:
     type: redis
+
+mybatis-plus:
+  global-config:
+    #刷新mapper 调试神器
+    refresh-mapper: true

@@ -4,29 +4,29 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/dictionaries
+warehouse-api/.idea/**/workspace.xml
+warehouse-api/.idea/**/tasks.xml
+warehouse-api/.idea/dictionaries
 
 # Sensitive or high-churn files:
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.xml
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
+warehouse-api/.idea/**/dataSources/
+warehouse-api/.idea/**/dataSources.ids
+warehouse-api/.idea/**/dataSources.xml
+warehouse-api/.idea/**/dataSources.local.xml
+warehouse-api/.idea/**/sqlDataSources.xml
+warehouse-api/.idea/**/dynamic.xml
+warehouse-api/.idea/**/uiDesigner.xml
 
 # Gradle:
-.idea/**/gradle.xml
-.idea/**/libraries
+warehouse-api/.idea/**/gradle.xml
+warehouse-api/.idea/**/libraries
 
 # CMake
 cmake-build-debug/
 cmake-build-release/
 
 # Mongo Explorer plugin:
-.idea/**/mongoSettings.xml
+warehouse-api/.idea/**/mongoSettings.xml
 
 ## File-based project format:
 *.iws
@@ -43,7 +43,7 @@ out/
 atlassian-ide-plugin.xml
 
 # Cursive Clojure plugin
-.idea/replstate.xml
+warehouse-api/.idea/replstate.xml
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
@@ -89,3 +89,6 @@ gradle-app.setting
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+.idea/
+warehouse-api/.idea/
+warehouse-api/warehouse.iml
