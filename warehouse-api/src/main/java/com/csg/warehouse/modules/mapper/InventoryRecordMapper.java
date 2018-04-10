@@ -1,6 +1,6 @@
 package com.csg.warehouse.modules.mapper;
 
-import com.csg.warehouse.modules.entity.CheckRecord;
+import com.csg.warehouse.modules.entity.InventoryRecord;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @author kamen
  * @since 2018-04-10
  */
-public interface CheckRecordMapper extends BaseMapper<CheckRecord> {
+public interface InventoryRecordMapper extends BaseMapper<InventoryRecord> {
 
 }

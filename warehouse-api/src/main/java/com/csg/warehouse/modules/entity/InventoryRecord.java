@@ -13,8 +13,8 @@ import com.csg.warehouse.common.entity.IdEntity;
  * @author kamen
  * @since 2018-04-10
  */
-@TableName("t_check_record")
-public class CheckRecord extends IdEntity {
+@TableName("t_inventory_record")
+public class InventoryRecord extends IdEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -143,7 +143,7 @@ public class CheckRecord extends IdEntity {
 
     @Override
     public String toString() {
-        return "CheckRecord{" +
+        return "InventoryRecord{" +
         ", code=" + code +
         ", inventory=" + inventory +
         ", profit=" + profit +

@@ -1,6 +1,6 @@
 package com.csg.warehouse.modules.service;
 
-import com.csg.warehouse.modules.entity.CheckRecord;
+import com.csg.warehouse.modules.entity.InventoryRecord;
 import com.csg.warehouse.common.service.BaseService;
 
 /**
@@ -11,6 +11,6 @@ import com.csg.warehouse.common.service.BaseService;
  * @author kamen
  * @since 2018-04-10
  */
-public interface CheckRecordService extends BaseService<CheckRecord> {
+public interface InventoryRecordService extends BaseService<InventoryRecord> {
 
 }

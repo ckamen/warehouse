@@ -3,8 +3,8 @@ package com.csg.warehouse.modules.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.controller.BaseController;
-import com.csg.warehouse.modules.entity.Unit;
-import com.csg.warehouse.modules.service.UnitService;
+import com.csg.warehouse.modules.entity.InventoryRecord;
+import com.csg.warehouse.modules.service.InventoryRecordService;
 import com.csg.warehouse.web.WebApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,38 +21,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @since 2018-04-10
  */
 @Controller
-@RequestMapping("/checkRecord")
-public class CheckRecordController extends BaseController {
+@RequestMapping("/inventoryRecord")
+public class InventoryRecordController extends BaseController {
 
     @Autowired
-    private UnitService unitService;
+    private InventoryRecordService inventoryRecordService;
 
-    @ModelAttribute("unit")
-    public Unit get(@PathVariable(required = false) Integer id) {
-        Unit unit;
+    @ModelAttribute("inventoryRecord")
+    public InventoryRecord get(@PathVariable(required = false) Integer id) {
+        InventoryRecord inventoryRecord;
         if (id != null && id > 0) {
-            unit = unitService.selectById(id);
+            inventoryRecord = inventoryRecordService.selectById(id);
         } else {
-            unit = new Unit();
+            inventoryRecord = new InventoryRecord();
         }
-        return unit;
+        return inventoryRecord;
     }
 
     @RequestMapping("/page")
-    public WebApiResponse page(Page<Unit> page) {
-        page = unitService.selectPage(page);
+    public WebApiResponse page(Page<InventoryRecord> page) {
+        page = inventoryRecordService.selectPage(page);
         return WebApiResponse.success(page);
     }
 
     @RequestMapping("/save/{id}")
-    public WebApiResponse save(Unit unit) {
-        unitService.save(unit);
+    public WebApiResponse save(InventoryRecord inventoryRecord) {
+        inventoryRecordService.save(inventoryRecord);
         return WebApiResponse.success();
     }
 
     @RequestMapping("/delete/{id}")
     public WebApiResponse delete(@PathVariable Integer id) {
-        unitService.deleteById(id);
+        inventoryRecordService.deleteById(id);
         return WebApiResponse.success();
     }
 
