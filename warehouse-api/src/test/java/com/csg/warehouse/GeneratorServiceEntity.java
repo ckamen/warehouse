@@ -22,7 +22,7 @@ public class GeneratorServiceEntity {
 
     @Test
     public void generateCode() {
-        String packageName = "com.csg.warehouse";
+        String packageName = "com.csg.warehouse.modules";
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
         generateByTables(serviceNameStartWithI, packageName);
     }
@@ -44,6 +44,11 @@ public class GeneratorServiceEntity {
                 .setNaming(NamingStrategy.underline_to_camel)
                 .setTablePrefix("t_")
                 .setLogicDeleteFieldName("deleted_ind")
+                .setSuperEntityColumns("id")
+                .setSuperEntityClass("com.csg.warehouse.common.entity.IdEntity")
+                .setSuperServiceClass("com.csg.warehouse.common.service.BaseService")
+                .setSuperServiceImplClass("com.csg.warehouse.common.service.impl.BaseServiceImpl")
+                .setSuperControllerClass("com.csg.warehouse.common.controller.BaseController")
                 .setInclude(tableNames);//修改替换成你需要的表名，多个表名传数组
         config.setActiveRecord(false)
                 .setAuthor("kamen")

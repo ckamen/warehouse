@@ -9,8 +9,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class WarehouseApplicationTests {
 
+//    @Autowired
+//    BrandService brandService;
+
 	@Test
 	public void contextLoads() {
+//	    Brand brand = new Brand();
+//        brand.setName("ABC");
+//        brand.setCode("123");
+//        brandService.insert(brand);
+
+//        brandService.deleteById(1);
+//
+//        int count = brandService.selectCount(Condition.create());
+//        Assert.assertTrue(count == 0);
 	}
 
 }
