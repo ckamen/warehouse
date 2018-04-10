@@ -13,4 +13,5 @@ import com.csg.warehouse.common.service.BaseService;
  */
 public interface CategoryRelationService extends BaseService<CategoryRelation> {
 
+     void deleteByChildId(Integer childId);
 }

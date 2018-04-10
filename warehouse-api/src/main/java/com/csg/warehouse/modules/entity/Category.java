@@ -1,9 +1,11 @@
 package com.csg.warehouse.modules.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableLogic;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.csg.warehouse.common.entity.IdEntity;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -55,6 +57,9 @@ public class Category extends IdEntity {
      * 删除时间
      */
     private Date deletedTime;
+
+    @TableField(exist = false)
+    private Category parent;
 
 
     public String getName() {
@@ -127,6 +132,14 @@ public class Category extends IdEntity {
 
     public void setDeletedTime(Date deletedTime) {
         this.deletedTime = deletedTime;
+    }
+
+    public Category getParent() {
+        return parent;
+    }
+
+    public void setParent(Category parent) {
+        this.parent = parent;
     }
 
     @Override

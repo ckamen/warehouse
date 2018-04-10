@@ -13,4 +13,7 @@ import com.csg.warehouse.common.service.BaseService;
  */
 public interface CategoryService extends BaseService<Category> {
 
+    Category findWithParent(Integer id);
+
+    Category findParent(Category category);
 }

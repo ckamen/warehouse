@@ -1,9 +1,10 @@
 package com.csg.warehouse.modules.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.csg.warehouse.common.service.impl.BaseServiceImpl;
 import com.csg.warehouse.modules.entity.CategoryRelation;
 import com.csg.warehouse.modules.mapper.CategoryRelationMapper;
 import com.csg.warehouse.modules.service.CategoryRelationService;
-import com.csg.warehouse.common.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +18,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryRelationServiceImpl extends BaseServiceImpl<CategoryRelationMapper, CategoryRelation> implements CategoryRelationService {
 
+    @Override
+    public void deleteByChildId(Integer childId) {
+        CategoryRelation param = new CategoryRelation();
+        param.setChildId(childId);
+        delete(new EntityWrapper<>(param));
+    }
 }

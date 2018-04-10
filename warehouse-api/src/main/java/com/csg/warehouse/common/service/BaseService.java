@@ -7,4 +7,5 @@ public interface BaseService<T extends IdEntity> extends IService<T> {
 
     void save(T t);
 
+    boolean isValidId(IdEntity idEntity);
 }

@@ -1,9 +1,9 @@
 package com.csg.warehouse.modules.entity;
 
-import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.csg.warehouse.common.entity.IdEntity;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -29,12 +29,8 @@ public class CategoryRelation extends IdEntity {
     /**
      * 是否直接父结点
      */
-    private Integer parentInd;
-    /**
-     * 是否已删除,1-是;0-否
-     */
-    @TableLogic
-    private Integer deletedInd;
+    private Boolean parentInd;
+
     /**
      * 创建人
      */
@@ -77,20 +73,12 @@ public class CategoryRelation extends IdEntity {
         this.childId = childId;
     }
 
-    public Integer getParentInd() {
+    public Boolean getParentInd() {
         return parentInd;
     }
 
-    public void setParentInd(Integer parentInd) {
+    public void setParentInd(Boolean parentInd) {
         this.parentInd = parentInd;
-    }
-
-    public Integer getDeletedInd() {
-        return deletedInd;
-    }
-
-    public void setDeletedInd(Integer deletedInd) {
-        this.deletedInd = deletedInd;
     }
 
     public Integer getCreatedBy() {
@@ -147,7 +135,6 @@ public class CategoryRelation extends IdEntity {
         ", parentId=" + parentId +
         ", childId=" + childId +
         ", parentInd=" + parentInd +
-        ", deletedInd=" + deletedInd +
         ", createdBy=" + createdBy +
         ", createdTime=" + createdTime +
         ", updatedBy=" + updatedBy +

@@ -15,4 +15,9 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends IdEntity> extend
             this.insert(entity);
         }
     }
+
+    @Override
+    public boolean isValidId(IdEntity idEntity) {
+        return idEntity != null && idEntity.getId() != null && idEntity.getId() > 0;
+    }
 }
