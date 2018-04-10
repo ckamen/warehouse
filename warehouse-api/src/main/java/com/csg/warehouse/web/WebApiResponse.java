@@ -1,8 +1,6 @@
 package com.csg.warehouse.web;
 
 
-import com.baomidou.mybatisplus.plugins.Page;
-
 import java.io.Serializable;
 
 /**
@@ -33,10 +31,6 @@ public class WebApiResponse<E> implements Serializable {
         WebApiResponse<T> result = new WebApiResponse<>(SUCCESS);
         result.setData(data);
         return result;
-    }
-
-    public static <T> WebApiResponse<Page<T>> page(Page page) {
-        return WebApiResponse.success(page);
     }
 
     public static WebApiResponse error() {

@@ -13,7 +13,7 @@ USE `warehouse`;
 DROP TABLE IF EXISTS t_brand;
 DROP TABLE IF EXISTS t_category;
 DROP TABLE IF EXISTS t_category_relation;
-DROP TABLE IF EXISTS t_check_record;
+DROP TABLE IF EXISTS t_inventory_record;
 DROP TABLE IF EXISTS t_product;
 DROP TABLE IF EXISTS t_product_warehouse;
 DROP TABLE IF EXISTS t_contact;
@@ -86,20 +86,20 @@ CREATE TABLE t_category_relation
 
 
 -- 盘点记录表
-CREATE TABLE t_check_record
+CREATE TABLE t_inventory_record
 (
-	id int NOT NULL AUTO_INCREMENT COMMENT 'id',
-	code varchar(100) DEFAULT '' COMMENT '编码',
-	inventory int DEFAULT -1 COMMENT '盘点库存',
-	profit int DEFAULT -1 COMMENT '盘盈盘亏',
-	created_time datetime COMMENT '创建时间',
-	created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
+  id int NOT NULL AUTO_INCREMENT COMMENT 'id',
+  code varchar(100) DEFAULT '' COMMENT '编码',
+  inventory int DEFAULT -1 COMMENT '盘点库存',
+  profit int DEFAULT -1 COMMENT '盘盈盘亏',
+  created_time datetime COMMENT '创建时间',
+  created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
   updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
   updated_time datetime  COMMENT '更新时间',
   deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
   deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
   deleted_time datetime COMMENT '删除时间',
-	PRIMARY KEY (id)
+  PRIMARY KEY (id)
 ) COMMENT = '盘点记录表';
 
 
