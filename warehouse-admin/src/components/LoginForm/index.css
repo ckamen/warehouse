@@ -1,0 +1,26 @@
+.loginform-div {
+    height: 90%;
+    width: 80%;
+    margin: 1.25rem;
+    margin: auto auto;
+    /* display: flex;
+    justify-content: center;
+    align-content: center; */
+}
+
+.loginform-div .loginform-title{
+    width: 100%;
+    font-size: 1.375rem;
+    margin-bottom: 1.875rem;
+    text-align: center;
+    color: #666;
+}
+
+.loginform-div .loginform-usertype {
+    margin: 15px !important;
+}
+
+.loginform-div .loginform__login-btn{
+    width: 100%;
+    height: 2.4rem;
+}

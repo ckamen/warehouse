@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import {Button} from "antd";
-import './App.css';
+import { Layout, Menu, Icon } from 'antd';
+import React from "react";
 
-class App extends Component {
+
+class App extends React.Component {
     render() {
         return (
-            <div className="App">
-                <Button type="primary">Button</Button>
-            </div>
+            <Layout>
+
+            </Layout>
         );
     }
 }
