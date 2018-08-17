@@ -10,7 +10,6 @@ const login = ({username, password}) => (dispatch) => {
     try {
         return axiosUtil.post('/login', {username, password})
             .then(response => {
-                console.log(response);
                 let {status} = response;
                 if (status === 200 && response.data.code === 1) {
                     sessionStorage.setItem('username', username);
