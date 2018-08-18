@@ -27,6 +27,7 @@ class UnitRdx extends React.Component {
     handleAdd = () => {
         this.props.actions.updateUnitModal({
             visible: true,
+            title: '创建计量单位',
             id: -1,
             name: ''
         });
@@ -36,23 +37,20 @@ class UnitRdx extends React.Component {
         let that = this;
 
         utils.showConfirm({
-            title: '确认删除',
-            content: '确认要删除计量单位吗？',
+            title: '删除确认',
+            content: '确认要删除该计量单位吗？',
             onOk() {
-                return new Promise((resolve, reject) => {
+                return new Promise(resolve => {
                     that.props.actions.delUnit(record.key).then(() => resolve());
-
-                }).catch(() => console.log('Oops errors!'));
-            },
-            onCancel() {
+                })
             }
         });
-
     }
 
     handleEdit = (record) => {
         this.props.actions.updateUnitModal({
             visible: true,
+            title: '编辑计量单位',
             id: record.id,
             name: record.name
         });
@@ -66,10 +64,10 @@ class UnitRdx extends React.Component {
             width: '100px',
             render: (text, record) => (
                 <span>
-                    <a href="javascript:;" title={'编辑'} onClick={() => this.handleEdit(record)}><Icon
+                    <a href="javascript:void(0);" title={'编辑'} onClick={() => this.handleEdit(record)}><Icon
                         type={'edit'}/></a>
                     <Divider type="vertical"/>
-                    <a href="javascript:;" title={'删除'} onClick={() => this.handleDelete(record)}><Icon
+                    <a href="javascript:void(0);" title={'删除'} onClick={() => this.handleDelete(record)}><Icon
                         type={'delete'}/></a>
                 </span>
             ),

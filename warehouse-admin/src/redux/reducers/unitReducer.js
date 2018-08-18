@@ -13,7 +13,6 @@ const initUnitState = {
 }
 const UnitReducer = (state = initUnitState, action) => {
     let newState = _.merge({}, state);
-
     switch (action.type) {
         case UNIT_PAGE:
             newState.tableList = action.data;
@@ -24,6 +23,7 @@ const UnitReducer = (state = initUnitState, action) => {
         case UNIT_EDIT:
             let index = newState.tableList.findIndex(record => record.id === action.data.id);
             newState.tableList.splice(index, 1, action.data);
+            break;
         case UNIT_DEL:
             let tableList = newState.tableList.filter(record => record.id !== action.data);
             newState.tableList = tableList;

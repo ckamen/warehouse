@@ -11,7 +11,7 @@ const {Content} = Layout;
 const ContentBody = ({match}) =>{
     return (
         <Content style={{ margin: '24px 16px 0' }}>
-            <div style={{ background: '#fff', minHeight: 600 }}>
+            <div style={{ background: '#fff', padding: '0 1px', minHeight: 600 }}>
                 <Switch>
                     <Route path={`${match.url}/unit`} component={Unit}/>
                     <Route path={`${match.url}/brand`} component={Brand}/>

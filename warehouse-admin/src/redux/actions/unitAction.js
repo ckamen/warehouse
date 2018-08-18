@@ -26,8 +26,8 @@ const getUnits = () => (dispatch) => {
     })
 };
 
-const saveUnit = ({id, name}) => (dispatch) => {
-    return axiosUtil.post(`/api/unit/save/${id}`, {id, name})
+const saveUnit = ({id, ...rest}) => (dispatch) => {
+    return axiosUtil.post(`/api/unit/save/${id}`, {id, ...rest})
         .then(data => {
             if (id > 0) {
                 dispatch(UnitEditAction(data));
@@ -41,7 +41,7 @@ const saveUnit = ({id, name}) => (dispatch) => {
 
 const delUnit = (id) => (dispatch) => {
     return axiosUtil.delete(`/api/unit/delete/${id}`)
-        .then(data => {
+        .then(() => {
             dispatch(
                 {
                     type: types.UNIT_DEL,
