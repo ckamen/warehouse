@@ -1,60 +1,61 @@
 import * as types from './actionTypes.js';
-import message from "antd/es/message/index";
 import axiosUtil from "../../utils/axiosUtil";
+import {message} from "antd";
 
 const UnitAddAction = data => ({
     type: types.UNIT_ADD,
     data
 });
-const addUnit = (unitModel) => (dispatch) => {
-    try {
-        return axiosUtil.post('/api/unit/save/-1', unitModel)
-            .then(response => {
-                let {status} = response;
-                if (status === 200 && response.data.code === 1) {
-                    dispatch(
-                        UnitAddAction({
-                            tableData: response.data.data
-                        })
-                    );
-                    message.success('添加成功');
-                    return Promise.resolve();
-                }
-                return Promise.reject(response.data.message);
-            })
-            .catch(error => {
-                console.log(error);
-                return Promise.reject(error);
-            })
-    } catch (error) {
-        return {message: '添加失败'};
-    }
+
+const UnitEditAction = data => ({
+    type: types.UNIT_EDIT,
+    data
+});
+
+const getUnits = () => (dispatch) => {
+    return axiosUtil.get('/api/unit/page', {
+        params: {
+            limit: 100
+        }
+    }).then(data => {
+        dispatch({
+            type: types.UNIT_PAGE,
+            data: data.records
+        });
+        return Promise.resolve();
+    })
+};
+
+const saveUnit = ({id, name}) => (dispatch) => {
+    return axiosUtil.post(`/api/unit/save/${id}`, {id, name})
+        .then(data => {
+            if (id > 0) {
+                dispatch(UnitEditAction(data));
+            } else {
+                dispatch(UnitAddAction(data));
+            }
+            message.success('保存成功');
+            return Promise.resolve();
+        });
 };
 
 const delUnit = (id) => (dispatch) => {
-    try {
-        return axiosUtil.delete(`/api/unit/delete/${id}`)
-            .then(response => {
-                let {status} = response;
-                if (status === 200 && response.data.code === 1) {
-                    dispatch(
-                        {
-                            type: types.UNIT_DEL,
-                            payload: id
-                        }
-                    )
-                    message.success('删除成功');
-                    return Promise.resolve();
+    return axiosUtil.delete(`/api/unit/delete/${id}`)
+        .then(data => {
+            dispatch(
+                {
+                    type: types.UNIT_DEL,
+                    data: id
                 }
-                return Promise.reject(response.data.message);
-            })
-            .catch(error => {
-                console.log(error);
-                return Promise.reject(error);
-            })
-    } catch (error) {
-        return {message: '添加失败'};
-    }
+            );
+            message.success('删除成功');
+            return Promise.resolve();
+        });
 };
 
-export {addUnit, delUnit};
+const updateUnitModal = data => dispatch => (dispatch({
+    type: types.UNIT_MODAL_UPDATE,
+    data
+}));
+
+export {getUnits, saveUnit, delUnit, updateUnitModal};

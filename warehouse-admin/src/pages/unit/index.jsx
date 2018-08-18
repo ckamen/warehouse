@@ -1,57 +1,47 @@
 import React from 'react';
 import {Table, Icon, Divider, Button} from 'antd';
-import axiosUtil from "../../utils/axiosUtil";
 
 import './index.css';
 import utils from "../../utils/utils";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {delUnit, getUnits, updateUnitModal} from "../../redux/actions/unitAction";
 import UnitForm from "../../components/UnitForm";
 
-class Unit extends React.Component {
+class UnitRdx extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            visible: false,
-            data: []
+            loading: true
         }
     }
 
-    componentWillMount() {
-        this.setState({
-            data: [{
-                key: '1',
-                name: '个'
-            }, {
-                key: '2',
-                name: '件'
-            }]
+    componentDidMount() {
+        this.props.actions.getUnits().then(() => {
+            this.setState({
+                loading: false
+            })
         });
     }
 
     handleAdd = () => {
-        console.log('add', this);
-        this.setState({
-            visible: true
-        })
+        this.props.actions.updateUnitModal({
+            visible: true,
+            id: -1,
+            name: ''
+        });
     }
 
     handleDelete = (record) => {
-        console.log('delete', this, record);
         let that = this;
+
         utils.showConfirm({
             title: '确认删除',
             content: '确认要删除计量单位吗？',
             onOk() {
                 return new Promise((resolve, reject) => {
-                    axiosUtil.delete(`/api/unit/delete/${record.key}`)
-                        .then(response => {
-                            console.log(that.state);
-                            let data = that.state.data.filter(d => d.key !== record.key);
-                            that.setState({
-                                data: data
-                            })
-                            resolve();
-                        })
+                    that.props.actions.delUnit(record.key).then(() => resolve());
+
                 }).catch(() => console.log('Oops errors!'));
             },
             onCancel() {
@@ -61,7 +51,11 @@ class Unit extends React.Component {
     }
 
     handleEdit = (record) => {
-        console.log('edit', this, record);
+        this.props.actions.updateUnitModal({
+            visible: true,
+            id: record.id,
+            name: record.name
+        });
     }
 
     render() {
@@ -91,13 +85,25 @@ class Unit extends React.Component {
                 </h3>
                 <div>
                     <div style={{width: '300px'}}>
-                        <Table columns={columns} dataSource={this.state.data} pagination={false} bordered={true}/>
+                        <Table columns={columns}
+                               dataSource={this.props.tableList}
+                               loading={this.state.loading}
+                               pagination={false}
+                               bordered={true}/>
                     </div>
                 </div>
-                {/*<UnitForm visible={this.state.visible}/>*/}
+                <UnitForm/>
             </div>
         )
     }
 }
 
+const mapStateToProps = state => ({
+    tableList: state.UnitReducer.tableList
+});
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({getUnits, delUnit, updateUnitModal}, dispatch)
+});
+const Unit = connect(mapStateToProps, mapDispatchToProps)(UnitRdx);
 export default Unit;

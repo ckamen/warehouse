@@ -1,4 +1,4 @@
-import {Modal} from "antd/lib/index";
+import {Modal} from 'antd';
 
 const showConfirm = (config) => {
     Object.assign(config, {
