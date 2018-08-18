@@ -1,4 +1,4 @@
-package com.csg.warehouse.web;
+package com.csg.warehouse.core.web;
 
 
 import java.io.Serializable;
@@ -10,8 +10,8 @@ import java.io.Serializable;
  */
 public class WebApiResponse<E> implements Serializable {
 
-    public final static int SUCCESS = 1;
-    public final static int ERROR = 0;
+    public final static int SUCCESS = 0;
+    public final static int ERROR = 1;
 
     // 状态编码
     private int code;
@@ -28,7 +28,7 @@ public class WebApiResponse<E> implements Serializable {
     }
 
     public static <T> WebApiResponse<T> success(T data) {
-        WebApiResponse<T> result = new WebApiResponse<>(SUCCESS);
+        WebApiResponse<T> result = new WebApiResponse<T>(SUCCESS);
         result.setData(data);
         return result;
     }
@@ -38,7 +38,7 @@ public class WebApiResponse<E> implements Serializable {
     }
 
     public static <T> WebApiResponse<T> error(String message) {
-        return new WebApiResponse<>(ERROR, message);
+        return new WebApiResponse<T>(ERROR, message);
     }
 
     public WebApiResponse(int code) {

@@ -5,12 +5,10 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.controller.BaseController;
 import com.csg.warehouse.modules.entity.Brand;
 import com.csg.warehouse.modules.service.BrandService;
-import com.csg.warehouse.web.WebApiResponse;
+import com.csg.warehouse.core.web.WebApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -38,19 +36,19 @@ public class BrandController extends BaseController {
         return brand;
     }
 
-    @RequestMapping("/page")
+    @GetMapping("/page")
     public WebApiResponse page(Page<Brand> page) {
         page = brandService.selectPage(page);
         return WebApiResponse.success(page);
     }
 
-    @RequestMapping("/save/{id}")
+    @PostMapping("/save/{id}")
     public WebApiResponse save(Brand brand) {
         brandService.save(brand);
-        return WebApiResponse.success();
+        return WebApiResponse.success(brand);
     }
 
-    @RequestMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public WebApiResponse delete(@PathVariable Integer id) {
         brandService.deleteById(id);
         return WebApiResponse.success();

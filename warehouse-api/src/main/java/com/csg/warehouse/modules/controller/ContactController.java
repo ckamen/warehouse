@@ -5,12 +5,10 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.controller.BaseController;
 import com.csg.warehouse.modules.entity.Contact;
 import com.csg.warehouse.modules.service.ContactService;
-import com.csg.warehouse.web.WebApiResponse;
+import com.csg.warehouse.core.web.WebApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -37,19 +35,19 @@ public class ContactController extends BaseController {
         return contact;
     }
 
-    @RequestMapping("/page")
+    @GetMapping("/page")
     public WebApiResponse page(Page<Contact> page) {
         page = contactService.selectPage(page);
         return WebApiResponse.success(page);
     }
 
-    @RequestMapping("/save/{id}")
+    @PostMapping("/save/{id}")
     public WebApiResponse save(Contact contact) {
         contactService.save(contact);
-        return WebApiResponse.success();
+        return WebApiResponse.success(contact);
     }
 
-    @RequestMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public WebApiResponse delete(@PathVariable Integer id) {
         contactService.deleteById(id);
         return WebApiResponse.success();

@@ -1,8 +1,9 @@
 package com.csg.warehouse.config;
 
 import com.csg.warehouse.common.CustomJsonModule;
-import com.csg.warehouse.web.WebArgumentResolver;
-import com.csg.warehouse.web.listener.StartupListener;
+import com.csg.warehouse.core.interceptor.OauthInterceptor;
+import com.csg.warehouse.core.web.WebArgumentResolver;
+import com.csg.warehouse.core.web.listener.StartupListener;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -17,9 +18,11 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.handler.MappedInterceptor;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
@@ -36,6 +39,11 @@ import java.util.List;
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+
+    @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new WebArgumentResolver());
     }
@@ -43,6 +51,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
+    }
+
+    @Bean
+    public OauthInterceptor oauthInterceptor() {
+        return new OauthInterceptor();
+    }
+
+    @Bean
+    public MappedInterceptor apiMappedInterceptor() {
+        return new MappedInterceptor(new String[]{"/api/**"}, oauthInterceptor());
     }
 
     @Bean

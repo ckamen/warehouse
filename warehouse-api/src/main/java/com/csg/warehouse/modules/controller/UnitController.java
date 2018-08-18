@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.controller.BaseController;
 import com.csg.warehouse.modules.entity.Unit;
 import com.csg.warehouse.modules.service.UnitService;
-import com.csg.warehouse.web.WebApiResponse;
+import com.csg.warehouse.core.web.WebApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,19 +35,19 @@ public class UnitController extends BaseController {
         return unit;
     }
     
-    @RequestMapping("/page")
+    @GetMapping("/page")
     public WebApiResponse page(Page<Unit> page) {
        page = unitService.selectPage(page);
        return WebApiResponse.success(page);
     }
 
-    @RequestMapping("/save/{id}")
+    @PostMapping("/save/{id}")
     public WebApiResponse save(Unit unit) {
         unitService.save(unit);
-        return WebApiResponse.success();
+        return WebApiResponse.success(unit);
     }
 
-    @RequestMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public WebApiResponse delete(@PathVariable Integer id) {
         unitService.deleteById(id);
         return WebApiResponse.success();

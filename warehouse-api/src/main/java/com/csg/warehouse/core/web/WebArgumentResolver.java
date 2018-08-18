@@ -1,4 +1,4 @@
-package com.csg.warehouse.web;
+package com.csg.warehouse.core.web;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import org.springframework.core.MethodParameter;

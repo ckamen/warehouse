@@ -1,7 +1,7 @@
 package com.csg.warehouse.modules.service;
 
 import com.baomidou.mybatisplus.mapper.Condition;
-import com.csg.warehouse.common.enums.CategoryTypeEnum;
+import com.csg.warehouse.modules.enums.CategoryTypeEnum;
 import com.csg.warehouse.modules.entity.Category;
 import org.junit.Assert;
 import org.junit.Test;

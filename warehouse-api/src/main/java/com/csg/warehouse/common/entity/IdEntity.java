@@ -32,6 +32,14 @@ public class IdEntity implements Serializable {
         this.id = id;
     }
 
+    public Integer getKey() {
+        return id;
+    }
+
+    public void setKey(Integer key) {
+        this.id = key;
+    }
+
     /**
      * 复写equals方法，实现用ID主键做对象比较
      *

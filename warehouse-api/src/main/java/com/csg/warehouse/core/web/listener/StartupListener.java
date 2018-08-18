@@ -1,4 +1,4 @@
-package com.csg.warehouse.web.listener;
+package com.csg.warehouse.core.web.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

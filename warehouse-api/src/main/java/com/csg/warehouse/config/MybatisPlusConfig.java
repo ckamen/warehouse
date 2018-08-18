@@ -20,7 +20,7 @@ public class MybatisPlusConfig {
     }
 
     @Bean
-    @Profile({"default", "test"})// 设置 default test 环境开启
+    @Profile({"test"})// 设置 default test 环境开启
     public PerformanceInterceptor performanceInterceptor() {
         PerformanceInterceptor interceptor =  new PerformanceInterceptor();
         interceptor.setFormat(true);

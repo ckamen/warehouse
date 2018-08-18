@@ -5,12 +5,10 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.controller.BaseController;
 import com.csg.warehouse.modules.entity.Rack;
 import com.csg.warehouse.modules.service.RackService;
-import com.csg.warehouse.web.WebApiResponse;
+import com.csg.warehouse.core.web.WebApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -38,19 +36,19 @@ public class RackController extends BaseController {
         return rack;
     }
 
-    @RequestMapping("/page")
+    @GetMapping("/page")
     public WebApiResponse page(Page<Rack> page) {
         page = rackService.selectPage(page);
         return WebApiResponse.success(page);
     }
 
-    @RequestMapping("/save/{id}")
+    @PostMapping("/save/{id}")
     public WebApiResponse save(Rack rack) {
         rackService.save(rack);
-        return WebApiResponse.success();
+        return WebApiResponse.success(rack);
     }
 
-    @RequestMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public WebApiResponse delete(@PathVariable Integer id) {
         rackService.deleteById(id);
         return WebApiResponse.success();

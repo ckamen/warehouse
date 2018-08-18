@@ -89,7 +89,7 @@ dependencies {
 
 
     compile('com.baomidou:mybatisplus-spring-boot-starter:1.0.5')
-    compile('com.baomidou:mybatis-plus:2.1.9')
+    compile('com.baomidou:mybatis-plus:2.2.0')
 
     compile('org.springframework.data:spring-data-rest-hal-browser')
 //	compile('org.springframework.session:spring-session-data-redis')
