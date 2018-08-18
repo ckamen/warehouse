@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @author kamen
  * @since 2018-04-10
  */
-@Controller
+@RestController
 @RequestMapping("/inventoryRecord")
 public class InventoryRecordController extends BaseController {
 

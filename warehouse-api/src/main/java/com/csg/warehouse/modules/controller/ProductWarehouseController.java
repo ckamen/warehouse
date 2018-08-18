@@ -1,10 +1,9 @@
 package com.csg.warehouse.modules.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.stereotype.Controller;
 import com.csg.warehouse.common.controller.BaseController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -14,7 +13,7 @@ import com.csg.warehouse.common.controller.BaseController;
  * @author kamen
  * @since 2018-04-10
  */
-@Controller
+@RestController
 @RequestMapping("/productWarehouse")
 public class ProductWarehouseController extends BaseController {
 

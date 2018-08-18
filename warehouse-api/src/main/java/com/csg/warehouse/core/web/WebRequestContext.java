@@ -52,9 +52,9 @@ public class WebRequestContext implements Serializable {
         }
 
         // 分页请求当前页码
-        this.page = ConvertUtils.convert(request.getParameter("page"), Integer.class, Constants.DEFAULT_PAGE);
+        this.page = ConvertUtils.convert(request.getParameter("current"), Integer.class, Constants.DEFAULT_PAGE);
         // 分页请求每页记录数
-        this.limit = ConvertUtils.convert(request.getParameter("limit"), Integer.class, Constants.DEFAULT_PAGE_SIZE);
+        this.limit = ConvertUtils.convert(request.getParameter("pageSize"), Integer.class, Constants.DEFAULT_PAGE_SIZE);
         // 分页请求的排序列
         this.sort = ConvertUtils.convert(request.getParameter("sort"), String.class);
         // 分页请求的排序方式
