@@ -58,6 +58,8 @@ class SideNavMenu extends React.Component {
                         <Menu.Item key="unit"><NavLink to="/home/unit">计量单位</NavLink></Menu.Item>
                         <Menu.Item key="brand"><NavLink to="/home/brand">品牌管理</NavLink></Menu.Item>
                         <Menu.Item key="category"><NavLink to="/home/category">类别管理</NavLink></Menu.Item>
+                        <Menu.Item key="supplier"><NavLink to="/home/merchant/supplier">供应商管理</NavLink></Menu.Item>
+                        <Menu.Item key="client"><NavLink to="/home/merchant/client">客户管理</NavLink></Menu.Item>
                     </SubMenu>
                 </Menu>
             </Sider>

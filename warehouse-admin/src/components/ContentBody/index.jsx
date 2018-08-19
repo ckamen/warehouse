@@ -2,10 +2,12 @@ import React from "react";
 
 import {Route, Switch} from "react-router-dom";
 import {Layout} from 'antd';
-import Unit from "../../pages/unit";
-import Brand from "../../pages/brand";
+import Unit from "../../pages/Unit";
+import Brand from "../../pages/Brand";
 import Home from "../../pages/Home";
-import Category from "../../pages/category";
+import Category from "../../pages/Category";
+import Supplier from "../../pages/Merchant/supplier";
+import Client from "../../pages/Merchant/client";
 
 const {Content} = Layout;
 
@@ -17,6 +19,8 @@ const ContentBody = ({match}) =>{
                     <Route path={`${match.url}/unit`} component={Unit}/>
                     <Route path={`${match.url}/brand`} component={Brand}/>
                     <Route path={`${match.url}/category`} component={Category}/>
+                    <Route path={`${match.url}/merchant/client`} component={Client}/>
+                    <Route path={`${match.url}/merchant/supplier`} component={Supplier}/>
                     <Route path={`${match.url}/`} component={Home}/>
                 </Switch>
             </div>

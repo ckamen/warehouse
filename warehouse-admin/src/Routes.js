@@ -10,7 +10,7 @@ class Routes extends React.Component {
             <Switch>
                 <Route exact path='/login' component={Login}/>
                 <AuthRoute path='/home' component={App} />
-                {/*<Redirect to="/home" />*/}
+                <Redirect to="/home" />
             </Switch>
         );
     }
