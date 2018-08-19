@@ -4,9 +4,7 @@ import {message} from "antd";
 
 const axiosUtil = axios.create({
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    transformRequest: data => (
-        Qs.stringify(data, {arrayFormat: 'brackets'})
-    )
+    transformRequest: data => Qs.stringify(data, {allowDots: true})
 });
 
 axiosUtil.interceptors.response.use(function (response) {

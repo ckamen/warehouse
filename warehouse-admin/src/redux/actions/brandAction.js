@@ -1,13 +1,20 @@
-import * as types from './actionTypes.js';
 import axiosUtil from "../../utils/axiosUtil";
 import {message} from "antd";
 
-const BrandAddAction = data => ({
+export const types = {
+    BRAND_PAGE: 'BRAND_PAGE',
+    BRAND_ADD: 'BRAND_ADD',
+    BRAND_EDIT: 'BRAND_EDIT',
+    BRAND_DEL: 'BRAND_DEL',
+    BRAND_MODAL_UPDATE: 'BRAND_MODAL_UPDATE'
+}
+
+const brandAddAction = data => ({
     type: types.BRAND_ADD,
     data
 });
 
-const BrandEditAction = data => ({
+const brandEditAction = data => ({
     type: types.BRAND_EDIT,
     data
 });
@@ -30,9 +37,9 @@ const saveBrand = ({id, ...rest}) => (dispatch) => {
     return axiosUtil.post(`/api/brand/save/${id}`, {id, ...rest})
         .then(data => {
             if (id > 0) {
-                dispatch(BrandEditAction(data));
+                dispatch(brandEditAction(data));
             } else {
-                dispatch(BrandAddAction(data));
+                dispatch(brandAddAction(data));
             }
             message.success('保存成功');
             return Promise.resolve();

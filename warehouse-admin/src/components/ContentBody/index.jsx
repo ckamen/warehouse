@@ -5,6 +5,7 @@ import {Layout} from 'antd';
 import Unit from "../../pages/unit";
 import Brand from "../../pages/brand";
 import Home from "../../pages/Home";
+import Category from "../../pages/category";
 
 const {Content} = Layout;
 
@@ -15,6 +16,7 @@ const ContentBody = ({match}) =>{
                 <Switch>
                     <Route path={`${match.url}/unit`} component={Unit}/>
                     <Route path={`${match.url}/brand`} component={Brand}/>
+                    <Route path={`${match.url}/category`} component={Category}/>
                     <Route path={`${match.url}/`} component={Home}/>
                 </Switch>
             </div>

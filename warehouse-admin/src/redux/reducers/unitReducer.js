@@ -1,4 +1,4 @@
-import {UNIT_ADD, UNIT_DEL, UNIT_EDIT, UNIT_MODAL_UPDATE, UNIT_PAGE} from "../actions/actionTypes";
+import {types} from "../actions/unitAction";
 import * as _ from 'lodash';
 
 const initUnitState = {
@@ -14,21 +14,21 @@ const initUnitState = {
 const UnitReducer = (state = initUnitState, action) => {
     let newState = _.merge({}, state);
     switch (action.type) {
-        case UNIT_PAGE:
+        case types.UNIT_PAGE:
             newState.tableList = action.data;
             break;
-        case UNIT_ADD:
+        case types.UNIT_ADD:
             newState.tableList.splice(0, 0, action.data);
             break;
-        case UNIT_EDIT:
+        case types.UNIT_EDIT:
             let index = newState.tableList.findIndex(record => record.id === action.data.id);
             newState.tableList.splice(index, 1, action.data);
             break;
-        case UNIT_DEL:
+        case types.UNIT_DEL:
             let tableList = newState.tableList.filter(record => record.id !== action.data);
             newState.tableList = tableList;
             break;
-        case UNIT_MODAL_UPDATE:
+        case types.UNIT_MODAL_UPDATE:
             _.merge(newState, {modal: action.data});
             break;
     }

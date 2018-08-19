@@ -1,6 +1,13 @@
-import * as types from './actionTypes.js';
 import axiosUtil from "../../utils/axiosUtil";
 import {message} from "antd";
+
+export const types = {
+    UNIT_PAGE: 'UNIT_PAGE',
+    UNIT_ADD: 'UNIT_ADD',
+    UNIT_EDIT: 'UNIT_EDIT',
+    UNIT_DEL: 'UNIT_DEL',
+    UNIT_MODAL_UPDATE: 'UNIT_MODAL_UPDATE'
+}
 
 const UnitAddAction = data => ({
     type: types.UNIT_ADD,

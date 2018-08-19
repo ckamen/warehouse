@@ -1,7 +1,4 @@
-import {
-    LOGIN_IN,
-    LOGIN_OUT,
-} from '../actions/actionTypes.js';
+import {types} from '../actions/loginAction';
 
 const initUserState = {
     LoginUser: {
@@ -12,13 +9,13 @@ const initUserState = {
 
 const LoginReducer = (state = initUserState, action) => {
     switch (action.type) {
-        case LOGIN_IN:
+        case types.LOGIN_IN:
             return Object.assign(
                 {},
                 ...state,
                 action.data,
             );
-        case LOGIN_OUT:
+        case types.LOGIN_OUT:
             return Object.assign(
                 {},
                 ...state,

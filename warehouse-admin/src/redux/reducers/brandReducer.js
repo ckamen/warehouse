@@ -1,4 +1,4 @@
-import * as types from "../actions/actionTypes";
+import {types} from "../actions/brandAction";
 import * as _ from 'lodash';
 
 const initBrandState = {

@@ -14,3 +14,15 @@
   color: #1890ff;
 }
 
+.grid-wrapper h3{
+  background: #EEEEEE;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-form .ant-form-item {
+    width: 100%;
+}

@@ -34,7 +34,8 @@ class UnitFormRdx extends React.Component {
         let {updateUnitModal} = this.props.actions;
         updateUnitModal({
             visible: false
-        })
+        });
+        this.props.form.resetFields();
     }
 
     render() {
@@ -46,6 +47,7 @@ class UnitFormRdx extends React.Component {
                     okText='确定'
                     cancelText='取消'
                     width = {400}
+                    maskClosable={false}
                     title={title}
                     visible={visible}
                     confirmLoading={confirmLoading}

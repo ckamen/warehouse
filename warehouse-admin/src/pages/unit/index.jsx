@@ -62,7 +62,7 @@ class UnitRdx extends React.Component {
             key: 'action',
             align: 'center',
             width: '100px',
-            render: (text, record) => (
+            render: (value, record) => (
                 <span>
                     <a href="javascript:void(0);" title={'编辑'} onClick={() => this.handleEdit(record)}><Icon
                         type={'edit'}/></a>

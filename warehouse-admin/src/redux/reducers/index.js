@@ -3,11 +3,13 @@ import {combineReducers} from "redux";
 import LoginReducer from "./loginReducer";
 import UnitReducer from "./unitReducer";
 import BrandReducer from "./brandReducer";
+import CategoryReducer from "./categoryReducer";
 
 const appAllReducers = combineReducers({
     LoginReducer,
     UnitReducer,
-    BrandReducer
+    BrandReducer,
+    CategoryReducer
 });
 
 export default appAllReducers;

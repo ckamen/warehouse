@@ -1,12 +1,16 @@
-import * as types from './actionTypes.js';
 import message from "antd/es/message/index";
 import axiosUtil from "../../utils/axiosUtil";
+
+export const types = {
+    LOGIN_IN: 'LOGIN_IN',
+    LOGIN_OUT: 'LOGIN_OUT'
+}
 
 const LoginAction = data => ({
     type: types.LOGIN_IN,
     data
 });
-const login = ({username, password}) => (dispatch) => {
+export const login = ({username, password}) => (dispatch) => {
     try {
         return axiosUtil.post('/login', {username, password})
             .then(response => {
@@ -36,4 +40,3 @@ const login = ({username, password}) => (dispatch) => {
     }
 };
 
-export {login};

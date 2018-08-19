@@ -1,11 +1,11 @@
 import React from 'react';
-import {Table, Icon, Divider, Button} from 'antd';
+import {Table, Icon, Divider, Button, Switch} from 'antd';
 
 import './index.css';
 import utils from "../../utils/utils";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {delBrand, getBrands, updateBrandModal} from "../../redux/actions/brandAction";
+import {delBrand, getBrands, saveBrand, updateBrandModal} from "../../redux/actions/brandAction";
 import BrandForm from "../../components/BrandForm";
 
 class BrandRdx extends React.Component {
@@ -68,13 +68,21 @@ class BrandRdx extends React.Component {
         });
     }
 
+    handleActiveChange = (checked, record) => {
+        console.log('handleActiveChange', checked, record);
+        this.props.actions.saveBrand({
+            id: record.id,
+            active: checked ? 1 : 0
+        });
+    }
+
     render() {
         const columns = [{
             title: '操作',
             key: 'action',
             align: 'center',
             width: '100px',
-            render: (text, record) => (
+            render: (value, record) => (
                 <span>
                     <a href="javascript:void(0);" title={'编辑'} onClick={() => this.handleEdit(record)}><Icon
                         type={'edit'}/></a>
@@ -89,6 +97,13 @@ class BrandRdx extends React.Component {
         }, {
             title: '品牌名称',
             dataIndex: 'name'
+        }, {
+            title: '状态',
+            dataIndex: 'active',
+            render: (value, record) => (
+                <Switch checked={value > 0} onChange={(checked) => this.handleActiveChange(checked, record)}/>
+            )
+
         }];
 
         return (
@@ -118,7 +133,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({getBrands, delBrand, updateBrandModal}, dispatch)
+    actions: bindActionCreators({getBrands, delBrand, updateBrandModal, saveBrand}, dispatch)
 });
 const Brand = connect(mapStateToProps, mapDispatchToProps)(BrandRdx);
 export default Brand;
