@@ -4,6 +4,7 @@ package com.csg.warehouse.modules.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.controller.BaseController;
 import com.csg.warehouse.core.web.WebApiResponse;
+import com.csg.warehouse.core.web.WebRequestContext;
 import com.csg.warehouse.modules.entity.Category;
 import com.csg.warehouse.modules.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2018-04-10
  */
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/api/category")
 public class CategoryController extends BaseController {
 
     @Autowired
@@ -36,8 +37,8 @@ public class CategoryController extends BaseController {
     }
 
     @GetMapping("/page")
-    public WebApiResponse page(Page<Category> page) {
-        page = categoryService.selectPage(page);
+    public WebApiResponse page(Page<Category> page, WebRequestContext requestContext) {
+        page = categoryService.selectPage(page, requestContext.getParams());
         return WebApiResponse.success(page);
     }
 

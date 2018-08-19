@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2018-04-10
  */
 @RestController
-@RequestMapping("/rack")
+@RequestMapping("/api/rack")
 public class RackController extends BaseController {
 
     @Autowired

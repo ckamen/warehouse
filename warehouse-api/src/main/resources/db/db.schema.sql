@@ -74,6 +74,7 @@ CREATE TABLE t_category_relation
 	parent_id int DEFAULT -1 NOT NULL COMMENT '父结点ID',
 	child_id int DEFAULT -1 NOT NULL COMMENT '子结点ID',
 	parent_ind tinyint DEFAULT 0 NOT NULL COMMENT '是否直接父结点',
+  level   tinyint default 0 comment '层级',
   deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
   created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
   created_time datetime  COMMENT '创建时间',

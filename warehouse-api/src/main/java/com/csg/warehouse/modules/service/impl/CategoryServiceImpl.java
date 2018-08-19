@@ -1,16 +1,19 @@
 package com.csg.warehouse.modules.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.service.impl.BaseServiceImpl;
 import com.csg.warehouse.modules.entity.Category;
 import com.csg.warehouse.modules.entity.CategoryRelation;
 import com.csg.warehouse.modules.mapper.CategoryMapper;
 import com.csg.warehouse.modules.service.CategoryRelationService;
 import com.csg.warehouse.modules.service.CategoryService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -53,21 +56,39 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, Categor
             CategoryRelation param = new CategoryRelation();
             param.setChildId(category.getParent().getId());
 
+            int level = category.getParent().getLevel() + 1;
             List<CategoryRelation> categoryRelations = categoryRelationService.selectList(new EntityWrapper<>(param));
             for (CategoryRelation cr : categoryRelations) {
-                insertRelation(category, cr.getParentId(), false);
+                if (cr.getParentId() > 0) {
+                    insertRelation(category, cr.getParentId(), false, level);
+                }
             }
-            insertRelation(category, category.getParent().getId(), true);
+            insertRelation(category, category.getParent().getId(), true, level);
+        } else {
+            insertRelation(category, -1, true, 0);
         }
     }
 
-    private void insertRelation(Category category, Integer parentId, boolean isParent) {
+    private void insertRelation(Category category, Integer parentId, boolean isParent, int level) {
         CategoryRelation categoryRelation = new CategoryRelation();
         categoryRelation.setChildId(category.getId());
         categoryRelation.setParentId(parentId);
         categoryRelation.setParentInd(isParent);
+        categoryRelation.setLevel(level);
         categoryRelationService.insert(categoryRelation);
 
+    }
+
+    @Override
+    public Page<Category> selectPage(Page<Category> page, Map<String, String> params) {
+        List<Category> records = this.baseMapper.findPage(page, params);
+        if (CollectionUtils.isNotEmpty(records)) {
+            for (Category cat : records) {
+                cat.setParent(findParent(cat));
+            }
+        }
+        page.setRecords(records);
+        return page;
     }
 
     @Override
@@ -75,6 +96,11 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, Categor
         Category category = this.selectById(id);
         if (category != null) {
             category.setParent(this.findParent(category));
+            if (category.getParent() != null) {
+                category.setLevel(category.getParent().getLevel() + 1);
+            } else {
+                category.setLevel(1);
+            }
         }
         return category;
     }
@@ -88,6 +114,9 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, Categor
         Category parent = null;
         if (parentRelation != null) {
             parent = this.selectById(parentRelation.getParentId());
+            if (parent != null) {
+                parent.setLevel(parentRelation.getLevel());
+            }
         }
         return parent;
     }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2018-04-10
  */
 @RestController
-@RequestMapping("/categoryRelation")
+@RequestMapping("/api/categoryRelation")
 public class CategoryRelationController extends BaseController {
 
 }

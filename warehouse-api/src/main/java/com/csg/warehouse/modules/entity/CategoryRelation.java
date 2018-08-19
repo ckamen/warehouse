@@ -32,6 +32,10 @@ public class CategoryRelation extends IdEntity {
     private Boolean parentInd;
 
     /**
+     * 层级
+     */
+    private Integer level;
+    /**
      * 创建人
      */
     private Integer createdBy;
@@ -129,18 +133,27 @@ public class CategoryRelation extends IdEntity {
         this.deletedTime = deletedTime;
     }
 
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
     @Override
     public String toString() {
         return "CategoryRelation{" +
-        ", parentId=" + parentId +
-        ", childId=" + childId +
-        ", parentInd=" + parentInd +
-        ", createdBy=" + createdBy +
-        ", createdTime=" + createdTime +
-        ", updatedBy=" + updatedBy +
-        ", updatedTime=" + updatedTime +
-        ", deletedBy=" + deletedBy +
-        ", deletedTime=" + deletedTime +
-        "}";
+                ", parentId=" + parentId +
+                ", childId=" + childId +
+                ", parentInd=" + parentInd +
+                ", level=" + level +
+                ", createdBy=" + createdBy +
+                ", createdTime=" + createdTime +
+                ", updatedBy=" + updatedBy +
+                ", updatedTime=" + updatedTime +
+                ", deletedBy=" + deletedBy +
+                ", deletedTime=" + deletedTime +
+                "}";
     }
 }

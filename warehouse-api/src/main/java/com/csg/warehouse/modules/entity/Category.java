@@ -25,7 +25,7 @@ public class Category extends IdEntity {
      */
     private String name;
     /**
-     * 类型
+     * 类型, 1-供应商类别;2-客户类别3-商品类别
      */
     private Integer type;
     /**
@@ -61,6 +61,8 @@ public class Category extends IdEntity {
     @TableField(exist = false)
     private Category parent;
 
+    @TableField(exist = false)
+    private int level;
 
     public String getName() {
         return name;
@@ -140,6 +142,14 @@ public class Category extends IdEntity {
 
     public void setParent(Category parent) {
         this.parent = parent;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     @Override

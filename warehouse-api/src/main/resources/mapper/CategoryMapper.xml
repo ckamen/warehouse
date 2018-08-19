@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csg.warehouse.modules.mapper.CategoryMapper">
+
+    <!-- 开启二级缓存 -->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <select id="findPage" resultType="com.csg.warehouse.modules.entity.Category">
+        select
+            c.*,
+            cr.level
+        from t_category c left join t_category_relation cr on c.id = cr.child_id
+        where parent_ind = 1 and c.deleted_ind = 0
+        <if test="type !=null and type > 0">
+           and c.type = #{type}
+        </if>
+    </select>
+
+</mapper>

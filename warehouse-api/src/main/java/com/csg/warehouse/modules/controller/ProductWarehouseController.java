@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2018-04-10
  */
 @RestController
-@RequestMapping("/productWarehouse")
+@RequestMapping("/api/productWarehouse")
 public class ProductWarehouseController extends BaseController {
 
 }
