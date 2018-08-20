@@ -23,7 +23,8 @@ class BrandFormRdx extends React.Component {
                 return;
             }
             updateBrandModal({confirmLoading: true});
-            saveBrand(values).then(() => {
+            let {id, active} = this.props.modal;
+            saveBrand({...values, id, active}).then(() => {
                 updateBrandModal({visible: false, confirmLoading: false});
                 form.resetFields();
             })
@@ -55,13 +56,6 @@ class BrandFormRdx extends React.Component {
                     onCancel={this.handleCancel}
                 >
                     <Form layout="inline">
-                        <Form.Item style={{display: 'none'}}>
-                            {getFieldDecorator('id', {
-                                initialValue: id
-                            })(
-                                <Input type={'hidden'}/>
-                            )}
-                        </Form.Item>
                         <Form.Item label="编码">
                             {getFieldDecorator('code', {
                                 initialValue: code,

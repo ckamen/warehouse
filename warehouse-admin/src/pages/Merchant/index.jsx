@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as actions from "../../redux/actions/merchantAction";
 import MerchantForm from "../../components/MerchantForm";
+import {SUPPLIER} from "../../utils/constants";
 
 class MerchantRdx extends React.Component {
     constructor(props) {
@@ -15,13 +16,13 @@ class MerchantRdx extends React.Component {
         this.actions = this.props.actions;
         this.state = {
             loading: true,
-            title: this.props.type === 'SUPPLIER' ? '供应商': '客户'
+            title: this.props.type === SUPPLIER ? '供应商': '客户'
         }
     }
 
     componentDidMount() {
         let {getMerchants} = this.actions;
-        getMerchants(this.props.pagination).then(() => {
+        getMerchants({...this.props.pagination, type: this.props.type}).then(() => {
             this.setState({
                 loading: false
             })
@@ -31,10 +32,14 @@ class MerchantRdx extends React.Component {
     handleAdd = () => {
         let {updateMerchantModal} = this.actions;
         updateMerchantModal({
+            title: '新增' + this.state.title,
             visible: true,
             id: -1,
             name: '',
-            code: ''
+            code: '',
+            categoryId: undefined,
+            remark: '',
+            active: 1
         });
     }
 
@@ -55,10 +60,14 @@ class MerchantRdx extends React.Component {
     handleEdit = (record) => {
         let {updateMerchantModal} = this.actions;
         updateMerchantModal({
+            title: '编辑' + this.state.title,
             visible: true,
             id: record.id,
             name: record.name,
-            code: record.code
+            code: record.code,
+            categoryId: record.categoryId+'',
+            remark: record.remark,
+            active: record.active
         });
     }
 
@@ -67,7 +76,7 @@ class MerchantRdx extends React.Component {
         pager.current = pagination.current;
         pager.pageSize = pagination.pageSize;
         let {getMerchants} = this.actions;
-        getMerchants(pager).then(() => {
+        getMerchants({...pager, type: this.props.type}).then(() => {
             this.setState({
                 loading: false
             })
@@ -127,7 +136,7 @@ class MerchantRdx extends React.Component {
                                bordered={true}/>
                     </div>
                 </div>
-                <MerchantForm/>
+                <MerchantForm type={this.props.type}/>
             </div>
         )
     }

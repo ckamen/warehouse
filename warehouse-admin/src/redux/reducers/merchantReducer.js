@@ -12,11 +12,14 @@ const initMerchantState = {
     },
     modal: {
         visible: false,
-        title: '创建供应商',
+        title: '创建',
         confirmLoading: false,
+
         id: -1,
         code: '',
-        name: ''
+        name: '',
+        categoryId: undefined,
+        remark: ''
     }
 }
 const MerchantReducer = (state = initMerchantState, action) => {

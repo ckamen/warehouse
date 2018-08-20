@@ -16,7 +16,8 @@ const initBrandState = {
         confirmLoading: false,
         id: -1,
         code: '',
-        name: ''
+        name: '',
+        active: 1
     }
 }
 const BrandReducer = (state = initBrandState, action) => {

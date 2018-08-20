@@ -1,10 +1,12 @@
 import React from 'react';
-import {Modal, Form, Input, TreeSelect} from 'antd';
+import {Modal, Form, Input, TreeSelect, Row, Col} from 'antd';
 
 import './index.css';
 import * as actions from "../../redux/actions/merchantAction";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import {getCategories} from "../../redux/actions/categoryAction";
+import {MAX_SIZE} from "../../utils/constants";
 
 const formItemLayout = {
     labelCol: {
@@ -25,10 +27,12 @@ class MerchantFormRdx extends React.Component {
     }
 
     componentDidMount() {
+        let {getCategories} = this.actions;
+        getCategories({pageSize: MAX_SIZE, type: this.props.type});
     }
 
     handleOk = () => {
-        let {updateMerchantModal, saveMerchant, getMerchants} = this.props.actions;
+        let {updateMerchantModal, saveMerchant} = this.props.actions;
 
         let form = this.props.form;
         form.validateFields((err, values) => {
@@ -36,9 +40,9 @@ class MerchantFormRdx extends React.Component {
                 return;
             }
             updateMerchantModal({confirmLoading: true});
-            saveMerchant({...values}).then(() => {
+            let {id, active} = this.props.modal;
+            saveMerchant({...values, type: this.props.type, id, active}).then(() => {
                 updateMerchantModal({visible: false, confirmLoading: false});
-                getMerchants({...this.props.pagination});
                 form.resetFields();
             })
         });
@@ -52,23 +56,23 @@ class MerchantFormRdx extends React.Component {
         this.props.form.resetFields();
     }
 
-    /*handleNodeSelect = (value, node) => {
+    handleNodeSelect = (value, node) => {
         console.log('handleTreeChange', value, node);
-        let {updateMerchantModal} = this.props.actions;
+        /*let {updateMerchantModal} = this.props.actions;
         updateMerchantModal({
             level: node.props.level
-        })
-    }*/
+        })*/
+    }
 
     render() {
-        let {title, visible, confirmLoading, id, name} = this.props.modal;
+        let {title, visible, confirmLoading, id, code, name, categoryId, remark} = this.props.modal;
         let {getFieldDecorator} = this.props.form;
         return (
             <div>
                 <Modal
                     okText='确定'
                     cancelText='取消'
-                    width={800}
+                    width={700}
                     maskClosable={false}
                     title={title}
                     visible={visible}
@@ -77,42 +81,58 @@ class MerchantFormRdx extends React.Component {
                     onCancel={this.handleCancel}
                 >
                     <Form layout="inline" className={'modal-form'}>
-                        <Form.Item style={{display: 'none'}}>
-                            {getFieldDecorator('id', {
-                                initialValue: id
-                            })(
-                                <Input type={'hidden'}/>
-                            )}
-                        </Form.Item>
-                        {/*<Form.Item style={{display: 'none'}}>
-                            {getFieldDecorator('parent.level', {
-                                initialValue: level
-                            })(
-                                <Input type={'hidden'}/>
-                            )}
-                        </Form.Item>
-                        <Form.Item label="父类别" {...formItemLayout}>
-                            {getFieldDecorator('parent.id', {
-                                initialValue: parentId
-                            })(
-                                <TreeSelect
-                                    allowClear={true}
-                                    dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
-                                    treeData={this.props.treeData}
-                                    placeholder="请选择"
-                                    treeDefaultExpandAll
-                                    onSelect={this.handleNodeSelect}
-                                />
-                            )}
-                        </Form.Item>*/}
-                        <Form.Item label="名称" {...formItemLayout}>
-                            {getFieldDecorator('name', {
-                                initialValue: name,
-                                rules: [{required: true, message: '请输入名称'}, {max: 50, message: '类别名不能超过50个字符'}],
-                            })(
-                                <Input/>
-                            )}
-                        </Form.Item>
+                        <Row>
+                            <Col span={12}>
+                                <Form.Item label="编号" {...formItemLayout}>
+                                    {getFieldDecorator('code', {
+                                        initialValue: code,
+                                        rules: [{required: true, message: '请输入编号'}, {max: 30, message: '编号不能超过30个字符'}],
+                                    })(
+                                        <Input/>
+                                    )}
+                                </Form.Item>
+                            </Col>
+                            <Col span={12}>
+                                <Form.Item label="名称" {...formItemLayout}>
+                                    {getFieldDecorator('name', {
+                                        initialValue: name,
+                                        rules: [{required: true, message: '请输入名称'}, {max: 50, message: '名称不能超过50个字符'}],
+                                    })(
+                                        <Input/>
+                                    )}
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span={12}>
+                                <Form.Item label="分类" {...formItemLayout}>
+                                    {getFieldDecorator('categoryId', {
+                                        initialValue: categoryId
+                                    })(
+                                        <TreeSelect
+                                            allowClear={true}
+                                            dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
+                                            treeData={this.props.treeData}
+                                            placeholder="请选择"
+                                            treeDefaultExpandAll
+                                            onSelect={this.handleNodeSelect}
+                                        />
+                                    )}
+                                </Form.Item>
+                            </Col>
+                            <Col span={12}>
+                                <Form.Item label="备注" {...formItemLayout}>
+                                    {getFieldDecorator('remark', {
+                                        initialValue: remark,
+                                        rules: [{max: 200, message: '备注不能超过200个字符'}],
+                                    })(
+                                        <Input/>
+                                    )}
+                                </Form.Item>
+                            </Col>
+                        </Row>
+
+
                     </Form>
                 </Modal>
             </div>
@@ -122,11 +142,12 @@ class MerchantFormRdx extends React.Component {
 
 const mapStateToProps = state => ({
     modal: state.MerchantReducer.modal,
-    pagination: state.MerchantReducer.pagination
+    pagination: state.MerchantReducer.pagination,
+    treeData: state.CategoryReducer.treeData
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({...actions}, dispatch)
+    actions: bindActionCreators({...actions, getCategories}, dispatch)
 });
 const MerchantForm = connect(mapStateToProps, mapDispatchToProps)(MerchantFormRdx);
 export default Form.create()(MerchantForm);
