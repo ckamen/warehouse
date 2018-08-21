@@ -25,6 +25,10 @@ public class Category extends IdEntity {
      */
     private String name;
     /**
+     * 编码
+     */
+    private String code;
+    /**
      * 类型, 1-供应商类别;2-客户类别3-商品类别
      */
     private Integer type;
@@ -70,6 +74,14 @@ public class Category extends IdEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Integer getType() {
@@ -156,6 +168,7 @@ public class Category extends IdEntity {
     public String toString() {
         return "Category{" +
         ", name=" + name +
+        ", code=" + code +
         ", type=" + type +
         ", createdBy=" + createdBy +
         ", createdTime=" + createdTime +

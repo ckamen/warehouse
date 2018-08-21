@@ -54,6 +54,7 @@ CREATE TABLE t_category
 (
 	id int NOT NULL AUTO_INCREMENT COMMENT 'id',
 	name varchar(50) DEFAULT '' NOT NULL COMMENT '名称',
+  code varchar(100) DEFAULT '' COMMENT '编码',
 	-- 类别的类型, 1-供应商类别;2-客户类别3-商品类别
 	type smallint DEFAULT -1 NOT NULL COMMENT '类型',
   created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
@@ -257,7 +258,8 @@ CREATE TABLE t_unit
 CREATE TABLE t_user
 (
 	id int NOT NULL AUTO_INCREMENT COMMENT 'id',
-	name varchar(30) DEFAULT '' NOT NULL COMMENT '名称',
+  username varchar(30) DEFAULT '' NOT NULL COMMENT '账号',
+	name varchar(50) DEFAULT '' NOT NULL COMMENT '名称',
 	phone varchar(30) DEFAULT '' COMMENT '手机号码',
 	code varchar(100) DEFAULT '' COMMENT '编码',
 	active tinyint DEFAULT 1 COMMENT '是否启用,1-启用;0-不启用',

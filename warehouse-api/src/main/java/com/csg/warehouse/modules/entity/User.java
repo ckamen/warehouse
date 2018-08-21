@@ -1,9 +1,10 @@
 package com.csg.warehouse.modules.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.annotations.TableLogic;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.csg.warehouse.common.entity.IdEntity;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -17,6 +18,11 @@ import com.csg.warehouse.common.entity.IdEntity;
 public class User extends IdEntity {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 账号
+     */
+    private String username;
 
     /**
      * 名称
@@ -68,6 +74,14 @@ public class User extends IdEntity {
      */
     private Date deletedTime;
 
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getName() {
         return name;
@@ -168,6 +182,7 @@ public class User extends IdEntity {
     @Override
     public String toString() {
         return "User{" +
+        ", username=" + username +
         ", name=" + name +
         ", phone=" + phone +
         ", code=" + code +

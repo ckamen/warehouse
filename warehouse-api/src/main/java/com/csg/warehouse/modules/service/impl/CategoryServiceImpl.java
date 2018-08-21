@@ -42,7 +42,9 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, Categor
                 }
                 this.insertRelations(category);
             } else {
-                categoryRelationService.deleteByChildId(category.getId());
+                if(category.getParent().getLevel() > 0) {
+                    categoryRelationService.deleteByChildId(category.getId());
+                }
             }
             this.updateById(category);
         } else {
