@@ -1,7 +1,10 @@
 package com.csg.warehouse.modules.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.modules.entity.Merchant;
 import com.csg.warehouse.common.service.BaseService;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.csg.warehouse.common.service.BaseService;
  */
 public interface MerchantService extends BaseService<Merchant> {
 
+    Page<Merchant> selectPage(Page page, Map<String, String> params);
 }

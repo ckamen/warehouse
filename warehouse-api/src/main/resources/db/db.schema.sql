@@ -188,6 +188,7 @@ CREATE TABLE t_merchant
 	category_id int NOT NULL COMMENT '类别id',
 	type tinyint DEFAULT 1 NOT NULL COMMENT '类别,1-供应商;2-客户',
   remark varchar(200) COMMENT '备注',
+  active tinyint DEFAULT 1 COMMENT '是否启用,1-启用;0-不启用',
   created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
   created_time datetime  COMMENT '创建时间',
   updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',

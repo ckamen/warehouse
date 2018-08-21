@@ -5,4 +5,11 @@
     <!-- 开启二级缓存 -->
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
+    <select id="findPage" resultType="com.csg.warehouse.modules.entity.Merchant">
+        select * from t_merchant where deleted_ind = 0
+        <if test="type != null and type > 0">
+            and type = #{type}
+        </if>
+    </select>
+
 </mapper>

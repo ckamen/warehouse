@@ -4,6 +4,7 @@ package com.csg.warehouse.modules.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.controller.BaseController;
 import com.csg.warehouse.core.web.WebApiResponse;
+import com.csg.warehouse.core.web.WebRequestContext;
 import com.csg.warehouse.modules.entity.Contact;
 import com.csg.warehouse.modules.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class ContactController extends BaseController {
     }
 
     @GetMapping("/page")
-    public WebApiResponse page(Page<Contact> page) {
-        page = contactService.selectPage(page);
+    public WebApiResponse page(Page<Contact> page, WebRequestContext webRequestContext) {
+        page = contactService.selectPage(page, webRequestContext.getParams());
         return WebApiResponse.success(page);
     }
 

@@ -5,4 +5,15 @@
     <!-- 开启二级缓存 -->
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
+    <select id="findPage" resultType="com.csg.warehouse.modules.entity.Contact">
+        select * from t_contact where deleted_ind = 0
+        <if test="merchantId != null and merchantId > 0">
+            and merchant_id = #{merchantId}
+        </if>
+    </select>
+
+    <delete id="deleteByMerchantId">
+        delete from t_contact where merchant_id = #{merchantId}
+    </delete>
+
 </mapper>

@@ -1,8 +1,6 @@
 package com.csg.warehouse.modules.entity;
 
-import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.csg.warehouse.common.entity.IdEntity;
 
 /**
@@ -46,40 +44,6 @@ public class Contact extends IdEntity {
      * 供应商/客户id
      */
     private Integer merchantId;
-    /**
-     * 是否启用,1-启用;0-不启用
-     */
-    private Integer active;
-    /**
-     * 创建人
-     */
-    private Integer createdBy;
-    /**
-     * 创建时间
-     */
-    private Date createdTime;
-    /**
-     * 更新人
-     */
-    private Integer updatedBy;
-    /**
-     * 更新时间
-     */
-    private Date updatedTime;
-    /**
-     * 是否已删除,1-是;0-否
-     */
-    @TableLogic
-    private Integer deletedInd;
-    /**
-     * 删除人
-     */
-    private Integer deletedBy;
-    /**
-     * 删除时间
-     */
-    private Date deletedTime;
-
 
     public String getName() {
         return name;
@@ -137,69 +101,6 @@ public class Contact extends IdEntity {
         this.merchantId = merchantId;
     }
 
-    public Integer getActive() {
-        return active;
-    }
-
-    public void setActive(Integer active) {
-        this.active = active;
-    }
-
-    public Integer getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Integer createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Date getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public Integer getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(Integer updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public Date getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(Date updatedTime) {
-        this.updatedTime = updatedTime;
-    }
-
-    public Integer getDeletedInd() {
-        return deletedInd;
-    }
-
-    public void setDeletedInd(Integer deletedInd) {
-        this.deletedInd = deletedInd;
-    }
-
-    public Integer getDeletedBy() {
-        return deletedBy;
-    }
-
-    public void setDeletedBy(Integer deletedBy) {
-        this.deletedBy = deletedBy;
-    }
-
-    public Date getDeletedTime() {
-        return deletedTime;
-    }
-
-    public void setDeletedTime(Date deletedTime) {
-        this.deletedTime = deletedTime;
-    }
 
     @Override
     public String toString() {
@@ -211,14 +112,6 @@ public class Contact extends IdEntity {
         ", address=" + address +
         ", primaryInd=" + primaryInd +
         ", merchantId=" + merchantId +
-        ", active=" + active +
-        ", createdBy=" + createdBy +
-        ", createdTime=" + createdTime +
-        ", updatedBy=" + updatedBy +
-        ", updatedTime=" + updatedTime +
-        ", deletedInd=" + deletedInd +
-        ", deletedBy=" + deletedBy +
-        ", deletedTime=" + deletedTime +
         "}";
     }
 }

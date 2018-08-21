@@ -1,9 +1,11 @@
 package com.csg.warehouse.modules.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableLogic;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.csg.warehouse.common.entity.IdEntity;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -68,6 +70,13 @@ public class Merchant extends IdEntity {
      */
     private Date deletedTime;
 
+    /**
+     * 是否启用,1-启用;0-不启用
+     */
+    private Integer active;
+
+    @TableField(exist = false)
+    private Contact[] contacts = new Contact[]{};
 
     public String getName() {
         return name;
@@ -165,6 +174,22 @@ public class Merchant extends IdEntity {
         this.deletedTime = deletedTime;
     }
 
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
+    public Contact[] getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(Contact[] contacts) {
+        this.contacts = contacts;
+    }
+
     @Override
     public String toString() {
         return "Merchant{" +
@@ -173,6 +198,7 @@ public class Merchant extends IdEntity {
         ", categoryId=" + categoryId +
         ", type=" + type +
         ", remark=" + remark +
+        ", active=" + active +
         ", createdBy=" + createdBy +
         ", createdTime=" + createdTime +
         ", updatedBy=" + updatedBy +
