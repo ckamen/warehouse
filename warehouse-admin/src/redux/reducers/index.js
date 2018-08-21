@@ -6,6 +6,7 @@ import BrandReducer from "./brandReducer";
 import CategoryReducer from "./categoryReducer";
 import MerchantReducer from "./merchantReducer";
 import ContactReducer from "./contactReducer";
+import UserReducer from "./userReducer";
 
 const appAllReducers = combineReducers({
     LoginReducer,
@@ -13,7 +14,8 @@ const appAllReducers = combineReducers({
     BrandReducer,
     CategoryReducer,
     MerchantReducer,
-    ContactReducer
+    ContactReducer,
+    UserReducer
 });
 
 export default appAllReducers;

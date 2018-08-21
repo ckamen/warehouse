@@ -19,7 +19,7 @@ const brandEditAction = data => ({
     data
 });
 
-const getBrands = (pager) => (dispatch) => {
+export const getBrands = (pager) => (dispatch) => {
     return axiosUtil.get('/api/brand/page', {
         params: {
             ...pager
@@ -33,7 +33,7 @@ const getBrands = (pager) => (dispatch) => {
     })
 };
 
-const saveBrand = ({id, ...rest}) => (dispatch) => {
+export const saveBrand = ({id, ...rest}) => (dispatch) => {
     return axiosUtil.post(`/api/brand/save/${id}`, {id, ...rest})
         .then(data => {
             if (id > 0) {
@@ -46,7 +46,7 @@ const saveBrand = ({id, ...rest}) => (dispatch) => {
         });
 };
 
-const delBrand = (id) => (dispatch) => {
+export const delBrand = (id) => (dispatch) => {
     return axiosUtil.delete(`/api/brand/delete/${id}`)
         .then(() => {
             dispatch(
@@ -60,9 +60,8 @@ const delBrand = (id) => (dispatch) => {
         });
 };
 
-const updateBrandModal = data => dispatch => (dispatch({
+export const updateBrandModal = data => dispatch => (dispatch({
     type: types.BRAND_MODAL_UPDATE,
     data
 }));
 
-export {getBrands, saveBrand, delBrand, updateBrandModal};

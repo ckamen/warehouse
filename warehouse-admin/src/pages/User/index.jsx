@@ -4,10 +4,11 @@ import {Table, Icon, Divider, Button, Switch, Popconfirm} from 'antd';
 import './index.css';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import * as actions from "../../redux/actions/brandAction";
-import BrandForm from "../../components/BrandForm";
+import * as actions from "../../redux/actions/userAction";
+import UserForm from "../../components/UserForm";
+import UserModel from "../../model/UserModel";
 
-class BrandRdx extends React.Component {
+class UserRdx extends React.Component {
     constructor(props) {
         super(props);
         this.actions = this.props.actions;
@@ -18,8 +19,8 @@ class BrandRdx extends React.Component {
     }
 
     componentDidMount() {
-        let {getBrands} = this.actions;
-        getBrands(this.props.pagination).then(() => {
+        let {getUsers} = this.actions;
+        getUsers(this.props.pagination).then(() => {
             this.setState({
                 loading: false
             })
@@ -44,11 +45,14 @@ class BrandRdx extends React.Component {
                 </span>
             ),
         }, {
-            title: '品牌编码',
-            dataIndex: 'code'
+            title: '账号',
+            dataIndex: 'username'
         }, {
-            title: '品牌名称',
+            title: '姓名',
             dataIndex: 'name'
+        }, {
+            title: '手机',
+            dataIndex: 'phone'
         }, {
             title: '状态',
             dataIndex: 'active',
@@ -60,27 +64,29 @@ class BrandRdx extends React.Component {
     }
 
     handleAdd = () => {
-        let {updateBrandModal} = this.actions;
-        updateBrandModal({
+        let {updateUserModal} = this.actions;
+        updateUserModal({
             visible: true,
-            id: -1,
-            name: '',
-            code: ''
+            confirmLoading: false,
+            ...UserModel
         });
     }
 
     handleDelete = (record) => {
-        let {delBrand} = this.actions;
-        delBrand(record.key);
+        let {delUser} = this.actions;
+        delUser(record.key)
     }
 
     handleEdit = (record) => {
-        let {updateBrandModal} = this.actions;
-        updateBrandModal({
+        let {updateUserModal} = this.actions;
+        updateUserModal({
             visible: true,
+            confirmLoading: false,
             id: record.id,
+            username: record.username,
             name: record.name,
-            code: record.code
+            password: record.password,
+            phone: record.phone
         });
     }
 
@@ -88,8 +94,8 @@ class BrandRdx extends React.Component {
         let pager = {...this.props.pagination};
         pager.current = pagination.current;
         pager.pageSize = pagination.pageSize;
-        let {getBrands} = this.actions;
-        getBrands(pager).then(() => {
+        let {getUsers} = this.actions;
+        getUsers(pager).then(() => {
             this.setState({
                 loading: false
             })
@@ -98,8 +104,8 @@ class BrandRdx extends React.Component {
 
     handleActiveChange = (checked, record) => {
         console.log('handleActiveChange', checked, record);
-        let {saveBrand} = this.actions;
-        saveBrand({
+        let {saveUser} = this.actions;
+        saveUser({
             id: record.id,
             active: checked ? 1 : 0
         });
@@ -111,7 +117,7 @@ class BrandRdx extends React.Component {
         return (
             <div className={'grid-wrapper'}>
                 <h3>
-                    <Button type="primary" onClick={this.handleAdd}>新增品牌</Button>
+                    <Button type="primary" onClick={this.handleAdd}>新增用户</Button>
                 </h3>
                 <div>
                     <div>
@@ -123,19 +129,19 @@ class BrandRdx extends React.Component {
                                bordered={true}/>
                     </div>
                 </div>
-                <BrandForm/>
+                <UserForm/>
             </div>
         )
     }
 }
 
 const mapStateToProps = state => ({
-    tableList: state.BrandReducer.tableList,
-    pagination: state.BrandReducer.pagination
+    tableList: state.UserReducer.tableList,
+    pagination: state.UserReducer.pagination
 });
 
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({...actions}, dispatch)
 });
-const Brand = connect(mapStateToProps, mapDispatchToProps)(BrandRdx);
-export default Brand;
+const User = connect(mapStateToProps, mapDispatchToProps)(UserRdx);
+export default User;
