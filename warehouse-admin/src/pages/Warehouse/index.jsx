@@ -2,29 +2,25 @@ import React from 'react';
 import {Table, Icon, Divider, Button, Switch, Popconfirm} from 'antd';
 
 import './index.css';
-import utils from "../../utils/utils";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import * as actions from "../../redux/actions/merchantAction";
-import MerchantForm from "../../components/MerchantForm";
-import {SUPPLIER} from "../../utils/constants";
-import {getContacts, initContact} from "../../redux/actions/contactAction";
+import * as actions from "../../redux/actions/warehouseAction";
+import WarehouseForm from "../../components/WarehouseForm";
+import WarehouseModel from "../../model/WarehouseModel";
 
-class MerchantRdx extends React.Component {
+class WarehouseRdx extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.actions = this.props.actions;
         this.state = {
-            loading: true,
-            title: this.props.type === SUPPLIER ? '供应商' : '客户'
+            loading: true
         }
         this.buildColumns();
     }
 
     componentDidMount() {
-        let {getMerchants} = this.actions;
-        getMerchants({...this.props.pagination, type: this.props.type}).then(() => {
+        let {getWarehouses} = this.actions;
+        getWarehouses(this.props.pagination).then(() => {
             this.setState({
                 loading: false
             })
@@ -48,13 +44,13 @@ class MerchantRdx extends React.Component {
                     </Popconfirm>
                 </span>
             ),
-        }, {
-            title: `${this.state.title}编码`,
+        },  {
+            title: '仓库编码',
             dataIndex: 'code'
         }, {
-            title: `${this.state.title}名称`,
+            title: '仓库名称',
             dataIndex: 'name'
-        }, {
+        },{
             title: '状态',
             dataIndex: 'active',
             render: (value, record) => (
@@ -65,48 +61,36 @@ class MerchantRdx extends React.Component {
     }
 
     handleAdd = () => {
-        let {updateMerchantModal, initContact} = this.actions;
-        updateMerchantModal({
-            title: '新增' + this.state.title,
+        let {updateWarehouseModal} = this.actions;
+        updateWarehouseModal({
             visible: true,
-            id: -1,
-            name: '',
-            code: '',
-            categoryId: null,
-            remark: '',
-            active: 1
+            confirmLoading: false,
+            ...WarehouseModel
         });
-        initContact();
     }
 
     handleDelete = (record) => {
-        let {delMerchant} = this.actions;
-        delMerchant(record.key);
+        let {delWarehouse} = this.actions;
+        delWarehouse(record.key)
     }
 
     handleEdit = (record) => {
-        let {updateMerchantModal, getContacts} = this.actions;
-        updateMerchantModal({
-            title: '编辑' + this.state.title,
+        let {updateWarehouseModal} = this.actions;
+        updateWarehouseModal({
             visible: true,
+            confirmLoading: false,
             id: record.id,
-            name: record.name,
             code: record.code,
-            categoryId: record.categoryId + '',
-            remark: record.remark,
-            active: record.active
+            name: record.name,
         });
-        getContacts({
-            merchantId: record.id
-        })
     }
 
     handleTableChange = (pagination, filters, sorter) => {
         let pager = {...this.props.pagination};
         pager.current = pagination.current;
         pager.pageSize = pagination.pageSize;
-        let {getMerchants} = this.actions;
-        getMerchants({...pager, type: this.props.type}).then(() => {
+        let {getWarehouses} = this.actions;
+        getWarehouses(pager).then(() => {
             this.setState({
                 loading: false
             })
@@ -114,18 +98,21 @@ class MerchantRdx extends React.Component {
     }
 
     handleActiveChange = (checked, record) => {
-        let {saveMerchant} = this.actions;
-        saveMerchant({
+        console.log('handleActiveChange', checked, record);
+        let {saveWarehouse} = this.actions;
+        saveWarehouse({
             id: record.id,
             active: checked ? 1 : 0
         });
     }
 
     render() {
+
+
         return (
             <div className={'grid-wrapper'}>
                 <h3>
-                    <Button type="primary" onClick={this.handleAdd}>{`新增${this.state.title}`}</Button>
+                    <Button type="primary" onClick={this.handleAdd}>新增仓库</Button>
                 </h3>
                 <div>
                     <div>
@@ -137,19 +124,19 @@ class MerchantRdx extends React.Component {
                                bordered={true}/>
                     </div>
                 </div>
-                <MerchantForm type={this.props.type}/>
+                <WarehouseForm/>
             </div>
         )
     }
 }
 
 const mapStateToProps = state => ({
-    tableList: state.MerchantReducer.tableList,
-    pagination: state.MerchantReducer.pagination
+    tableList: state.WarehouseReducer.tableList,
+    pagination: state.WarehouseReducer.pagination
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({...actions, initContact, getContacts}, dispatch)
+    actions: bindActionCreators({...actions}, dispatch)
 });
-const Merchant = connect(mapStateToProps, mapDispatchToProps)(MerchantRdx);
-export default Merchant;
+const Warehouse = connect(mapStateToProps, mapDispatchToProps)(WarehouseRdx);
+export default Warehouse;

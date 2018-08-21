@@ -61,7 +61,7 @@ class CategoryFormRdx extends React.Component {
     }
 
     render() {
-        let {title, visible, confirmLoading, id, name, level, parentId} = this.props.modal;
+        let {title, visible, confirmLoading, id, name, code, level, parentId} = this.props.modal;
         let {getFieldDecorator} = this.props.form;
         return (
             <div>
@@ -93,7 +93,7 @@ class CategoryFormRdx extends React.Component {
                         </Form.Item>
                         <Form.Item label="父类别" {...formItemLayout}>
                             {getFieldDecorator('parent.id', {
-                                initialValue: parentId
+                                initialValue: parentId != null? parentId: undefined
                             })(
                                 <TreeSelect
                                     allowClear={true}
@@ -105,10 +105,18 @@ class CategoryFormRdx extends React.Component {
                                 />
                             )}
                         </Form.Item>
-                        <Form.Item label="类别" {...formItemLayout}>
+                        <Form.Item label="类别名称" {...formItemLayout}>
                             {getFieldDecorator('name', {
                                 initialValue: name,
-                                rules: [{required: true, message: '请输入类别'}, {max: 20, message: '类别名不能超过20个字符'}],
+                                rules: [{required: true, message: '请输入类别名称'}, {max: 20, message: '类别名称不能超过20个字符'}],
+                            })(
+                                <Input/>
+                            )}
+                        </Form.Item>
+                        <Form.Item label="类别编码" {...formItemLayout}>
+                            {getFieldDecorator('code', {
+                                initialValue: code,
+                                rules: [{required: true, message: '请输入类别编码'}, {max: 20, message: '类别编码不能超过20个字符'}],
                             })(
                                 <Input/>
                             )}

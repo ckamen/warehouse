@@ -85,10 +85,10 @@ class MerchantFormRdx extends React.Component {
                     <Form layout="inline" className={'modal-form'}>
                         <Row>
                             <Col span={12}>
-                                <Form.Item label="编号" {...formItemLayout}>
+                                <Form.Item label="编码" {...formItemLayout}>
                                     {getFieldDecorator('code', {
                                         initialValue: code,
-                                        rules: [{required: true, message: '请输入编号'}, {max: 30, message: '编号不能超过30个字符'}],
+                                        rules: [{required: true, message: '请输入编码'}, {max: 30, message: '编码不能超过30个字符'}],
                                     })(
                                         <Input/>
                                     )}

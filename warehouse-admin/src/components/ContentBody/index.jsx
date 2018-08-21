@@ -9,6 +9,7 @@ import Category from "../../pages/Category";
 import Supplier from "../../pages/Merchant/supplier";
 import Client from "../../pages/Merchant/client";
 import User from "../../pages/User";
+import Warehouse from "../../pages/Warehouse";
 
 const {Content} = Layout;
 
@@ -21,6 +22,7 @@ const ContentBody = ({match}) =>{
                     <Route path={`${match.url}/brand`} component={Brand}/>
                     <Route path={`${match.url}/category`} component={Category}/>
                     <Route path={`${match.url}/user`} component={User}/>
+                    <Route path={`${match.url}/warehouse`} component={Warehouse}/>
                     <Route path={`${match.url}/merchant/client`} component={Client}/>
                     <Route path={`${match.url}/merchant/supplier`} component={Supplier}/>
                     <Route path={`${match.url}/`} component={Home}/>

@@ -1,6 +1,7 @@
 import {types} from "../actions/categoryAction";
 import * as _ from 'lodash';
 import {MAX_SIZE} from "../../utils/constants";
+import CategoryModel from "../../model/CategoryModel";
 
 const initCategoryState = {
     tableList: [],
@@ -16,11 +17,7 @@ const initCategoryState = {
         visible: false,
         title: '创建类别',
         confirmLoading: false,
-        id: -1,
-        name: '',
-        type: 1,
-        level: 0,
-        parentId: undefined
+        ...CategoryModel
     },
     selectedType: '1',
     treeData: []

@@ -51,12 +51,15 @@ class SideNavMenu extends React.Component {
                     <Menu.Item key="home">
                         <NavLink to="/home/"><Icon type="home"/><span>首页</span></NavLink>
                     </Menu.Item>
+                    <Menu.Item key="warehouse">
+                        <NavLink to="/home/warehouse"><Icon type="database"/><span>仓库管理</span></NavLink>
+                    </Menu.Item>
                     <Menu.Item key="user">
-                        <NavLink to="/home/user"><Icon type="user"/><span>用户管理</span></NavLink>
+                        <NavLink to="/home/user"><Icon type="team"/><span>用户管理</span></NavLink>
                     </Menu.Item>
                     <SubMenu
                         key="materials"
-                        title={<span><Icon type="user"/><span>资料</span></span>}
+                        title={<span><Icon type="setting"/><span>资料</span></span>}
                     >
                         <Menu.Item key="unit"><NavLink to="/home/unit">计量单位</NavLink></Menu.Item>
                         <Menu.Item key="brand"><NavLink to="/home/brand">品牌管理</NavLink></Menu.Item>

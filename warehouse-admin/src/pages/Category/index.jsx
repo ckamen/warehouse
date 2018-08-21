@@ -8,6 +8,7 @@ import {bindActionCreators} from "redux";
 
 import * as actions from "../../redux/actions/categoryAction";
 import CategoryForm from "../../components/CategoryForm";
+import CategoryModel from "../../model/CategoryModel";
 
 class CategoryRdx extends React.Component {
     constructor(props) {
@@ -44,22 +45,22 @@ class CategoryRdx extends React.Component {
                 </span>
             ),
         }, {
-            title: '类别',
+            title: '类别名称',
             dataIndex: 'name',
             render: (value, record) => {
                 return <span
-                    style={{paddingLeft: `${record.level * 10}px`}}>{record.level > 0 ? '|- ' + value : value}</span>;
+                    style={{paddingLeft: record.level * 10}}>{record.level > 0 ? '|- ' + value : value}</span>;
             }
+        }, {
+            title: '类别编码',
+            dataIndex: 'code'
         }];
     }
     handleAdd = () => {
         let {updateCategoryModal} = this.actions;
         updateCategoryModal({
             visible: true,
-            id: -1,
-            name: '',
-            level: 0,
-            parentId: undefined
+            ...CategoryModel
         });
     }
 
@@ -83,8 +84,9 @@ class CategoryRdx extends React.Component {
             visible: true,
             id: record.id,
             name: record.name,
+            code: record.code,
             level: record.parent ? record.parent.level : 0,
-            parentId: record.parent ? record.parent.id + '' : undefined
+            parentId: record.parent ? record.parent.id + '' : null
         });
     }
 
