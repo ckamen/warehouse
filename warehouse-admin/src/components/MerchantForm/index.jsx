@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Form, Input, TreeSelect, Row, Col} from 'antd';
+import {Modal, Form, Input, TreeSelect, Row, Col, Table, Icon} from 'antd';
 
 import './index.css';
 import * as actions from "../../redux/actions/merchantAction";
@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {getCategories} from "../../redux/actions/categoryAction";
 import {MAX_SIZE} from "../../utils/constants";
+import ContactTable from "../ContactTable";
 
 const formItemLayout = {
     labelCol: {
@@ -41,7 +42,7 @@ class MerchantFormRdx extends React.Component {
             }
             updateMerchantModal({confirmLoading: true});
             let {id, active} = this.props.modal;
-            saveMerchant({...values, type: this.props.type, id, active}).then(() => {
+            saveMerchant({...values, type: this.props.type, id, active, contacts: this.props.contacts}).then(() => {
                 updateMerchantModal({visible: false, confirmLoading: false});
                 form.resetFields();
             })
@@ -65,14 +66,15 @@ class MerchantFormRdx extends React.Component {
     }
 
     render() {
-        let {title, visible, confirmLoading, id, code, name, categoryId, remark} = this.props.modal;
+        let {title, visible, confirmLoading, code, name, categoryId, remark} = this.props.modal;
         let {getFieldDecorator} = this.props.form;
+
         return (
             <div>
                 <Modal
                     okText='确定'
                     cancelText='取消'
-                    width={700}
+                    width={800}
                     maskClosable={false}
                     title={title}
                     visible={visible}
@@ -107,7 +109,7 @@ class MerchantFormRdx extends React.Component {
                             <Col span={12}>
                                 <Form.Item label="分类" {...formItemLayout}>
                                     {getFieldDecorator('categoryId', {
-                                        initialValue: categoryId
+                                        initialValue: categoryId != null ? categoryId: undefined
                                     })(
                                         <TreeSelect
                                             allowClear={true}
@@ -131,7 +133,11 @@ class MerchantFormRdx extends React.Component {
                                 </Form.Item>
                             </Col>
                         </Row>
-
+                        <Row style={{marginTop: 10}}>
+                            <Col span={24}>
+                                <ContactTable/>
+                            </Col>
+                        </Row>
 
                     </Form>
                 </Modal>
@@ -143,7 +149,8 @@ class MerchantFormRdx extends React.Component {
 const mapStateToProps = state => ({
     modal: state.MerchantReducer.modal,
     pagination: state.MerchantReducer.pagination,
-    treeData: state.CategoryReducer.treeData
+    treeData: state.CategoryReducer.treeData,
+    contacts: state.ContactReducer.tableList
 });
 
 const mapDispatchToProps = dispatch => ({

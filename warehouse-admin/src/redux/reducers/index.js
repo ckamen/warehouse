@@ -5,13 +5,15 @@ import UnitReducer from "./unitReducer";
 import BrandReducer from "./brandReducer";
 import CategoryReducer from "./categoryReducer";
 import MerchantReducer from "./merchantReducer";
+import ContactReducer from "./contactReducer";
 
 const appAllReducers = combineReducers({
     LoginReducer,
     UnitReducer,
     BrandReducer,
     CategoryReducer,
-    MerchantReducer
+    MerchantReducer,
+    ContactReducer
 });
 
 export default appAllReducers;

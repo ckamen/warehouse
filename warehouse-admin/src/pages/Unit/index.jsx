@@ -14,6 +14,7 @@ class UnitRdx extends React.Component {
         this.state = {
             loading: true
         }
+        this.buildColumns();
     }
 
     componentDidMount() {
@@ -22,6 +23,27 @@ class UnitRdx extends React.Component {
                 loading: false
             })
         });
+    }
+
+    buildColumns() {
+        this.columns = [{
+            title: '操作',
+            key: 'action',
+            align: 'center',
+            width: '100px',
+            render: (value, record) => (
+                <span>
+                    <a href="javascript:void(0);" title={'编辑'} onClick={() => this.handleEdit(record)}><Icon
+                        type={'edit'}/></a>
+                    <Divider type="vertical"/>
+                    <a href="javascript:void(0);" title={'删除'} onClick={() => this.handleDelete(record)}><Icon
+                        type={'delete'}/></a>
+                </span>
+            ),
+        }, {
+            title: '名称',
+            dataIndex: 'name'
+        }];
     }
 
     handleAdd = () => {
@@ -57,24 +79,7 @@ class UnitRdx extends React.Component {
     }
 
     render() {
-        const columns = [{
-            title: '操作',
-            key: 'action',
-            align: 'center',
-            width: '100px',
-            render: (value, record) => (
-                <span>
-                    <a href="javascript:void(0);" title={'编辑'} onClick={() => this.handleEdit(record)}><Icon
-                        type={'edit'}/></a>
-                    <Divider type="vertical"/>
-                    <a href="javascript:void(0);" title={'删除'} onClick={() => this.handleDelete(record)}><Icon
-                        type={'delete'}/></a>
-                </span>
-            ),
-        }, {
-            title: '名称',
-            dataIndex: 'name'
-        }];
+
 
         return (
             <div className={'grid-wrapper'}>
@@ -83,7 +88,7 @@ class UnitRdx extends React.Component {
                 </h3>
                 <div>
                     <div style={{width: '300px'}}>
-                        <Table columns={columns}
+                        <Table columns={this.columns}
                                dataSource={this.props.tableList}
                                loading={this.state.loading}
                                pagination={false}

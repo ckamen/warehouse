@@ -14,6 +14,7 @@ class BrandRdx extends React.Component {
         this.state = {
             loading: true
         }
+        this.buildColumns();
     }
 
     componentDidMount() {
@@ -22,6 +23,37 @@ class BrandRdx extends React.Component {
                 loading: false
             })
         });
+    }
+
+    buildColumns() {
+        this.columns = [{
+            title: '操作',
+            key: 'action',
+            align: 'center',
+            width: '100px',
+            render: (value, record) => (
+                <span>
+                    <a href="javascript:void(0);" title={'编辑'} onClick={() => this.handleEdit(record)}><Icon
+                        type={'edit'}/></a>
+                    <Divider type="vertical"/>
+                    <a href="javascript:void(0);" title={'删除'} onClick={() => this.handleDelete(record)}><Icon
+                        type={'delete'}/></a>
+                </span>
+            ),
+        }, {
+            title: '品牌编码',
+            dataIndex: 'code'
+        }, {
+            title: '品牌名称',
+            dataIndex: 'name'
+        }, {
+            title: '状态',
+            dataIndex: 'active',
+            render: (value, record) => (
+                <Switch checked={value > 0} onChange={(checked) => this.handleActiveChange(checked, record)}/>
+            )
+
+        }];
     }
 
     handleAdd = () => {
@@ -77,34 +109,7 @@ class BrandRdx extends React.Component {
     }
 
     render() {
-        const columns = [{
-            title: '操作',
-            key: 'action',
-            align: 'center',
-            width: '100px',
-            render: (value, record) => (
-                <span>
-                    <a href="javascript:void(0);" title={'编辑'} onClick={() => this.handleEdit(record)}><Icon
-                        type={'edit'}/></a>
-                    <Divider type="vertical"/>
-                    <a href="javascript:void(0);" title={'删除'} onClick={() => this.handleDelete(record)}><Icon
-                        type={'delete'}/></a>
-                </span>
-            ),
-        }, {
-            title: '品牌编码',
-            dataIndex: 'code'
-        }, {
-            title: '品牌名称',
-            dataIndex: 'name'
-        }, {
-            title: '状态',
-            dataIndex: 'active',
-            render: (value, record) => (
-                <Switch checked={value > 0} onChange={(checked) => this.handleActiveChange(checked, record)}/>
-            )
 
-        }];
 
         return (
             <div className={'grid-wrapper'}>
@@ -113,7 +118,7 @@ class BrandRdx extends React.Component {
                 </h3>
                 <div>
                     <div>
-                        <Table columns={columns}
+                        <Table columns={this.columns}
                                dataSource={this.props.tableList}
                                pagination={this.props.pagination}
                                loading={this.state.loading}

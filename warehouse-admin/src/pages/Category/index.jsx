@@ -16,6 +16,7 @@ class CategoryRdx extends React.Component {
         this.state = {
             loading: true
         }
+        this.buildColumns();
     }
 
     componentDidMount() {
@@ -27,6 +28,30 @@ class CategoryRdx extends React.Component {
         });
     }
 
+    buildColumns () {
+        this.columns = [{
+            title: '操作',
+            key: 'action',
+            align: 'center',
+            width: '100px',
+            render: (value, record) => (
+                <span>
+                    <a href="javascript:void(0);" title={'编辑'} onClick={() => this.handleEdit(record)}><Icon
+                        type={'edit'}/></a>
+                    <Divider type="vertical"/>
+                    <a href="javascript:void(0);" title={'删除'} onClick={() => this.handleDelete(record)}><Icon
+                        type={'delete'}/></a>
+                </span>
+            ),
+        }, {
+            title: '类别',
+            dataIndex: 'name',
+            render: (value, record) => {
+                return <span
+                    style={{paddingLeft: `${record.level * 10}px`}}>{record.level > 0 ? '|- ' + value : value}</span>;
+            }
+        }];
+    }
     handleAdd = () => {
         let {updateCategoryModal} = this.actions;
         updateCategoryModal({
@@ -83,29 +108,6 @@ class CategoryRdx extends React.Component {
     }
 
     render() {
-        const columns = [{
-            title: '操作',
-            key: 'action',
-            align: 'center',
-            width: '100px',
-            render: (value, record) => (
-                <span>
-                    <a href="javascript:void(0);" title={'编辑'} onClick={() => this.handleEdit(record)}><Icon
-                        type={'edit'}/></a>
-                    <Divider type="vertical"/>
-                    <a href="javascript:void(0);" title={'删除'} onClick={() => this.handleDelete(record)}><Icon
-                        type={'delete'}/></a>
-                </span>
-            ),
-        }, {
-            title: '类别',
-            dataIndex: 'name',
-            render: (value, record) => {
-                return <span
-                    style={{paddingLeft: `${record.level * 10}px`}}>{record.level > 0 ? '|- ' + value : value}</span>;
-            }
-        }];
-
         return (
             <div className={'grid-wrapper'}>
                 <h3>
@@ -121,7 +123,7 @@ class CategoryRdx extends React.Component {
                 </h3>
                 <div>
                     <div style={{width: '400px'}}>
-                        <Table columns={columns}
+                        <Table columns={this.columns}
                                dataSource={this.props.tableList}
                                pagination={this.props.pagination}
                                loading={this.state.loading}

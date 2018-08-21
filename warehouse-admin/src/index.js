@@ -7,12 +7,16 @@ import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 import store from './redux/store';
 import Routes from "./Routes";
+import zhCN from "antd/lib/locale-provider/zh_CN";
+import {LocaleProvider} from "antd";
 
 ReactDOM.render(
-    <Provider store = {store}>
-        <BrowserRouter>
-            <Routes />
-        </BrowserRouter>
-    </Provider>
+    <LocaleProvider locale={zhCN}>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Routes/>
+            </BrowserRouter>
+        </Provider>
+    </LocaleProvider>
     , document.getElementById('root'));
 registerServiceWorker();

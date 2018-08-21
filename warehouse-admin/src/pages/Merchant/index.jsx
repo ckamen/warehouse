@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table, Icon, Divider, Button, Switch} from 'antd';
+import {Table, Icon, Divider, Button, Switch, Popconfirm} from 'antd';
 
 import './index.css';
 import utils from "../../utils/utils";
@@ -8,6 +8,7 @@ import {bindActionCreators} from "redux";
 import * as actions from "../../redux/actions/merchantAction";
 import MerchantForm from "../../components/MerchantForm";
 import {SUPPLIER} from "../../utils/constants";
+import {getContacts, initContact} from "../../redux/actions/contactAction";
 
 class MerchantRdx extends React.Component {
     constructor(props) {
@@ -16,8 +17,9 @@ class MerchantRdx extends React.Component {
         this.actions = this.props.actions;
         this.state = {
             loading: true,
-            title: this.props.type === SUPPLIER ? '供应商': '客户'
+            title: this.props.type === SUPPLIER ? '供应商' : '客户'
         }
+        this.buildColumns();
     }
 
     componentDidMount() {
@@ -29,46 +31,74 @@ class MerchantRdx extends React.Component {
         });
     }
 
+    buildColumns() {
+        this.columns = [{
+            title: '操作',
+            key: 'action',
+            align: 'center',
+            width: '100px',
+            render: (value, record) => (
+                <span>
+                    <a href="javascript:void(0);" title={'编辑'} onClick={() => this.handleEdit(record)}><Icon
+                        type={'edit'}/></a>
+                    <Divider type="vertical"/>
+                    <Popconfirm title="确认删除?" onConfirm={() => this.handleDelete(record)}>
+                        <a href="javascript:void(0);" title={'删除'}>
+                            <Icon type={'delete'}/></a>
+                    </Popconfirm>
+                </span>
+            ),
+        }, {
+            title: `${this.state.title}编号`,
+            dataIndex: 'code'
+        }, {
+            title: `${this.state.title}名称`,
+            dataIndex: 'name'
+        }, {
+            title: '状态',
+            dataIndex: 'active',
+            render: (value, record) => (
+                <Switch checked={value > 0} onChange={(checked) => this.handleActiveChange(checked, record)}/>
+            )
+
+        }];
+    }
+
     handleAdd = () => {
-        let {updateMerchantModal} = this.actions;
+        let {updateMerchantModal, initContact} = this.actions;
         updateMerchantModal({
             title: '新增' + this.state.title,
             visible: true,
             id: -1,
             name: '',
             code: '',
-            categoryId: undefined,
+            categoryId: null,
             remark: '',
             active: 1
         });
+        initContact();
     }
 
     handleDelete = (record) => {
         let {delMerchant} = this.actions;
-        utils.showConfirm({
-            title: '删除确认',
-            content: `确认要删除该${this.state.title}吗？`,
-            onOk() {
-                return new Promise(resolve => {
-                    delMerchant(record.key).then(() => resolve());
-                })
-            }
-        });
-
+        delMerchant(record.key);
     }
 
     handleEdit = (record) => {
-        let {updateMerchantModal} = this.actions;
+        let {updateMerchantModal, getContacts} = this.actions;
         updateMerchantModal({
             title: '编辑' + this.state.title,
             visible: true,
             id: record.id,
             name: record.name,
             code: record.code,
-            categoryId: record.categoryId+'',
+            categoryId: record.categoryId + '',
             remark: record.remark,
             active: record.active
         });
+        getContacts({
+            merchantId: record.id
+        })
     }
 
     handleTableChange = (pagination, filters, sorter) => {
@@ -92,35 +122,6 @@ class MerchantRdx extends React.Component {
     }
 
     render() {
-        const columns = [{
-            title: '操作',
-            key: 'action',
-            align: 'center',
-            width: '100px',
-            render: (value, record) => (
-                <span>
-                    <a href="javascript:void(0);" title={'编辑'} onClick={() => this.handleEdit(record)}><Icon
-                        type={'edit'}/></a>
-                    <Divider type="vertical"/>
-                    <a href="javascript:void(0);" title={'删除'} onClick={() => this.handleDelete(record)}><Icon
-                        type={'delete'}/></a>
-                </span>
-            ),
-        }, {
-            title: `${this.state.title}编号`,
-            dataIndex: 'code'
-        }, {
-            title: `${this.state.title}名称`,
-            dataIndex: 'name'
-        }, {
-            title: '状态',
-            dataIndex: 'active',
-            render: (value, record) => (
-                <Switch checked={value > 0} onChange={(checked) => this.handleActiveChange(checked, record)}/>
-            )
-
-        }];
-
         return (
             <div className={'grid-wrapper'}>
                 <h3>
@@ -128,7 +129,7 @@ class MerchantRdx extends React.Component {
                 </h3>
                 <div>
                     <div>
-                        <Table columns={columns}
+                        <Table columns={this.columns}
                                dataSource={this.props.tableList}
                                pagination={this.props.pagination}
                                loading={this.state.loading}
@@ -148,7 +149,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({...actions}, dispatch)
+    actions: bindActionCreators({...actions, initContact, getContacts}, dispatch)
 });
 const Merchant = connect(mapStateToProps, mapDispatchToProps)(MerchantRdx);
 export default Merchant;
