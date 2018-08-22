@@ -1,5 +1,6 @@
 import axiosUtil from "../../utils/axiosUtil";
 import {message} from "antd";
+import {MAX_SIZE} from "../../utils/constants";
 
 export const types = {
     UNIT_PAGE: 'UNIT_PAGE',
@@ -22,7 +23,7 @@ const UnitEditAction = data => ({
 const getUnits = () => (dispatch) => {
     return axiosUtil.get('/api/unit/page', {
         params: {
-            limit: 100
+            limit: MAX_SIZE
         }
     }).then(data => {
         dispatch({

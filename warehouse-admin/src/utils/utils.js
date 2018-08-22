@@ -1,6 +1,6 @@
 import {Modal} from 'antd';
 
-const showConfirm = (config) => {
+export const showConfirm = (config) => {
     Object.assign(config, {
         okText: '确定',
         cancelText: '取消'
@@ -8,4 +8,4 @@ const showConfirm = (config) => {
     Modal.confirm(config);
 }
 
-export default {showConfirm}
+export const numberOrUndefined = (value) => value > 0 ? value.toString() : undefined;

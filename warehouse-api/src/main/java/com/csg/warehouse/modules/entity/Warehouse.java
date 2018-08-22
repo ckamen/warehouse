@@ -1,9 +1,10 @@
 package com.csg.warehouse.modules.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.annotations.TableLogic;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.csg.warehouse.common.entity.IdEntity;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -26,6 +27,10 @@ public class Warehouse extends IdEntity {
      * 名称
      */
     private String name;
+    /**
+     * 货架数量
+     */
+    private Integer rackNum;
     /**
      * 是否启用,1-启用;0-不启用
      */
@@ -75,6 +80,14 @@ public class Warehouse extends IdEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getRackNum() {
+        return rackNum;
+    }
+
+    public void setRackNum(Integer rackNum) {
+        this.rackNum = rackNum;
     }
 
     public Integer getActive() {
@@ -144,16 +157,17 @@ public class Warehouse extends IdEntity {
     @Override
     public String toString() {
         return "Warehouse{" +
-        ", code=" + code +
-        ", name=" + name +
-        ", active=" + active +
-        ", createdBy=" + createdBy +
-        ", createdTime=" + createdTime +
-        ", updatedBy=" + updatedBy +
-        ", updatedTime=" + updatedTime +
-        ", deletedInd=" + deletedInd +
-        ", deletedBy=" + deletedBy +
-        ", deletedTime=" + deletedTime +
-        "}";
+                ", code=" + code +
+                ", name=" + name +
+                ", active=" + active +
+                ", rackNum=" + rackNum +
+                ", createdBy=" + createdBy +
+                ", createdTime=" + createdTime +
+                ", updatedBy=" + updatedBy +
+                ", updatedTime=" + updatedTime +
+                ", deletedInd=" + deletedInd +
+                ", deletedBy=" + deletedBy +
+                ", deletedTime=" + deletedTime +
+                "}";
     }
 }

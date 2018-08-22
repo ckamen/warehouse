@@ -1,9 +1,10 @@
 package com.csg.warehouse.modules.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.annotations.TableLogic;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.csg.warehouse.common.entity.IdEntity;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -47,17 +48,17 @@ public class ProductWarehouse extends IdEntity {
      */
     private Integer inventory;
     /**
-     * 货架ID
+     * 货架编号
      */
-    private Integer rackId;
+    private String rackCode;
     /**
      * 货架层
      */
-    private String layer;
+    private Integer layerNum;
     /**
      * 位置
      */
-    private String place;
+    private Integer placeNum;
     /**
      * 备注
      */
@@ -149,28 +150,28 @@ public class ProductWarehouse extends IdEntity {
         this.inventory = inventory;
     }
 
-    public Integer getRackId() {
-        return rackId;
+    public String getRackCode() {
+        return rackCode;
     }
 
-    public void setRackId(Integer rackId) {
-        this.rackId = rackId;
+    public void setRackCode(String rackCode) {
+        this.rackCode = rackCode;
     }
 
-    public String getLayer() {
-        return layer;
+    public Integer getLayerNum() {
+        return layerNum;
     }
 
-    public void setLayer(String layer) {
-        this.layer = layer;
+    public void setLayerNum(Integer layerNum) {
+        this.layerNum = layerNum;
     }
 
-    public String getPlace() {
-        return place;
+    public Integer getPlaceNum() {
+        return placeNum;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setPlaceNum(Integer placeNum) {
+        this.placeNum = placeNum;
     }
 
     public String getRemark() {
@@ -247,9 +248,9 @@ public class ProductWarehouse extends IdEntity {
         ", minInventory=" + minInventory +
         ", maxInventory=" + maxInventory +
         ", inventory=" + inventory +
-        ", rackId=" + rackId +
-        ", layer=" + layer +
-        ", place=" + place +
+        ", rackCode=" + rackCode +
+        ", layerNum=" + layerNum +
+        ", placeNum=" + placeNum +
         ", remark=" + remark +
         ", createdBy=" + createdBy +
         ", createdTime=" + createdTime +

@@ -33,7 +33,6 @@ const ContactReducer = (state = initContactState, action) => {
                 record.key = index.toString()
                 return record;
             });
-            console.log(newState.tableList);
             newState.pagination.total = action.data.total;
             newState.pagination.current = action.data.current;
             newState.pagination.pageSize = action.data.size;

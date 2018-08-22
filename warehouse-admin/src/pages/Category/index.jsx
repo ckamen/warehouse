@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table, Icon, Divider, Button, Radio} from 'antd';
+import {Table, Icon, Divider, Button, Radio, Popconfirm} from 'antd';
 
 import './index.css';
 import utils from "../../utils/utils";
@@ -40,8 +40,10 @@ class CategoryRdx extends React.Component {
                     <a href="javascript:void(0);" title={'编辑'} onClick={() => this.handleEdit(record)}><Icon
                         type={'edit'}/></a>
                     <Divider type="vertical"/>
-                    <a href="javascript:void(0);" title={'删除'} onClick={() => this.handleDelete(record)}><Icon
-                        type={'delete'}/></a>
+                     <Popconfirm title="确认删除?" onConfirm={() => this.handleDelete(record)}>
+                        <a href="javascript:void(0);" title={'删除'}>
+                            <Icon type={'delete'}/></a>
+                    </Popconfirm>
                 </span>
             ),
         }, {
@@ -66,16 +68,7 @@ class CategoryRdx extends React.Component {
 
     handleDelete = (record) => {
         let {delCategory} = this.actions;
-        utils.showConfirm({
-            title: '删除确认',
-            content: '确认要删除该类别吗？',
-            onOk() {
-                return new Promise(resolve => {
-                    delCategory(record.key).then(() => resolve());
-                })
-            }
-        });
-
+        delCategory(record.key);
     }
 
     handleEdit = (record) => {

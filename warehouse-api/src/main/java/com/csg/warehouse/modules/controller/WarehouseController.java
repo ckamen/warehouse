@@ -24,7 +24,7 @@ public class WarehouseController extends BaseController {
     @Autowired
     private WarehouseService warehouseService;
 
-    @ModelAttribute("unit")
+    @ModelAttribute("warehouse")
     public Warehouse get(@PathVariable(required = false) Integer id) {
         Warehouse warehouse;
         if (id != null && id > 0) {
@@ -44,7 +44,7 @@ public class WarehouseController extends BaseController {
     @PostMapping("/save/{id}")
     public WebApiResponse save(Warehouse warehouse) {
         warehouseService.save(warehouse);
-        return WebApiResponse.success();
+        return WebApiResponse.success(warehouse);
     }
 
     @DeleteMapping("/delete/{id}")

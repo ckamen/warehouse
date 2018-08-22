@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Form, Input} from 'antd';
+import {Modal, Form, Input, InputNumber} from 'antd';
 
 import './index.css';
 import {saveWarehouse, updateWarehouseModal} from "../../redux/actions/warehouseAction";
@@ -50,7 +50,7 @@ class WarehouseFormRdx extends React.Component {
     }
 
     render() {
-        let {title, visible, confirmLoading, name, code} = this.props.modal;
+        let {title, visible, confirmLoading, name, code, rackNum} = this.props.modal;
         let {getFieldDecorator} = this.props.form;
         return (
             <div>
@@ -80,6 +80,14 @@ class WarehouseFormRdx extends React.Component {
                                 rules: [{required: true, message: '请输入仓库名称'}, {max: 30, message: '仓库名称不能超过30个字符'}],
                             })(
                                 <Input/>
+                            )}
+                        </Form.Item>
+                        <Form.Item label="货架数量" {...formItemLayout}>
+                            {getFieldDecorator('rackNum', {
+                                initialValue: rackNum,
+                                rules: [{required: true, message: '货架数量不能为空'}],
+                            })(
+                                <InputNumber/>
                             )}
                         </Form.Item>
                     </Form>

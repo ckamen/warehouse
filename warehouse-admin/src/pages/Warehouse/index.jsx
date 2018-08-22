@@ -44,13 +44,16 @@ class WarehouseRdx extends React.Component {
                     </Popconfirm>
                 </span>
             ),
-        },  {
+        }, {
             title: '仓库编码',
             dataIndex: 'code'
         }, {
             title: '仓库名称',
             dataIndex: 'name'
-        },{
+        }, {
+            title: '货架数量',
+            dataIndex: 'rackNum'
+        }, {
             title: '状态',
             dataIndex: 'active',
             render: (value, record) => (

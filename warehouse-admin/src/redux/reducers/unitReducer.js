@@ -25,7 +25,7 @@ const UnitReducer = (state = initUnitState, action) => {
             newState.tableList.splice(index, 1, action.data);
             break;
         case types.UNIT_DEL:
-            let tableList = newState.tableList.filter(record => record.id !== action.data);
+            let tableList = newState.tableList.filter(record => record.key !== action.data);
             newState.tableList = tableList;
             break;
         case types.UNIT_MODAL_UPDATE:

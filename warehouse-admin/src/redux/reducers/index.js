@@ -8,6 +8,7 @@ import MerchantReducer from "./merchantReducer";
 import ContactReducer from "./contactReducer";
 import UserReducer from "./userReducer";
 import WarehouseReducer from "./warehouseReducer";
+import ProductReducer from "./productReducer";
 
 const appAllReducers = combineReducers({
     LoginReducer,
@@ -17,7 +18,8 @@ const appAllReducers = combineReducers({
     MerchantReducer,
     ContactReducer,
     UserReducer,
-    WarehouseReducer
+    WarehouseReducer,
+    ProductReducer
 });
 
 export default appAllReducers;

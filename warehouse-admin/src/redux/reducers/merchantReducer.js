@@ -39,7 +39,7 @@ const MerchantReducer = (state = initMerchantState, action) => {
             newState.tableList.splice(index, 1, action.data);
             break;
         case types.MERCHANT_DEL:
-            let tableList = newState.tableList.filter(record => record.id !== action.data);
+            let tableList = newState.tableList.filter(record => record.key !== action.data);
             newState.tableList = tableList;
             break;
         case types.MERCHANT_MODAL_UPDATE:
