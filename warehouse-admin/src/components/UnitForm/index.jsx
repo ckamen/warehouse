@@ -38,6 +38,11 @@ class UnitFormRdx extends React.Component {
         this.props.form.resetFields();
     }
 
+    validateUnique = (rule, value, callback) => {
+        console.log('validateUnique', rule, value, callback);
+
+    }
+
     render() {
         let {title, visible, confirmLoading, id, name} = this.props.modal;
         let {getFieldDecorator} = this.props.form;
@@ -46,7 +51,7 @@ class UnitFormRdx extends React.Component {
                 <Modal
                     okText='确定'
                     cancelText='取消'
-                    width = {400}
+                    width={400}
                     maskClosable={false}
                     title={title}
                     visible={visible}
@@ -65,7 +70,11 @@ class UnitFormRdx extends React.Component {
                         <Form.Item label="名称">
                             {getFieldDecorator('name', {
                                 initialValue: name,
-                                rules: [{required: true, message: '请输入名称'}, {max: 10, message: '名称不能超过10个字符'}],
+                                rules: [{required: true, message: '请输入名称'},
+                                    {max: 10, message: '名称不能超过10个字符'},
+                                    {
+                                        validator: this.validateUnique
+                                    }],
                             })(
                                 <Input/>
                             )}

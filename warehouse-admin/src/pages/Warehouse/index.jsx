@@ -7,6 +7,7 @@ import {bindActionCreators} from "redux";
 import * as actions from "../../redux/actions/warehouseAction";
 import WarehouseForm from "../../components/WarehouseForm";
 import WarehouseModel from "../../model/WarehouseModel";
+import {DEFAULT_PAGE_SIZE} from "../../utils/constants";
 
 class WarehouseRdx extends React.Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class WarehouseRdx extends React.Component {
 
     componentDidMount() {
         let {getWarehouses} = this.actions;
-        getWarehouses(this.props.pagination).then(() => {
+        getWarehouses({...this.props.pagination, pageSize: DEFAULT_PAGE_SIZE}).then(() => {
             this.setState({
                 loading: false
             })

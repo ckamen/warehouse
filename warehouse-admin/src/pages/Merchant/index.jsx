@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as actions from "../../redux/actions/merchantAction";
 import MerchantForm from "../../components/MerchantForm";
-import {SUPPLIER} from "../../utils/constants";
+import {DEFAULT_PAGE_SIZE, SUPPLIER} from "../../utils/constants";
 import {getContacts, initContact} from "../../redux/actions/contactAction";
 
 class MerchantRdx extends React.Component {
@@ -23,7 +23,7 @@ class MerchantRdx extends React.Component {
 
     componentDidMount() {
         let {getMerchants} = this.actions;
-        getMerchants({...this.props.pagination, type: this.props.type}).then(() => {
+        getMerchants({...this.props.pagination, pageSize: DEFAULT_PAGE_SIZE, type: this.props.type}).then(() => {
             this.setState({
                 loading: false
             })

@@ -32,8 +32,8 @@ public class IdEntity implements Serializable {
         this.id = id;
     }
 
-    public Integer getKey() {
-        return id;
+    public String getKey() {
+        return id != null ? id.toString() : "";
     }
 
     /**

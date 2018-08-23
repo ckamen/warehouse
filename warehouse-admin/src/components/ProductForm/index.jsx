@@ -236,7 +236,7 @@ class ProductFormRdx extends React.Component {
                         <Row>
 
                             <Col span={12}>
-                                <Form.Item label="商品数量" {...formItemLayout}>
+                                <Form.Item label="期初数量" {...formItemLayout}>
                                     {getFieldDecorator('prodWh.initQuantity', {
                                         initialValue: numberOrUndefined(prodWh.initQuantity),
                                         rules: [{required: true, message: '请选择商品数量'}],
