@@ -6,11 +6,18 @@ export const types = {
     WAREHOUSING_ADD: 'WAREHOUSING_ADD',
     WAREHOUSING_EDIT: 'WAREHOUSING_EDIT',
     WAREHOUSING_DEL: 'WAREHOUSING_DEL',
+    WAREHOUSING_SELECT_PRODUCT: 'WAREHOUSING_SELECT_PRODUCT',
     WAREHOUSING_MODAL_UPDATE: 'WAREHOUSING_MODAL_UPDATE',
+    WAREHOUSING_EDIT_KEY_UPDATE: 'WAREHOUSING_EDIT_KEY_UPDATE',
 }
 
 export const editWarehousing = data => ({
     type: types.WAREHOUSING_EDIT,
+    data
+});
+
+export const selectProductWarehousing = data => ({
+    type: types.WAREHOUSING_SELECT_PRODUCT,
     data
 });
 
@@ -52,6 +59,13 @@ export const addWarehousing = data => dispatch => (
 export const delWarehousing = data => dispatch => (
     dispatch({
         type: types.WAREHOUSING_DEL
+    })
+)
+
+export const updateWarehousingEditKey = data => dispatch => (
+    dispatch({
+        type: types.WAREHOUSING_EDIT_KEY_UPDATE,
+        data
     })
 )
 

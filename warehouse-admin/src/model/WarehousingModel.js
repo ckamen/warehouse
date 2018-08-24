@@ -13,6 +13,8 @@ const WarehousingModel = {
     supplierName: '',
     specification: '',
     warehouseName: '',
+    unitName: '',
+    maxQuantity: Infinity
 }
 
 export default WarehousingModel;

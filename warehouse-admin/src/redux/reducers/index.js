@@ -9,7 +9,7 @@ import ContactReducer from "./contactReducer";
 import UserReducer from "./userReducer";
 import WarehouseReducer from "./warehouseReducer";
 import ProductReducer from "./productReducer";
-import WarehousingReducer from "./warehousingReducer";
+import WarehousingReducer from "../Warehousing/warehousingReducer";
 
 const appAllReducers = combineReducers({
     LoginReducer,

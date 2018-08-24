@@ -11,6 +11,7 @@ import {getMerchants} from "../../redux/actions/merchantAction";
 import {getUnits} from "../../redux/actions/unitAction";
 import {getWarehouses} from "../../redux/actions/warehouseAction";
 import {numberOrUndefined} from "../../utils/utils";
+import {ISelect} from "../Commons";
 
 const {Option} = Select;
 
@@ -25,19 +26,7 @@ const formItemLayout = {
     },
 };
 
-class ISelect extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
-    render() {
-        return <Select {...this.props} dropdownStyle={{maxHeight: 400, overflow: 'auto'}}>
-            {
-                this.props.data.map(d => <Option key={d.id} record={d}>{d.name}</Option>)
-            }
-        </Select>
-    }
-}
 
 class ProductFormRdx extends React.Component {
 

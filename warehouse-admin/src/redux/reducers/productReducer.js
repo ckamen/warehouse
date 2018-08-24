@@ -1,12 +1,13 @@
 import {types} from "../actions/productAction";
 import * as _ from 'lodash';
 import {ProductModel} from "../../model/ProductModel";
+import {DEFAULT_PAGE_SIZE} from "../../utils/constants";
 
 const initProductState = {
     tableList: [],
     pagination: {
         current: 1,
-        pageSize: 10,
+        pageSize: DEFAULT_PAGE_SIZE,
         total: 0,
         showSizeChanger: true,
         showQuickJumper: true
@@ -17,7 +18,11 @@ const initProductState = {
         confirmLoading: false,
         ...ProductModel
     },
-    racks: []
+    racks: [],
+    selectableModal: {
+        visible: false,
+        title: '选择商品'
+    }
 }
 const ProductReducer = (state = initProductState, action) => {
     let newState = _.merge({}, state);
@@ -41,6 +46,9 @@ const ProductReducer = (state = initProductState, action) => {
             break;
         case types.PRODUCT_MODAL_UPDATE:
             _.merge(newState, {modal: action.data});
+            break;
+        case types.PRODUCT_SELECT_MODAL_UPDATE:
+            _.merge(newState, {selectableModal: action.data});
             break;
         case types.PRODUCT_RACKS_UPDATE:
             let rackNum = action.data;

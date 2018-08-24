@@ -2,7 +2,9 @@ import React from "react";
 import {Table, Input, Button, Popconfirm, Form, Icon, Select, InputNumber} from 'antd';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import * as actions from "../../redux/actions/warehousingAction";
+import * as actions from "../../redux/Warehousing/warehousingAction";
+import ProductSelectableTable from "../../components/ProductSelectableTable";
+import {updateProductSelectModal} from "../../redux/actions/productAction";
 
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
@@ -51,24 +53,27 @@ class EditableCell extends React.Component {
         });
     }
 
-    handleSelectProduct = (e) => {
-        console.log('handleSelectProduct', e);
+    handleClick = (e) => {
+        console.log('handleSelectProduct', e, this);
         e.stopPropagation();
         e.preventDefault();
+        let {record, handleSelectProduct} = this.props;
+        handleSelectProduct(record);
+        this.setState({editing: false});
     }
 
     getInput = (value, record, editorType) => {
         if (editorType === 'select') {
             return (
-                <Input ref={node => (this.input = node)} onPressEnter={this.handleSave}
+                <Input ref={node => (this.input = node)} onPressEnter={this.handleSave} disabled={true}
                        onBlur={(e) => {
                            e.stopPropagation();
                            e.preventDefault();
                        }}
-                       addonAfter={<Icon type="plus" onClick={this.handleSelectProduct}/>}/>
+                       addonAfter={<Icon type="plus" onClick={this.handleClick}/>}/>
             )
         } else if (editorType === 'number') {
-            return <InputNumber ref={node => (this.input = node)} onPressEnter={this.handleSave}/>;
+            return <InputNumber ref={node => (this.input = node)} min={1} max={record.maxQuantity} onPressEnter={this.handleSave}/>;
         }
         return <Input ref={node => (this.input = node)} onPressEnter={this.handleSave}/>;
     };
@@ -83,6 +88,7 @@ class EditableCell extends React.Component {
             editorType,
             index,
             handleEdit,
+            handleSelectProduct,
             ...restProps
         } = this.props;
         return (
@@ -127,6 +133,9 @@ class WarehousingTableRdx extends React.Component {
     constructor(props) {
         super(props);
         this.actions = this.props.actions;
+        this.state = {
+            productTable: null
+        }
         this.buildColumns();
     }
 
@@ -168,6 +177,9 @@ class WarehousingTableRdx extends React.Component {
         }, {
             title: '仓库',
             dataIndex: 'warehouseName',
+        },{
+            title: '单位',
+            dataIndex: 'unitName',
         }, {
             title: <span><span style={{color: 'red'}}>*</span>{'数量'}</span>,
             dataIndex: 'quantity',
@@ -198,6 +210,20 @@ class WarehousingTableRdx extends React.Component {
         editWarehousing(record);
     }
 
+    handleSelectProduct = (record) => {
+        console.log('handleSelectProduct', record);
+
+        this.setState({
+            productTable: <ProductSelectableTable/>
+        })
+
+        let {updateProductSelectModal, updateWarehousingEditKey: updateWarehousingEditKey} = this.actions;
+        updateProductSelectModal({
+            visible: true
+        });
+        updateWarehousingEditKey(record.key);
+    }
+
     render() {
         const {tableList} = this.props;
         const components = {
@@ -219,6 +245,7 @@ class WarehousingTableRdx extends React.Component {
                     title: col.title,
                     editorType: col.editorType,
                     handleEdit: this.handleEdit,
+                    handleSelectProduct: this.handleSelectProduct
                 }),
             };
         });
@@ -232,6 +259,9 @@ class WarehousingTableRdx extends React.Component {
                     dataSource={tableList}
                     columns={columns}
                 />
+                <div>
+                    {this.state.productTable}
+                </div>
             </div>
         );
     }
@@ -243,7 +273,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({...actions}, dispatch)
+    actions: bindActionCreators({...actions, updateProductSelectModal}, dispatch)
 });
 const WarehousingTable = connect(mapStateToProps, mapDispatchToProps)(WarehousingTableRdx);
 export default WarehousingTable;

@@ -8,6 +8,7 @@ export const types = {
     PRODUCT_DEL: 'PRODUCT_DEL',
     PRODUCT_MODAL_UPDATE: 'PRODUCT_MODAL_UPDATE',
     PRODUCT_RACKS_UPDATE: 'PRODUCT_RACKS_UPDATE',
+    PRODUCT_SELECT_MODAL_UPDATE: 'PRODUCT_SELECT_MODAL_UPDATE',
 }
 
 const productAddAction = data => ({
@@ -63,6 +64,11 @@ export const delProduct = (id) => (dispatch) => {
 
 export const updateProductModal = data => dispatch => (dispatch({
     type: types.PRODUCT_MODAL_UPDATE,
+    data
+}));
+
+export const updateProductSelectModal = data => dispatch => (dispatch({
+    type: types.PRODUCT_SELECT_MODAL_UPDATE,
     data
 }));
 

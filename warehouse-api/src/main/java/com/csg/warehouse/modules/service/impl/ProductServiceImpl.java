@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,7 +52,8 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
 
     @Override
     public Page<Product> selectPage(Page<Product> page, Map<String, String> params) {
-        page = super.selectPage(page);
+        List<Product> products = this.baseMapper.findPage(page, params);
+        page.setRecords(products);
         if (CollectionUtils.isNotEmpty(page.getRecords())) {
             for (Product p : page.getRecords()) {
                 buildExtra(p);

@@ -4,7 +4,7 @@ import {Table, Icon, Divider, Button, Switch, Popconfirm, DatePicker} from 'antd
 import './index.css';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import * as actions from "../../redux/actions/warehousingAction";
+import * as actions from "../../redux/Warehousing/warehousingAction";
 import WarehousingTable from "../../components/WarehousingTable";
 import moment from "moment";
 import {DATE_FORMAT} from "../../utils/constants";
