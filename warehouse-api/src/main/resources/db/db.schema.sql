@@ -300,10 +300,13 @@ CREATE TABLE t_warehouse
 CREATE TABLE t_warehousing
 (
 	id int NOT NULL AUTO_INCREMENT COMMENT 'id',
+  code varchar(100) DEFAULT '' NOT NULL COMMENT '编码',
+  product_id int DEFAULT -1 NOT NULL COMMENT '商品ID',
 	action tinyint DEFAULT -1 NOT NULL COMMENT '出库/入库, 1-出库;2-入库',
-	quantity int DEFAULT -1 NOT NULL COMMENT '数量',
+	quantity int DEFAULT 0 NOT NULL COMMENT '数量',
 	warehouse_id int DEFAULT -1 NOT NULL COMMENT '仓库ID',
 	merchant_id int DEFAULT -1 NOT NULL COMMENT '供应商/客户ID',
+  receipt_date date COMMENT '单据日期',
 	created_by int DEFAULT -1 NOT NULL COMMENT '创建人',
 	created_time datetime  COMMENT '创建时间',
   updated_by int DEFAULT -1 NOT NULL COMMENT '更新人',
@@ -311,6 +314,7 @@ CREATE TABLE t_warehousing
   deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
   deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
   deleted_time datetime COMMENT '删除时间',
+  remark varchar(200) COMMENT '备注',
 	PRIMARY KEY (id)
 ) COMMENT = '出库入库记录表';
 

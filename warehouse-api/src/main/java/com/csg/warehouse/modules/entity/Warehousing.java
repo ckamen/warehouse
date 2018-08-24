@@ -1,9 +1,10 @@
 package com.csg.warehouse.modules.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.annotations.TableLogic;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.csg.warehouse.common.entity.IdEntity;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -17,6 +18,16 @@ import com.csg.warehouse.common.entity.IdEntity;
 public class Warehousing extends IdEntity {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 编码
+     */
+    private String code;
+
+    /**
+     * 商品ID
+     */
+    private Integer productId;
 
     /**
      * 出库/入库, 1-出库;2-入库
@@ -34,6 +45,14 @@ public class Warehousing extends IdEntity {
      * 供应商/客户ID
      */
     private Integer merchantId;
+    /**
+     * 单据日期
+     */
+    private Date receiptDate;
+    /**
+     * 备注
+     */
+    private String remark;
     /**
      * 创建人
      */
@@ -153,20 +172,56 @@ public class Warehousing extends IdEntity {
         this.deletedTime = deletedTime;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
+
+    public Date getReceiptDate() {
+        return receiptDate;
+    }
+
+    public void setReceiptDate(Date receiptDate) {
+        this.receiptDate = receiptDate;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     @Override
     public String toString() {
         return "Warehousing{" +
-        ", action=" + action +
-        ", quantity=" + quantity +
-        ", warehouseId=" + warehouseId +
-        ", merchantId=" + merchantId +
-        ", createdBy=" + createdBy +
-        ", createdTime=" + createdTime +
-        ", updatedBy=" + updatedBy +
-        ", updatedTime=" + updatedTime +
-        ", deletedInd=" + deletedInd +
-        ", deletedBy=" + deletedBy +
-        ", deletedTime=" + deletedTime +
-        "}";
+                ", action=" + action +
+                ", code=" + code +
+                ", productId=" + productId +
+                ", quantity=" + quantity +
+                ", warehouseId=" + warehouseId +
+                ", merchantId=" + merchantId +
+                ", remark=" + remark +
+                ", receiptDate=" + receiptDate +
+                ", createdBy=" + createdBy +
+                ", createdTime=" + createdTime +
+                ", updatedBy=" + updatedBy +
+                ", updatedTime=" + updatedTime +
+                ", deletedInd=" + deletedInd +
+                ", deletedBy=" + deletedBy +
+                ", deletedTime=" + deletedTime +
+                "}";
     }
 }
