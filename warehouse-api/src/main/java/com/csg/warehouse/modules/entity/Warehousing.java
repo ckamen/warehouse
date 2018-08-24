@@ -3,6 +3,7 @@ package com.csg.warehouse.modules.entity;
 import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.csg.warehouse.common.entity.IdEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Date;
 
@@ -14,6 +15,7 @@ import java.util.Date;
  * @author kamen
  * @since 2018-04-10
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 @TableName("t_warehousing")
 public class Warehousing extends IdEntity {
 

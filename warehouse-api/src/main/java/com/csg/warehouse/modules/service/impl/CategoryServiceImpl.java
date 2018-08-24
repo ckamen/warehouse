@@ -30,13 +30,13 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, Categor
     private CategoryRelationService categoryRelationService;
 
     public void save(Category category) {
-        if (isValidId(category)) {
-            if (isValidId(category.getParent())) {
+        if (isValidEntityId(category)) {
+            if (isValidEntityId(category.getParent())) {
                 CategoryRelation param = new CategoryRelation();
                 param.setChildId(category.getId());
                 param.setParentInd(true);
                 CategoryRelation parentRelation = categoryRelationService.selectOne(new EntityWrapper<>(param));
-                if (isValidId(parentRelation) && parentRelation.getParentId().equals(category.getParent().getId())) {
+                if (isValidEntityId(parentRelation) && parentRelation.getParentId().equals(category.getParent().getId())) {
                 } else {
                     categoryRelationService.deleteByChildId(category.getId());
                 }
@@ -54,7 +54,7 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, Categor
     }
 
     private void insertRelations(Category category) {
-        if (isValidId(category.getParent())) {
+        if (isValidEntityId(category.getParent())) {
             CategoryRelation param = new CategoryRelation();
             param.setChildId(category.getParent().getId());
 

@@ -1,7 +1,9 @@
 package com.csg.warehouse.modules.service;
 
-import com.csg.warehouse.modules.entity.Warehousing;
 import com.csg.warehouse.common.service.BaseService;
+import com.csg.warehouse.modules.entity.Warehousing;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.csg.warehouse.common.service.BaseService;
  */
 public interface WarehousingService extends BaseService<Warehousing> {
 
+    void saveBatch(List<Warehousing> warehousings);
 }

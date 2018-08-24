@@ -9,9 +9,11 @@ export const types = {
     WAREHOUSING_SELECT_PRODUCT: 'WAREHOUSING_SELECT_PRODUCT',
     WAREHOUSING_MODAL_UPDATE: 'WAREHOUSING_MODAL_UPDATE',
     WAREHOUSING_EDIT_KEY_UPDATE: 'WAREHOUSING_EDIT_KEY_UPDATE',
+    WAREHOUSING_SAVE_BATCH: 'WAREHOUSING_SAVE_BATCH',
+    WAREHOUSING_RESET: 'WAREHOUSING_RESET',
 }
 
-export const editWarehousing = data => ({
+export const editWarehousing = data => dispatch => dispatch({
     type: types.WAREHOUSING_EDIT,
     data
 });
@@ -35,10 +37,13 @@ export const getWarehousings = (pager) => (dispatch) => {
     })
 };
 
-export const saveWarehousing = ({id, ...rest}) => (dispatch) => {
-    return axiosUtil.post(`/api/warehousing/save/${id}`, {id, ...rest})
+export const saveBatchWarehousing = (records) => (dispatch) => {
+    return axiosUtil.post(`/api/warehousing/save-batch`, {'jsonStr': JSON.stringify(records)})
         .then(data => {
-            dispatch(editWarehousing(data));
+            dispatch({
+                type: types.WAREHOUSING_RESET,
+                data
+            });
 
             message.success('保存成功');
             return Promise.resolve();
@@ -58,13 +63,21 @@ export const addWarehousing = data => dispatch => (
 
 export const delWarehousing = data => dispatch => (
     dispatch({
-        type: types.WAREHOUSING_DEL
+        type: types.WAREHOUSING_DEL,
+        data
     })
 )
 
 export const updateWarehousingEditKey = data => dispatch => (
     dispatch({
         type: types.WAREHOUSING_EDIT_KEY_UPDATE,
+        data
+    })
+)
+
+export const resetWarehousing = data => dispatch => (
+    dispatch({
+        type: types.WAREHOUSING_RESET,
         data
     })
 )

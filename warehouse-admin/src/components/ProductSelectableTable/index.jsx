@@ -15,7 +15,6 @@ class ProductSelectableTableRdx extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log('ProductSelectableTableRdx', this.props);
         this.actions = this.props.actions;
         this.state = {
             loading: false,
@@ -74,6 +73,10 @@ class ProductSelectableTableRdx extends React.Component {
             updateProductSelectModal({
                 visible: false
             });
+            this.setState({
+                selectedRowKeys: []
+            });
+            this.props.form.resetFields();
         } else {
             message.warning('请选择一种商品');
         }
@@ -84,6 +87,7 @@ class ProductSelectableTableRdx extends React.Component {
         updateProductSelectModal({
             visible: false
         });
+        this.props.form.resetFields();
     }
 
     handleTableChange = (pagination, filters, sorter) => {
@@ -99,12 +103,10 @@ class ProductSelectableTableRdx extends React.Component {
     }
 
     handleSelectChange = (selectedRowKeys) => {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
         this.setState({selectedRowKeys});
     }
 
     handleWarehouseChange = (value, option) => {
-        console.log('handleWarehouseChange', value, option);
         this.setState({
             loading: true
         })

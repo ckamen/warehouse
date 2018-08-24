@@ -5,6 +5,7 @@ import {bindActionCreators} from "redux";
 import * as actions from "../../redux/Warehousing/warehousingAction";
 import ProductSelectableTable from "../../components/ProductSelectableTable";
 import {updateProductSelectModal} from "../../redux/actions/productAction";
+import {OUT} from "../../utils/constants";
 
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
@@ -29,9 +30,6 @@ class EditableCell extends React.Component {
     }
 
     openEdit = (e) => {
-        console.log('openEdit', this.input, this.state);
-        console.log(this.cell, e.target);
-        const editing = this.state.editing;
         if (this.cell === e.target || this.cell.contains(e.target)) {
             this.setState({editing: true}, () => {
                 if (this.input) {
@@ -44,17 +42,18 @@ class EditableCell extends React.Component {
 
     handleSave = () => {
         const {record, editorType, handleEdit} = this.props;
-        this.form.validateFields((error, values) => {
-            if (error) {
-                return;
-            }
-            this.setState({editing: false});
-            handleEdit({...record, ...values});
-        });
+        if(this.form) {
+            this.form.validateFields((error, values) => {
+                if (error) {
+                    return;
+                }
+                this.setState({editing: false});
+                handleEdit({...record, ...values});
+            });
+        }
     }
 
     handleClick = (e) => {
-        console.log('handleSelectProduct', e, this);
         e.stopPropagation();
         e.preventDefault();
         let {record, handleSelectProduct} = this.props;
@@ -62,8 +61,8 @@ class EditableCell extends React.Component {
         this.setState({editing: false});
     }
 
-    getInput = (value, record, editorType) => {
-        if (editorType === 'select') {
+    getInput = (value, record, editorType, whAction) => {
+        if (editorType === 'productSelect') {
             return (
                 <Input ref={node => (this.input = node)} onPressEnter={this.handleSave} disabled={true}
                        onBlur={(e) => {
@@ -73,7 +72,8 @@ class EditableCell extends React.Component {
                        addonAfter={<Icon type="plus" onClick={this.handleClick}/>}/>
             )
         } else if (editorType === 'number') {
-            return <InputNumber ref={node => (this.input = node)} min={1} max={record.maxQuantity} onPressEnter={this.handleSave}/>;
+            return <InputNumber ref={node => (this.input = node)} min={1} onPressEnter={this.handleSave}
+                                max={whAction === OUT ? record.maxQuantity : Infinity}/>;
         }
         return <Input ref={node => (this.input = node)} onPressEnter={this.handleSave}/>;
     };
@@ -86,6 +86,7 @@ class EditableCell extends React.Component {
             title,
             record,
             editorType,
+            whAction,
             index,
             handleEdit,
             handleSelectProduct,
@@ -108,7 +109,7 @@ class EditableCell extends React.Component {
                                             }],
                                             initialValue: record[dataIndex],
                                         })(
-                                            this.getInput(record[dataIndex], record, editorType)
+                                            this.getInput(record[dataIndex], record, editorType, whAction)
                                         )}
                                     </FormItem>
                                 ) : (
@@ -133,6 +134,7 @@ class WarehousingTableRdx extends React.Component {
     constructor(props) {
         super(props);
         this.actions = this.props.actions;
+        this.whAction = this.props.whAction;
         this.state = {
             productTable: null
         }
@@ -167,7 +169,7 @@ class WarehousingTableRdx extends React.Component {
             title: <span><span style={{color: 'red'}}>*</span>{'商品编码'}</span>,
             dataIndex: 'productCode',
             editable: true,
-            editorType: 'select'
+            editorType: 'productSelect'
         }, {
             title: '供应商',
             dataIndex: 'supplierName',
@@ -177,7 +179,7 @@ class WarehousingTableRdx extends React.Component {
         }, {
             title: '仓库',
             dataIndex: 'warehouseName',
-        },{
+        }, {
             title: '单位',
             dataIndex: 'unitName',
         }, {
@@ -193,26 +195,21 @@ class WarehousingTableRdx extends React.Component {
     }
 
     handleDelete = (key) => {
-        console.log('handleDelete', key);
         let {delWarehousing} = this.actions;
         delWarehousing(key);
     }
 
     handleAdd = () => {
-        console.log('handleAdd');
         let {addWarehousing} = this.actions;
         addWarehousing();
     }
 
     handleEdit = (record) => {
-        console.log('handleEdit', record);
         let {editWarehousing} = this.actions;
         editWarehousing(record);
     }
 
     handleSelectProduct = (record) => {
-        console.log('handleSelectProduct', record);
-
         this.setState({
             productTable: <ProductSelectableTable/>
         })
@@ -244,6 +241,7 @@ class WarehousingTableRdx extends React.Component {
                     dataIndex: col.dataIndex,
                     title: col.title,
                     editorType: col.editorType,
+                    whAction: this.whAction,
                     handleEdit: this.handleEdit,
                     handleSelectProduct: this.handleSelectProduct
                 }),

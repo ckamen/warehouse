@@ -1,12 +1,13 @@
 import {types} from "./warehousingAction";
 import * as _ from 'lodash';
 import WarehousingModel from "../../model/WarehousingModel";
+import {DEFAULT_CURRENT, DEFAULT_PAGE_SIZE} from "../../utils/constants";
 
 const initWarehousingState = {
     tableList: [{...WarehousingModel}, {...WarehousingModel, key: '1'}],
     pagination: {
-        current: 1,
-        pageSize: 10,
+        current: DEFAULT_CURRENT,
+        pageSize: DEFAULT_PAGE_SIZE,
         total: 0,
         showSizeChanger: true,
         showQuickJumper: true
@@ -38,11 +39,15 @@ const WarehousingReducer = (state = initWarehousingState, action) => {
             let index = newState.tableList.findIndex(record => record.key === action.data.key);
             newState.tableList.splice(index, 1, action.data);
             break;
+        case types.WAREHOUSING_SAVE_BATCH:
+            for(let i=0; i<newState.tableList.length; i++) {
+                newState.tableList[i].id = action.data[i].id;
+            }
+            break;
         case types.WAREHOUSING_SELECT_PRODUCT: {
             let product = action.data;
             let index = newState.tableList.findIndex(record => record.key === product.key);
             let record = newState.tableList[index];
-            console.log(action.data);
             record.productCode = product.code;
             record.supplierName = product.supplierName;
             record.specification = product.specification;
@@ -65,6 +70,9 @@ const WarehousingReducer = (state = initWarehousingState, action) => {
             break;
         case types.WAREHOUSING_EDIT_KEY_UPDATE:
             newState.editKey = action.data;
+            break;
+        case types.WAREHOUSING_RESET:
+            newState = initWarehousingState;
             break;
     }
     return newState;

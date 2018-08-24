@@ -9,7 +9,7 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends IdEntity> extend
 
     @Override
     public void save(T entity) {
-        if(isValidId(entity)) {
+        if(isValidEntityId(entity)) {
             this.updateById(entity);
         } else {
             this.insert(entity);
@@ -17,7 +17,12 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends IdEntity> extend
     }
 
     @Override
-    public boolean isValidId(IdEntity idEntity) {
+    public boolean isValidId(Integer id) {
+        return id != null && id > 0;
+    }
+
+    @Override
+    public boolean isValidEntityId(IdEntity idEntity) {
         return idEntity != null && idEntity.getId() != null && idEntity.getId() > 0;
     }
 }

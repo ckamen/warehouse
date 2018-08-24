@@ -6,8 +6,13 @@ import com.csg.warehouse.common.controller.BaseController;
 import com.csg.warehouse.core.web.WebApiResponse;
 import com.csg.warehouse.modules.entity.Warehousing;
 import com.csg.warehouse.modules.service.WarehousingService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * <p>
@@ -45,6 +50,16 @@ public class WarehousingController extends BaseController {
     public WebApiResponse save(Warehousing warehousing) {
         warehousingService.save(warehousing);
         return WebApiResponse.success(warehousing);
+    }
+
+    @PostMapping("/save-batch")
+    public WebApiResponse saveBatch(String jsonStr) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        List<Warehousing> warehousings = mapper.readValue(jsonStr,
+                new TypeReference<List<Warehousing>>() {
+                });
+        warehousingService.saveBatch(warehousings);
+        return WebApiResponse.success(warehousings);
     }
 
     @DeleteMapping("/delete/{id}")

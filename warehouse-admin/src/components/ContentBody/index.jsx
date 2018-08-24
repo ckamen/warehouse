@@ -11,7 +11,8 @@ import Client from "../../pages/Merchant/client";
 import User from "../../pages/User";
 import Warehouse from "../../pages/Warehouse";
 import Product from "../../pages/Product";
-import Warehousing from "../../pages/Warehousing";
+import WarehousingIn from "../../pages/Warehousing/in";
+import WarehousingOut from "../../pages/Warehousing/out";
 
 const {Content} = Layout;
 
@@ -26,8 +27,8 @@ const ContentBody = ({match}) =>{
                     <Route path={`${match.url}/user`} component={User}/>
                     <Route path={`${match.url}/product`} component={Product}/>
                     <Route path={`${match.url}/warehouse`} component={Warehouse}/>
-                    <Route path={`${match.url}/warehousing-in`} component={Warehousing}/>
-                    <Route path={`${match.url}/warehousing-out`} component={Warehousing}/>
+                    <Route path={`${match.url}/warehousing-in`} component={WarehousingIn}/>
+                    <Route path={`${match.url}/warehousing-out`} component={WarehousingOut}/>
                     <Route path={`${match.url}/merchant/client`} component={Client}/>
                     <Route path={`${match.url}/merchant/supplier`} component={Supplier}/>
                     <Route path={`${match.url}/`} component={Home}/>
