@@ -7,7 +7,7 @@ import {bindActionCreators} from "redux";
 import * as actions from "../../redux/Warehousing/warehousingAction";
 import WarehousingTable from "../../components/WarehousingTable";
 import moment from "moment";
-import {CLIENT, DATE_FORMAT, DEFAULT_CURRENT, DEFAULT_PAGE_SIZE, IN, MAX_SIZE, OUT} from "../../utils/constants";
+import {CLIENT, DATE_FORMAT, DEFAULT_CURRENT, DEFAULT_PAGE_SIZE, MAX_SIZE, OUT} from "../../utils/constants";
 import {getProducts} from "../../redux/Product/productAction";
 import {ISelect} from "../../components/Commons";
 import {getMerchants} from "../../redux/Merchant/merchantAction";

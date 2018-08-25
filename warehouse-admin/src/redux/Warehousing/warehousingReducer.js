@@ -55,7 +55,7 @@ const WarehousingReducer = (state = initWarehousingState, action) => {
             record.warehouseName = product.warehouseName;
             record.productId = product.id;
             record.warehouseId = product.preferredWarehouseId;
-            if(record.action == IN) {
+            if(record.action === IN) {
                 record.merchantId = product.supplierId;
             }
             record.unitName = product.unitName;

@@ -2,7 +2,6 @@ import React from 'react';
 import {Table, Icon, Divider, Button, Radio, Popconfirm} from 'antd';
 
 import './index.css';
-import utils from "../../utils/utils";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 

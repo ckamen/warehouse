@@ -27,7 +27,6 @@ const formItemLayout = {
 };
 
 
-
 class ProductFormRdx extends React.Component {
 
     constructor(props) {
@@ -126,7 +125,7 @@ class ProductFormRdx extends React.Component {
     }
 
     parseCode(code) {
-        if(code) {
+        if (code) {
             let params = code.split('-');
             this.codeModel.supplierCode = params[0];
             this.codeModel.categoryCode = params[1];
@@ -139,10 +138,10 @@ class ProductFormRdx extends React.Component {
 
     render() {
         let {
-            title, visible, confirmLoading, id, name, code, categoryId, supplierId, parameter, device, remark,
-            barCode, specification, unitId, preferredWarehouseId, prodWh
+            title, visible, confirmLoading, id, code, categoryId, supplierId, parameter, device, remark,
+            specification, unitId, preferredWarehouseId, prodWh
         } = this.props.modal;
-        if(id > 0) {
+        if (id > 0) {
             this.parseCode(code);
         }
         let {getFieldDecorator} = this.props.form;
@@ -158,7 +157,7 @@ class ProductFormRdx extends React.Component {
                     confirmLoading={confirmLoading}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
-                    afterClose={()=>{
+                    afterClose={() => {
                         this.codeModel = {
                             supplierCode: '',
                             categoryCode: '',

@@ -40,7 +40,7 @@ class BrandFormRdx extends React.Component {
     }
 
     render() {
-        let {title, visible, confirmLoading, id, name, code} = this.props.modal;
+        let {title, visible, confirmLoading, name, code} = this.props.modal;
         let {getFieldDecorator} = this.props.form;
         return (
             <div>

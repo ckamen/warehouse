@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Form, Input, TreeSelect, Row, Col, Table, Icon} from 'antd';
+import {Modal, Form, Input, TreeSelect, Row, Col} from 'antd';
 
 import './index.css';
 import * as actions from "../../redux/Merchant/merchantAction";

@@ -1,5 +1,5 @@
 import React from "react";
-import {Table, Input, Button, Popconfirm, Form, Icon, Select, InputNumber} from 'antd';
+import {Table, Input,  Popconfirm, Form, Icon, InputNumber} from 'antd';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as actions from "../../redux/Warehousing/warehousingAction";
