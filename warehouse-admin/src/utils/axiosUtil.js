@@ -3,7 +3,7 @@ import * as Qs from "qs";
 import {message} from "antd";
 
 const axiosUtil = axios.create({
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-access-token': sessionStorage.getItem('token')},
     transformRequest: data => Qs.stringify(data, {allowDots: true})
 });
 

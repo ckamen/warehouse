@@ -1,6 +1,13 @@
 package com.csg.warehouse.core.interceptor;
 
+import com.csg.warehouse.common.Constants;
+import com.csg.warehouse.modules.entity.User;
 import com.csg.warehouse.modules.service.UserService;
+import com.csg.warehouse.utils.JwtUtils;
+import com.csg.warehouse.utils.StringUtils;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jws;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +28,7 @@ public class OauthInterceptor implements HandlerInterceptor {
         if (request.getMethod().equals("OPTIONS")) {
             return true;
         }
-        /*if (request.getHeader(Constants.AUTHORIZATION) == null) {
+        if (request.getHeader(Constants.AUTHORIZATION) == null) {
             httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }
@@ -42,7 +49,7 @@ public class OauthInterceptor implements HandlerInterceptor {
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
-        httpServletResponse.sendError(HttpServletResponse.SC_FORBIDDEN);*/
-        return true;
+        httpServletResponse.sendError(HttpServletResponse.SC_FORBIDDEN);
+        return false;
     }
 }
