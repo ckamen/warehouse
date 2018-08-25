@@ -2,14 +2,14 @@ import React from 'react';
 import {Modal, Form, Input, Row, Col, TreeSelect, Select, InputNumber} from 'antd';
 
 import './index.css';
-import {saveProduct, updateProductModal, updateRacks} from "../../redux/actions/productAction";
+import {saveProduct, updateProductModal, updateRacks} from "../../redux/Product/productAction";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {getCategories} from "../../redux/actions/categoryAction";
+import {getCategories} from "../../redux/Category/categoryAction";
 import {MAX_SIZE, SUPPLIER} from "../../utils/constants";
-import {getMerchants} from "../../redux/actions/merchantAction";
-import {getUnits} from "../../redux/actions/unitAction";
-import {getWarehouses} from "../../redux/actions/warehouseAction";
+import {getMerchants} from "../../redux/Merchant/merchantAction";
+import {getUnits} from "../../redux/Unit/unitAction";
+import {getWarehouses} from "../../redux/Warehouse/warehouseAction";
 import {numberOrUndefined} from "../../utils/utils";
 import {ISelect} from "../Commons";
 

@@ -2,7 +2,7 @@ import React from "react";
 import {Table, Input, Button, Popconfirm, Form, Icon, Select} from 'antd';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import * as actions from "../../redux/actions/contactAction";
+import * as actions from "../../redux/Contact/contactAction";
 
 const FormItem = Form.Item;
 const EditableContext = React.createContext();

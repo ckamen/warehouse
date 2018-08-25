@@ -4,10 +4,10 @@ import {Table, Icon, Divider, Button, Switch, Popconfirm} from 'antd';
 import './index.css';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import * as actions from "../../redux/actions/merchantAction";
+import * as actions from "../../redux/Merchant/merchantAction";
 import MerchantForm from "../../components/MerchantForm";
 import {DEFAULT_PAGE_SIZE, SUPPLIER} from "../../utils/constants";
-import {getContacts, initContact} from "../../redux/actions/contactAction";
+import {getContacts, initContact} from "../../redux/Contact/contactAction";
 
 class MerchantRdx extends React.Component {
     constructor(props) {

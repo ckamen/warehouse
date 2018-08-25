@@ -5,7 +5,7 @@ import './index.css';
 import utils from "../../utils/utils";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {delUnit, getUnits, updateUnitModal} from "../../redux/actions/unitAction";
+import {delUnit, getUnits, updateUnitModal} from "../../redux/Unit/unitAction";
 import UnitForm from "../../components/UnitForm";
 
 class UnitRdx extends React.Component {

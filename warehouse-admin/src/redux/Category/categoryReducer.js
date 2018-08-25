@@ -1,4 +1,4 @@
-import {types} from "../actions/categoryAction";
+import {types} from "./categoryAction";
 import * as _ from 'lodash';
 import {MAX_SIZE} from "../../utils/constants";
 import CategoryModel from "../../model/CategoryModel";

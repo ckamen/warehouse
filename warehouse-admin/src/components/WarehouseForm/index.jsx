@@ -2,7 +2,7 @@ import React from 'react';
 import {Modal, Form, Input, InputNumber} from 'antd';
 
 import './index.css';
-import {saveWarehouse, updateWarehouseModal} from "../../redux/actions/warehouseAction";
+import {saveWarehouse, updateWarehouseModal} from "../../redux/Warehouse/warehouseAction";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 

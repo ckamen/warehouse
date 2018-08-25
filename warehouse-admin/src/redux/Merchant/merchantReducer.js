@@ -1,8 +1,7 @@
-import {types} from "../actions/userAction";
+import {types} from "./merchantAction";
 import * as _ from 'lodash';
-import UserModel from "../../model/UserModel";
 
-const initUserState = {
+const initMerchantState = {
     tableList: [],
     pagination: {
         current: 1,
@@ -13,36 +12,41 @@ const initUserState = {
     },
     modal: {
         visible: false,
-        title: '创建用户',
+        title: '创建',
         confirmLoading: false,
-        ...UserModel
+
+        id: -1,
+        code: '',
+        name: '',
+        categoryId: undefined,
+        remark: ''
     }
 }
-const UserReducer = (state = initUserState, action) => {
+const MerchantReducer = (state = initMerchantState, action) => {
     let newState = _.merge({}, state);
     switch (action.type) {
-        case types.USER_PAGE:
+        case types.MERCHANT_PAGE:
             newState.tableList = action.data.records;
             newState.pagination.total = action.data.total;
             newState.pagination.current = action.data.current;
             newState.pagination.pageSize = action.data.size;
             break;
-        case types.USER_ADD:
+        case types.MERCHANT_ADD:
             newState.tableList.splice(0, 0, action.data);
             break;
-        case types.USER_EDIT:
+        case types.MERCHANT_EDIT:
             let index = newState.tableList.findIndex(record => record.id === action.data.id);
             newState.tableList.splice(index, 1, action.data);
             break;
-        case types.USER_DEL:
+        case types.MERCHANT_DEL:
             let tableList = newState.tableList.filter(record => record.key !== action.data);
             newState.tableList = tableList;
             break;
-        case types.USER_MODAL_UPDATE:
+        case types.MERCHANT_MODAL_UPDATE:
             _.merge(newState, {modal: action.data});
             break;
     }
     return newState;
 };
 
-export default UserReducer;
+export default MerchantReducer;

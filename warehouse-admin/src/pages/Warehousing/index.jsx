@@ -8,16 +8,15 @@ import * as actions from "../../redux/Warehousing/warehousingAction";
 import WarehousingTable from "../../components/WarehousingTable";
 import moment from "moment";
 import {CLIENT, DATE_FORMAT, DEFAULT_CURRENT, DEFAULT_PAGE_SIZE, IN, MAX_SIZE, OUT} from "../../utils/constants";
-import {getProducts} from "../../redux/actions/productAction";
+import {getProducts} from "../../redux/Product/productAction";
 import {ISelect} from "../../components/Commons";
-import {getMerchants} from "../../redux/actions/merchantAction";
+import {getMerchants} from "../../redux/Merchant/merchantAction";
 
 class WarehousingRdx extends React.Component {
     constructor(props) {
         super(props);
         this.actions = this.props.actions;
         this.whAction = this.props.whAction;
-        this.receiptDate = moment().format(DATE_FORMAT);
     }
 
     componentDidMount() {
@@ -62,12 +61,6 @@ class WarehousingRdx extends React.Component {
         });
     }
 
-    handleDateChange = (date, dateStr) => {
-        console.log('handleDateChange', date, dateStr);
-        this.receiptDate = dateStr;
-        console.log(this.receiptDate);
-    }
-
     render() {
         let {getFieldDecorator} = this.props.form;
         return (
@@ -91,8 +84,7 @@ class WarehousingRdx extends React.Component {
                                     initialValue: moment(),
                                     rules: [{required: true, message: '请输入单据日期'}],
                                 })(
-                                    <DatePicker format={DATE_FORMAT} allowClear={false}
-                                                onChange={this.handleDateChange}/>
+                                    <DatePicker format={DATE_FORMAT} allowClear={false} />
                                 )}
                             </Form.Item>
                         </Form>

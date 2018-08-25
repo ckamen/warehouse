@@ -79,7 +79,6 @@ const WarehousingReducer = (state = initWarehousingState, action) => {
             newState.tableList.forEach(record => {
                 record.action = action.data.action;
             });
-            console.log(newState.tableList);
             break;
     }
     return newState;

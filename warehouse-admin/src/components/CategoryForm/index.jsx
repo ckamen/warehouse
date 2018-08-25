@@ -2,7 +2,7 @@ import React from 'react';
 import {Modal, Form, Input, TreeSelect} from 'antd';
 
 import './index.css';
-import * as actions from "../../redux/actions/categoryAction";
+import * as actions from "../../redux/Category/categoryAction";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 

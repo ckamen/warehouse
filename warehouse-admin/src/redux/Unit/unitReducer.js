@@ -1,4 +1,4 @@
-import {types} from "../actions/unitAction";
+import {types} from "./unitAction";
 import * as _ from 'lodash';
 
 const initUnitState = {

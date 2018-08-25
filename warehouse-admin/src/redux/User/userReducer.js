@@ -1,8 +1,8 @@
-import {types} from "../actions/warehouseAction";
+import {types} from "./userAction";
 import * as _ from 'lodash';
-import WarehouseModel from "../../model/WarehouseModel";
+import UserModel from "../../model/UserModel";
 
-const initWarehouseState = {
+const initUserState = {
     tableList: [],
     pagination: {
         current: 1,
@@ -13,36 +13,36 @@ const initWarehouseState = {
     },
     modal: {
         visible: false,
-        title: '创建仓库',
+        title: '创建用户',
         confirmLoading: false,
-        ...WarehouseModel
+        ...UserModel
     }
 }
-const WarehouseReducer = (state = initWarehouseState, action) => {
+const UserReducer = (state = initUserState, action) => {
     let newState = _.merge({}, state);
     switch (action.type) {
-        case types.WAREHOUSE_PAGE:
+        case types.USER_PAGE:
             newState.tableList = action.data.records;
             newState.pagination.total = action.data.total;
             newState.pagination.current = action.data.current;
             newState.pagination.pageSize = action.data.size;
             break;
-        case types.WAREHOUSE_ADD:
+        case types.USER_ADD:
             newState.tableList.splice(0, 0, action.data);
             break;
-        case types.WAREHOUSE_EDIT:
+        case types.USER_EDIT:
             let index = newState.tableList.findIndex(record => record.id === action.data.id);
             newState.tableList.splice(index, 1, action.data);
             break;
-        case types.WAREHOUSE_DEL:
+        case types.USER_DEL:
             let tableList = newState.tableList.filter(record => record.key !== action.data);
             newState.tableList = tableList;
             break;
-        case types.WAREHOUSE_MODAL_UPDATE:
+        case types.USER_MODAL_UPDATE:
             _.merge(newState, {modal: action.data});
             break;
     }
     return newState;
 };
 
-export default WarehouseReducer;
+export default UserReducer;

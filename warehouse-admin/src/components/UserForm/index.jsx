@@ -2,7 +2,7 @@ import React from 'react';
 import {Modal, Form, Input} from 'antd';
 
 import './index.css';
-import {saveUser, updateUserModal} from "../../redux/actions/userAction";
+import {saveUser, updateUserModal} from "../../redux/User/userAction";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 

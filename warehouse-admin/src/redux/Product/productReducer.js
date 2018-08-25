@@ -1,4 +1,4 @@
-import {types} from "../actions/productAction";
+import {types} from "./productAction";
 import * as _ from 'lodash';
 import {ProductModel} from "../../model/ProductModel";
 import {DEFAULT_PAGE_SIZE} from "../../utils/constants";

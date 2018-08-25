@@ -4,7 +4,7 @@ import {Table, Icon, Divider, Button, Switch, Popconfirm} from 'antd';
 import './index.css';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import * as actions from "../../redux/actions/brandAction";
+import * as actions from "../../redux/Brand/brandAction";
 import BrandForm from "../../components/BrandForm";
 
 class BrandRdx extends React.Component {

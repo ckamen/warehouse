@@ -4,10 +4,10 @@ import {Modal, Form, Input, Row, Col, Button, Table, message} from 'antd';
 import './index.css';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {getProducts, updateProductSelectModal} from "../../redux/actions/productAction";
+import {getProducts, updateProductSelectModal} from "../../redux/Product/productAction";
 import {ISelect} from "../Commons";
 import {MAX_SIZE} from "../../utils/constants";
-import {getWarehouses} from "../../redux/actions/warehouseAction";
+import {getWarehouses} from "../../redux/Warehouse/warehouseAction";
 import {selectProductWarehousing} from "../../redux/Warehousing/warehousingAction";
 
 

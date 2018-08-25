@@ -4,7 +4,7 @@ import {Table, Icon, Divider, Button, Switch, Popconfirm} from 'antd';
 import './index.css';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import * as actions from "../../redux/actions/warehouseAction";
+import * as actions from "../../redux/Warehouse/warehouseAction";
 import WarehouseForm from "../../components/WarehouseForm";
 import WarehouseModel from "../../model/WarehouseModel";
 import {DEFAULT_PAGE_SIZE} from "../../utils/constants";

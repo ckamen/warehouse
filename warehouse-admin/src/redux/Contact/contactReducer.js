@@ -1,4 +1,4 @@
-import {types} from "../actions/contactAction";
+import {types} from "./contactAction";
 import * as _ from 'lodash';
 
 const initContactState = {

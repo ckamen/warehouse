@@ -1,7 +1,8 @@
-import {types} from "../actions/brandAction";
+import {types} from "../Warehouse/warehouseAction";
 import * as _ from 'lodash';
+import WarehouseModel from "../../model/WarehouseModel";
 
-const initBrandState = {
+const initWarehouseState = {
     tableList: [],
     pagination: {
         current: 1,
@@ -12,39 +13,36 @@ const initBrandState = {
     },
     modal: {
         visible: false,
-        title: '创建品牌',
+        title: '创建仓库',
         confirmLoading: false,
-        id: -1,
-        code: '',
-        name: '',
-        active: 1
+        ...WarehouseModel
     }
 }
-const BrandReducer = (state = initBrandState, action) => {
+const WarehouseReducer = (state = initWarehouseState, action) => {
     let newState = _.merge({}, state);
     switch (action.type) {
-        case types.BRAND_PAGE:
+        case types.WAREHOUSE_PAGE:
             newState.tableList = action.data.records;
             newState.pagination.total = action.data.total;
             newState.pagination.current = action.data.current;
             newState.pagination.pageSize = action.data.size;
             break;
-        case types.BRAND_ADD:
+        case types.WAREHOUSE_ADD:
             newState.tableList.splice(0, 0, action.data);
             break;
-        case types.BRAND_EDIT:
+        case types.WAREHOUSE_EDIT:
             let index = newState.tableList.findIndex(record => record.id === action.data.id);
             newState.tableList.splice(index, 1, action.data);
             break;
-        case types.BRAND_DEL:
+        case types.WAREHOUSE_DEL:
             let tableList = newState.tableList.filter(record => record.key !== action.data);
             newState.tableList = tableList;
             break;
-        case types.BRAND_MODAL_UPDATE:
+        case types.WAREHOUSE_MODAL_UPDATE:
             _.merge(newState, {modal: action.data});
             break;
     }
     return newState;
 };
 
-export default BrandReducer;
+export default WarehouseReducer;

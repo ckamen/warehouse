@@ -1,4 +1,4 @@
-import {types} from '../actions/loginAction';
+import {types} from './loginAction';
 
 const initUserState = {
     LoginUser: {

@@ -2,7 +2,7 @@ import React from 'react';
 import {Modal, Form, Input} from 'antd';
 
 import './index.css';
-import {saveBrand, updateBrandModal} from "../../redux/actions/brandAction";
+import {saveBrand, updateBrandModal} from "../../redux/Brand/brandAction";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 

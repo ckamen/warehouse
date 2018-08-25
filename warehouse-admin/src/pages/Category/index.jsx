@@ -6,7 +6,7 @@ import utils from "../../utils/utils";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 
-import * as actions from "../../redux/actions/categoryAction";
+import * as actions from "../../redux/Category/categoryAction";
 import CategoryForm from "../../components/CategoryForm";
 import CategoryModel from "../../model/CategoryModel";
 

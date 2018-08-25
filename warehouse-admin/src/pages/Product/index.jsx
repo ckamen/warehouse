@@ -4,7 +4,7 @@ import {Table, Icon, Divider, Button, Switch, Popconfirm} from 'antd';
 import './index.css';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import * as actions from "../../redux/actions/productAction";
+import * as actions from "../../redux/Product/productAction";
 import ProductForm from "../../components/ProductForm";
 import {ProductModel} from "../../model/ProductModel";
 

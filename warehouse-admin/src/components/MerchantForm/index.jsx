@@ -2,10 +2,10 @@ import React from 'react';
 import {Modal, Form, Input, TreeSelect, Row, Col, Table, Icon} from 'antd';
 
 import './index.css';
-import * as actions from "../../redux/actions/merchantAction";
+import * as actions from "../../redux/Merchant/merchantAction";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {getCategories} from "../../redux/actions/categoryAction";
+import {getCategories} from "../../redux/Category/categoryAction";
 import {MAX_SIZE} from "../../utils/constants";
 import ContactTable from "../ContactTable";
 

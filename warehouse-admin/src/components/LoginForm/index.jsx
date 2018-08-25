@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import './index.css';
-import {login} from "../../redux/actions/loginAction";
+import {login} from "../../redux/Login/loginAction";
 
 
 class LoginFormRedux extends React.Component {

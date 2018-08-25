@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as actions from "../../redux/Warehousing/warehousingAction";
 import ProductSelectableTable from "../../components/ProductSelectableTable";
-import {updateProductSelectModal} from "../../redux/actions/productAction";
+import {updateProductSelectModal} from "../../redux/Product/productAction";
 import {OUT} from "../../utils/constants";
 
 const FormItem = Form.Item;

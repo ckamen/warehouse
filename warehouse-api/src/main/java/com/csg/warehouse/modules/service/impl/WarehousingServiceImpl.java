@@ -45,6 +45,8 @@ public class WarehousingServiceImpl extends BaseServiceImpl<WarehousingMapper, W
                     } else {
                         pw.setInventory(pw.getInventory() - wh.getQuantity());
                     }
+                    wh.setInventory(pw.getInventory());
+                    super.updateById(wh);
 
                     productWarehouseService.save(pw);
                 }
