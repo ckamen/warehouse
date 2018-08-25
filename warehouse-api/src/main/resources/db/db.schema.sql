@@ -304,6 +304,7 @@ CREATE TABLE t_warehousing
   product_id int DEFAULT -1 NOT NULL COMMENT '商品ID',
 	action tinyint DEFAULT -1 NOT NULL COMMENT '出库/入库, 1-出库;2-入库',
 	quantity int DEFAULT 0 NOT NULL COMMENT '数量',
+  inventory int DEFAULT 0 NOT NULL COMMENT '出库入库后的库存',
 	warehouse_id int DEFAULT -1 NOT NULL COMMENT '仓库ID',
 	merchant_id int DEFAULT -1 NOT NULL COMMENT '供应商/客户ID',
   receipt_date date COMMENT '单据日期',

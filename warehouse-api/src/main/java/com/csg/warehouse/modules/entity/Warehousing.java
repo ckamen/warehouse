@@ -15,7 +15,7 @@ import java.util.Date;
  * @author kamen
  * @since 2018-04-10
  */
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @TableName("t_warehousing")
 public class Warehousing extends IdEntity {
 
@@ -39,6 +39,10 @@ public class Warehousing extends IdEntity {
      * 数量
      */
     private Integer quantity;
+    /**
+     * 出库入库后的库存
+     */
+    private Integer inventory;
     /**
      * 仓库ID
      */
@@ -85,6 +89,13 @@ public class Warehousing extends IdEntity {
      */
     private Date deletedTime;
 
+    public Integer getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Integer inventory) {
+        this.inventory = inventory;
+    }
 
     public Integer getAction() {
         return action;
@@ -213,6 +224,7 @@ public class Warehousing extends IdEntity {
                 ", code=" + code +
                 ", productId=" + productId +
                 ", quantity=" + quantity +
+                ", inventory=" + inventory +
                 ", warehouseId=" + warehouseId +
                 ", merchantId=" + merchantId +
                 ", remark=" + remark +

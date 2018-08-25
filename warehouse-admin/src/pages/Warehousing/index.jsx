@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table, Icon, Divider, Button, Switch, Popconfirm, DatePicker} from 'antd';
+import {Button, DatePicker, Form, message} from 'antd';
 
 import './index.css';
 import {connect} from "react-redux";
@@ -7,8 +7,10 @@ import {bindActionCreators} from "redux";
 import * as actions from "../../redux/Warehousing/warehousingAction";
 import WarehousingTable from "../../components/WarehousingTable";
 import moment from "moment";
-import {DATE_FORMAT, DEFAULT_CURRENT, DEFAULT_PAGE_SIZE} from "../../utils/constants";
+import {CLIENT, DATE_FORMAT, DEFAULT_CURRENT, DEFAULT_PAGE_SIZE, IN, MAX_SIZE, OUT} from "../../utils/constants";
 import {getProducts} from "../../redux/actions/productAction";
+import {ISelect} from "../../components/Commons";
+import {getMerchants} from "../../redux/actions/merchantAction";
 
 class WarehousingRdx extends React.Component {
     constructor(props) {
@@ -20,21 +22,44 @@ class WarehousingRdx extends React.Component {
 
     componentDidMount() {
         let {resetWarehousing} = this.actions;
-        resetWarehousing();
+        resetWarehousing({action: this.whAction});
+
+        if (this.whAction === OUT) {
+            let {getMerchants} = this.actions;
+            getMerchants({pageSize: MAX_SIZE, type: CLIENT});
+        }
     }
 
     handleSave = () => {
-        let records = this.props.tableList;
-        if (records.length > 0) {
-            for (let record of records) {
-                record.action = this.whAction;
-                record.receiptDate = this.receiptDate;
+        let form = this.props.form;
+        form.validateFields((err, values) => {
+            if (err) {
+                return;
             }
-            let {saveBatchWarehousing, getProducts} = this.actions;
-            saveBatchWarehousing(records).then(() => {
-                getProducts({current: DEFAULT_CURRENT, pageSize: DEFAULT_PAGE_SIZE})
-            });
-        }
+            console.log('handleSave', values);
+            let records = this.props.tableList;
+            if (records.length > 0) {
+                let {clientId, receiptDate} = values;
+                let isValidProductId = false;
+                for (let record of records) {
+                    record.receiptDate = receiptDate.format(DATE_FORMAT);
+                    if (this.whAction === OUT) {
+                        record.merchantId = clientId;
+                    }
+                    if(record.productId && record.productId > 0) {
+                        isValidProductId = true;
+                    }
+                }
+                if(isValidProductId) {
+                    let {saveBatchWarehousing, getProducts} = this.actions;
+                    saveBatchWarehousing(records).then(() => {
+                        getProducts({current: DEFAULT_CURRENT, pageSize: DEFAULT_PAGE_SIZE})
+                    });
+                } else {
+                    message.error('请至少选择一种商品');
+                }
+            }
+        });
     }
 
     handleDateChange = (date, dateStr) => {
@@ -44,13 +69,33 @@ class WarehousingRdx extends React.Component {
     }
 
     render() {
+        let {getFieldDecorator} = this.props.form;
         return (
             <div className={'grid-wrapper'}>
                 <h3>
                     <div>
-                        <span style={{fontWeight: 'normal', fontSize: '14px'}}>单据日期：</span>
-                        <DatePicker defaultValue={moment()} format={DATE_FORMAT} allowClear={false}
-                                    onChange={this.handleDateChange}/>
+                        <Form layout={'inline'}>
+                            {
+                                this.whAction === OUT ? (
+                                    <Form.Item label="使用站点">
+                                        {getFieldDecorator('clientId', {
+                                            rules: [{required: true, message: '请选择使用站点'}],
+                                        })(
+                                            <ISelect data={this.props.clients} style={{width: 160}}/>
+                                        )}
+                                    </Form.Item>
+                                ) : null
+                            }
+                            <Form.Item label="单据日期">
+                                {getFieldDecorator('receiptDate', {
+                                    initialValue: moment(),
+                                    rules: [{required: true, message: '请输入单据日期'}],
+                                })(
+                                    <DatePicker format={DATE_FORMAT} allowClear={false}
+                                                onChange={this.handleDateChange}/>
+                                )}
+                            </Form.Item>
+                        </Form>
                     </div>
                     <Button type="primary" onClick={this.handleSave}>保存</Button>
                 </h3>
@@ -64,11 +109,13 @@ class WarehousingRdx extends React.Component {
 
 const mapStateToProps = state => ({
     tableList: state.WarehousingReducer.tableList,
-    pagination: state.WarehousingReducer.pagination
+    pagination: state.WarehousingReducer.pagination,
+    clients: state.MerchantReducer.tableList
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({...actions, getProducts}, dispatch)
+    actions: bindActionCreators({...actions, getProducts, getMerchants}, dispatch)
 });
 const Warehousing = connect(mapStateToProps, mapDispatchToProps)(WarehousingRdx);
-export default Warehousing;
+export default Form.create()(Warehousing);
+;

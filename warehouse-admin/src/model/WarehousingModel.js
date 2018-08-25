@@ -5,6 +5,7 @@ const WarehousingModel = {
     productId: -1,
     action: -1,
     quantity: '',
+    inventory: 0,
     warehouseId: -1,
     merchantId: -1,
     receiptDate: null,

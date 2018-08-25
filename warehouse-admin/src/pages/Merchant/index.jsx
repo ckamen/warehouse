@@ -15,7 +15,7 @@ class MerchantRdx extends React.Component {
         this.actions = this.props.actions;
         this.state = {
             loading: true,
-            title: this.props.type === SUPPLIER ? '供应商' : '客户',
+            title: this.props.type === SUPPLIER ? '供应商' : '站点',
             modalForm: null
         }
         this.buildColumns();

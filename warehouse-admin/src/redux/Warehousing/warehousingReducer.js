@@ -1,7 +1,7 @@
 import {types} from "./warehousingAction";
 import * as _ from 'lodash';
 import WarehousingModel from "../../model/WarehousingModel";
-import {DEFAULT_CURRENT, DEFAULT_PAGE_SIZE} from "../../utils/constants";
+import {DEFAULT_CURRENT, DEFAULT_PAGE_SIZE, IN} from "../../utils/constants";
 
 const initWarehousingState = {
     tableList: [{...WarehousingModel}, {...WarehousingModel, key: '1'}],
@@ -40,7 +40,7 @@ const WarehousingReducer = (state = initWarehousingState, action) => {
             newState.tableList.splice(index, 1, action.data);
             break;
         case types.WAREHOUSING_SAVE_BATCH:
-            for(let i=0; i<newState.tableList.length; i++) {
+            for (let i = 0; i < newState.tableList.length; i++) {
                 newState.tableList[i].id = action.data[i].id;
             }
             break;
@@ -48,13 +48,16 @@ const WarehousingReducer = (state = initWarehousingState, action) => {
             let product = action.data;
             let index = newState.tableList.findIndex(record => record.key === product.key);
             let record = newState.tableList[index];
+            console.log('WAREHOUSING_SELECT_PRODUCT', record);
             record.productCode = product.code;
             record.supplierName = product.supplierName;
             record.specification = product.specification;
             record.warehouseName = product.warehouseName;
             record.productId = product.id;
             record.warehouseId = product.preferredWarehouseId;
-            record.merchantId = product.supplierId;
+            if(record.action == IN) {
+                record.merchantId = product.supplierId;
+            }
             record.unitName = product.unitName;
             record.quantity = 1;
             record.maxQuantity = product.prodWh.inventory;
@@ -73,6 +76,10 @@ const WarehousingReducer = (state = initWarehousingState, action) => {
             break;
         case types.WAREHOUSING_RESET:
             newState = initWarehousingState;
+            newState.tableList.forEach(record => {
+                record.action = action.data.action;
+            });
+            console.log(newState.tableList);
             break;
     }
     return newState;

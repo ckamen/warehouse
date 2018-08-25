@@ -110,7 +110,7 @@ class CategoryRdx extends React.Component {
                         <span style={{fontWeight: 'normal', fontSize: '14px'}}>类别：</span>
                         <Radio.Group value={this.props.selectedType} onChange={this.handleRadioChange}>
                             <Radio.Button value="1">供应商</Radio.Button>
-                            <Radio.Button value="2">客户</Radio.Button>
+                            <Radio.Button value="2">站点</Radio.Button>
                             <Radio.Button value="3">商品</Radio.Button>
                         </Radio.Group>
                     </div>
