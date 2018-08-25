@@ -17,7 +17,6 @@ const LoginReducer = (state = initUserState, action) => {
         case types.LOGIN_OUT:
            break;
     }
-    console.log(action);
     return newState;
 };
 

@@ -1,0 +1,28 @@
+.header-div {
+    background: #ffffff;
+    padding: 0;
+}
+
+
+.header-div .userprofile-div {
+    margin-right: 20px;
+    float: right;
+}
+
+.header-div .userprofile-div .userprofile-help {
+    width: 5rem;
+}
+
+.header-div .userprofile-div .userprofile-content {
+    width: 7.5rem;
+    display: flex;
+    /* justify-content: space-around; */
+}
+
+.header-div .userprofile-div .userprofile-username {
+    margin-left: 0.3125rem;
+}
+
+.header-div .userprofile-div .userprofile-signout {
+    margin-left: 0.625rem;
+}

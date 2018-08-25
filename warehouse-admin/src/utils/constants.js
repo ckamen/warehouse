@@ -9,3 +9,6 @@ export const OUT = 1;
 export const IN = 2;
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
+
+export const AJAX_SUCCESS = 0;
+export const AJAX_ERROR = 1;

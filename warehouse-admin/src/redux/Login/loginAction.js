@@ -1,5 +1,6 @@
 import message from "antd/es/message/index";
 import axiosUtil from "../../utils/axiosUtil";
+import {AJAX_SUCCESS} from "../../utils/constants";
 
 export const types = {
     LOGIN_IN: 'LOGIN_IN',
@@ -12,18 +13,20 @@ const loginAction = data => ({
 });
 export const login = ({username, password}) => (dispatch) => {
     return axiosUtil.post('/login', {username, password})
-        .then(data => {
-            console.log('hereee');
-            sessionStorage.setItem('username', username);
-            sessionStorage.setItem('token', data.token);
-            dispatch(
-                loginAction({
-                    username: username,
-                    token: data.token
-                })
-            );
-            message.success('登陆成功');
-            return Promise.resolve();
+        .then(result => {
+            if (result.code === AJAX_SUCCESS) {
+                let token = result.data.token;
+                sessionStorage.setItem('username', username);
+                sessionStorage.setItem('token', token);
+                dispatch(
+                    loginAction({
+                        username: username,
+                        token: token
+                    })
+                );
+                message.success('登陆成功');
+            }
+            return Promise.resolve(result);
         })
         .catch(error => {
             console.log(error);
