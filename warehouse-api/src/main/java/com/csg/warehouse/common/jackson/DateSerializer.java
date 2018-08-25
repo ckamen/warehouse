@@ -16,7 +16,7 @@ public class DateSerializer extends JsonSerializer<Date> {
             // 这里判断只根据年月日做判断，忽略时间部分
             gen.writeString("");
         } else {
-            gen.writeString(DateUtils.formatTimestamp(value));
+            gen.writeString(DateUtils.formatDatetime(value));
         }
     }
 }

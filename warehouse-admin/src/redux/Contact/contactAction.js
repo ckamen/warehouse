@@ -21,10 +21,10 @@ export const getContacts = (pager) => (dispatch) => {
             ...pager,
             pageSize: MAX_SIZE
         }
-    }).then(data => {
+    }).then(result => {
         dispatch({
             type: types.CONTACT_PAGE,
-            data: data
+            data: result.data
         });
         return Promise.resolve();
     })

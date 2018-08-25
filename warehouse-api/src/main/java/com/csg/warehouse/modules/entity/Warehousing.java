@@ -1,11 +1,15 @@
 package com.csg.warehouse.modules.entity;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.csg.warehouse.common.entity.IdEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Date;
+
+import static com.csg.warehouse.utils.DateUtils.DEFAULT_DATE_PATTEN;
 
 /**
  * <p>
@@ -88,6 +92,19 @@ public class Warehousing extends IdEntity {
      * 删除时间
      */
     private Date deletedTime;
+
+
+    @TableField(exist = false)
+    private String warehouseName;
+
+    @TableField(exist = false)
+    private String merchantName;
+
+    @TableField(exist = false)
+    private String productCode;
+
+    @TableField(exist = false)
+    private String createdByName;
 
     public Integer getInventory() {
         return inventory;
@@ -201,6 +218,7 @@ public class Warehousing extends IdEntity {
         this.productId = productId;
     }
 
+    @JsonFormat(pattern = DEFAULT_DATE_PATTEN)
     public Date getReceiptDate() {
         return receiptDate;
     }
@@ -215,6 +233,38 @@ public class Warehousing extends IdEntity {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getWarehouseName() {
+        return warehouseName;
+    }
+
+    public void setWarehouseName(String warehouseName) {
+        this.warehouseName = warehouseName;
+    }
+
+    public String getMerchantName() {
+        return merchantName;
+    }
+
+    public void setMerchantName(String merchantName) {
+        this.merchantName = merchantName;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public String getCreatedByName() {
+        return createdByName;
+    }
+
+    public void setCreatedByName(String createdByName) {
+        this.createdByName = createdByName;
     }
 
     @Override

@@ -13,7 +13,7 @@ axiosUtil.interceptors.response.use(function (response) {
         if (response.data.code > 0) {
             message.warn(response.data.message);
         }
-        return response.data.data;
+        return response.data;
     } else {
         message.error('请求遇到服务器错误');
         console.error(response);

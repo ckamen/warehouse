@@ -16,6 +16,7 @@ buildscript {
         simpleImageVersion = '1.2.3'
         poiVersion = '3.17'
         jacksonVersion = '2.9.5'
+        jwtVersion = "0.9.0"
 
         // Apache Commons
         commonsIoVersion = '2.6'
@@ -101,6 +102,7 @@ dependencies {
     compile("org.jdom:jdom2")
     compile("joda-time:joda-time")
     compile("com.google.code.gson:gson")
+    compile("io.jsonwebtoken:jjwt:${jwtVersion}")
     compile("org.json:json:${jsonVersion}")
     compile("com.google.guava:guava:${guavaVersion}")
     compile("com.fasterxml.jackson.core:jackson-core:${jacksonVersion}")

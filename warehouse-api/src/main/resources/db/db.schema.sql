@@ -273,6 +273,7 @@ CREATE TABLE t_user
   deleted_ind tinyint DEFAULT 0 COMMENT '是否已删除,1-是;0-否',
   deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
   deleted_time datetime COMMENT '删除时间',
+  last_access_time datetime COMMENT '最近访问时间',
 	PRIMARY KEY (id)
 ) COMMENT = '用户表';
 

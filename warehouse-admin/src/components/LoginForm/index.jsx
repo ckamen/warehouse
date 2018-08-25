@@ -8,7 +8,7 @@ import './index.css';
 import {login} from "../../redux/Login/loginAction";
 
 
-class LoginFormRedux extends React.Component {
+class LoginFormRdx extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -86,14 +86,14 @@ class LoginFormRedux extends React.Component {
 }
 
 
-LoginFormRedux.propTypes = {
+LoginFormRdx.propTypes = {
     actions: PropTypes.shape({
         login: PropTypes.func.isRequired,
     }).isRequired,
 };
 
 const mapStateToProps = state => ({
-    loginUser: state.LoginReducer
+    loginUser: state.LoginReducer.loginUser
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -101,7 +101,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-const LoginFormAntd = connect(mapStateToProps, mapDispatchToProps)(LoginFormRedux);
-const LoginForm = Form.create()(LoginFormAntd);
-
-export default LoginForm;
+const LoginForm = connect(mapStateToProps, mapDispatchToProps)(LoginFormRdx);
+export default Form.create()(LoginForm);

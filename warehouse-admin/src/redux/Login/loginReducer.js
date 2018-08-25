@@ -1,29 +1,24 @@
 import {types} from './loginAction';
+import * as _ from "lodash";
 
 const initUserState = {
-    LoginUser: {
+    loginUser: {
         username: '',
         token: ''
     }
 };
 
 const LoginReducer = (state = initUserState, action) => {
+    let newState = _.merge({}, state);
     switch (action.type) {
         case types.LOGIN_IN:
-            return Object.assign(
-                {},
-                ...state,
-                action.data,
-            );
+            newState.loginUser = action.data;
+            break;
         case types.LOGIN_OUT:
-            return Object.assign(
-                {},
-                ...state,
-                action.data,
-            );
-        default:
-            return state;
+           break;
     }
+    console.log(action);
+    return newState;
 };
 
 export default LoginReducer;

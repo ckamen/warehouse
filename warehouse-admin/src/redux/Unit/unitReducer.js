@@ -15,7 +15,7 @@ const UnitReducer = (state = initUnitState, action) => {
     let newState = _.merge({}, state);
     switch (action.type) {
         case types.UNIT_PAGE:
-            newState.tableList = action.data;
+            newState.tableList = action.data.records;
             break;
         case types.UNIT_ADD:
             newState.tableList.splice(0, 0, action.data);

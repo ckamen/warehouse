@@ -13,6 +13,8 @@ import Warehouse from "../../pages/Warehouse";
 import Product from "../../pages/Product";
 import WarehousingIn from "../../pages/Warehousing/in";
 import WarehousingOut from "../../pages/Warehousing/out";
+import WarehousingInHistory from "../../pages/Warehousing/History/in";
+import WarehousingOutHistory from "../../pages/Warehousing/History/out";
 
 const {Content} = Layout;
 
@@ -27,8 +29,10 @@ const ContentBody = ({match}) =>{
                     <Route path={`${match.url}/user`} component={User}/>
                     <Route path={`${match.url}/product`} component={Product}/>
                     <Route path={`${match.url}/warehouse`} component={Warehouse}/>
-                    <Route path={`${match.url}/warehousing-in`} component={WarehousingIn}/>
-                    <Route path={`${match.url}/warehousing-out`} component={WarehousingOut}/>
+                    <Route path={`${match.url}/warehousing/in`} component={WarehousingIn}/>
+                    <Route path={`${match.url}/warehousing/in-history`} component={WarehousingInHistory}/>
+                    <Route path={`${match.url}/warehousing/out`} component={WarehousingOut}/>
+                    <Route path={`${match.url}/warehousing/out-history`} component={WarehousingOutHistory}/>
                     <Route path={`${match.url}/merchant/client`} component={Client}/>
                     <Route path={`${match.url}/merchant/supplier`} component={Supplier}/>
                     <Route path={`${match.url}/`} component={Home}/>

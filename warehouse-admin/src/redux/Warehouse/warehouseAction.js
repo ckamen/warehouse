@@ -24,10 +24,10 @@ export const getWarehouses = (pager) => (dispatch) => {
         params: {
             ...pager
         }
-    }).then(data => {
+    }).then(result => {
         dispatch({
             type: types.WAREHOUSE_PAGE,
-            data: data
+            data: result.data
         });
         return Promise.resolve();
     })
@@ -35,11 +35,11 @@ export const getWarehouses = (pager) => (dispatch) => {
 
 export const saveWarehouse = ({id, ...rest}) => (dispatch) => {
     return axiosUtil.post(`/api/warehouse/save/${id}`, {id, ...rest})
-        .then(data => {
+        .then(result => {
             if (id > 0) {
-                dispatch(warehouseEditAction(data));
+                dispatch(warehouseEditAction(result.data));
             } else {
-                dispatch(warehouseAddAction(data));
+                dispatch(warehouseAddAction(result.data));
             }
             message.success('保存成功');
             return Promise.resolve();

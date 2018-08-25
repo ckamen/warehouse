@@ -26,10 +26,10 @@ export const getProducts = (pager) => (dispatch) => {
         params: {
             ...pager
         }
-    }).then(data => {
+    }).then(result => {
         dispatch({
             type: types.PRODUCT_PAGE,
-            data: data
+            data: result.data
         });
         return Promise.resolve();
     })
@@ -37,11 +37,11 @@ export const getProducts = (pager) => (dispatch) => {
 
 export const saveProduct = ({id, ...rest}) => (dispatch) => {
     return axiosUtil.post(`/api/product/save/${id}`, {id, ...rest})
-        .then(data => {
+        .then(result => {
             if (id > 0) {
-                dispatch(productEditAction(data));
+                dispatch(productEditAction(result.data));
             } else {
-                dispatch(productAddAction(data));
+                dispatch(productAddAction(result.data));
             }
             message.success('保存成功');
             return Promise.resolve();

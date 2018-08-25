@@ -5,4 +5,39 @@
     <!-- 开启二级缓存 -->
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
+    <select id="findPage" resultType="com.csg.warehouse.modules.entity.Warehousing">
+        select
+        w.*,
+        w2.name 'warehouseName',
+        m.name 'merchantName',
+        p.code 'productCode'
+        from t_warehousing w left join t_warehouse w2 on w.warehouse_id = w2.id
+        left join t_merchant m on w.merchant_id = m.id
+        left join t_product p on w.product_id = p.id
+        where w.deleted_ind = 0
+        <if test="action != null and action > 0">
+            and w.action = #{action}
+        </if>
+        <if test="warehouseId != null and warehouseId > 0">
+            and w.warehouse_id = #{warehouseId}
+        </if>
+        <if test="merchantId != null and merchantId > 0">
+            and w.merchant_id = #{merchantId}
+        </if>
+        <if test="productId != null and productId > 0">
+            and w.product_id = #{productId}
+        </if>
+        <if test="code != null and code != ''">
+            and w.code = #{code}
+        </if>
+        <if test=" receiptDate != null">
+            and w.receipt_date = #{receiptDate}
+        </if>
+        <if test=" merchantName != null and merchantName != ''">
+            and upper(m.name) like concat('%', #{merchantName}, '%')
+        </if>
+        <if test=" productCode != null and productCode != ''">
+            and upper(p.code) like concat('%', #{productCode}, '%')
+        </if>
+    </select>
 </mapper>

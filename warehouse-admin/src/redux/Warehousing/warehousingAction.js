@@ -28,10 +28,10 @@ export const getWarehousings = (pager) => (dispatch) => {
         params: {
             ...pager
         }
-    }).then(data => {
+    }).then(result => {
         dispatch({
             type: types.WAREHOUSING_PAGE,
-            data: data
+            data: result.data
         });
         return Promise.resolve();
     })
@@ -39,10 +39,10 @@ export const getWarehousings = (pager) => (dispatch) => {
 
 export const saveBatchWarehousing = (records) => (dispatch) => {
     return axiosUtil.post(`/api/warehousing/save-batch`, {'jsonStr': JSON.stringify(records)})
-        .then(data => {
+        .then(result => {
             dispatch({
                 type: types.WAREHOUSING_RESET,
-                data
+                data: result.data
             });
 
             message.success('保存成功');

@@ -4,6 +4,7 @@ package com.csg.warehouse.modules.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.controller.BaseController;
 import com.csg.warehouse.core.web.WebApiResponse;
+import com.csg.warehouse.core.web.WebRequestContext;
 import com.csg.warehouse.modules.entity.Warehousing;
 import com.csg.warehouse.modules.service.WarehousingService;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -41,8 +42,8 @@ public class WarehousingController extends BaseController {
     }
 
     @GetMapping("/page")
-    public WebApiResponse page(Page<Warehousing> page) {
-        page = warehousingService.selectPage(page);
+    public WebApiResponse page(Page<Warehousing> page, WebRequestContext requestContext) {
+        page = warehousingService.selectPage(page, requestContext.getParams());
         return WebApiResponse.success(page);
     }
 

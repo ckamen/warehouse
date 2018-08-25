@@ -24,10 +24,10 @@ export const getMerchants = (pager) => (dispatch) => {
         params: {
             ...pager
         }
-    }).then(data => {
+    }).then(result => {
         dispatch({
             type: types.MERCHANT_PAGE,
-            data: data
+            data: result.data
         });
         return Promise.resolve();
     })
@@ -35,11 +35,11 @@ export const getMerchants = (pager) => (dispatch) => {
 
 export const saveMerchant = ({id, ...rest}) => (dispatch) => {
     return axiosUtil.post(`/api/merchant/save/${id}`, {id, ...rest})
-        .then(data => {
+        .then(result => {
             if (id > 0) {
-                dispatch(merchantEditAction(data));
+                dispatch(merchantEditAction(result.data));
             } else {
-                dispatch(merchantAddAction(data));
+                dispatch(merchantAddAction(result.data));
             }
             message.success('保存成功');
             return Promise.resolve();

@@ -24,10 +24,10 @@ export const getUsers = (pager) => (dispatch) => {
         params: {
             ...pager
         }
-    }).then(data => {
+    }).then(result => {
         dispatch({
             type: types.USER_PAGE,
-            data: data
+            data: result.data
         });
         return Promise.resolve();
     })
@@ -35,11 +35,11 @@ export const getUsers = (pager) => (dispatch) => {
 
 export const saveUser = ({id, ...rest}) => (dispatch) => {
     return axiosUtil.post(`/api/user/save/${id}`, {id, ...rest})
-        .then(data => {
+        .then(result => {
             if (id > 0) {
-                dispatch(userEditAction(data));
+                dispatch(userEditAction(result.data));
             } else {
-                dispatch(userAddAction(data));
+                dispatch(userAddAction(result.data));
             }
             message.success('保存成功');
             return Promise.resolve();

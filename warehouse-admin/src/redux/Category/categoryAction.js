@@ -25,10 +25,10 @@ export const getCategories = (pager) => (dispatch) => {
         params: {
             ...pager
         }
-    }).then(data => {
+    }).then(result => {
         dispatch({
             type: types.CATEGORY_PAGE,
-            data: data
+            data: result.data
         });
         return Promise.resolve();
     })
@@ -37,11 +37,11 @@ export const getCategories = (pager) => (dispatch) => {
 export const saveCategory = (category) => (dispatch) => {
     let {id} = category;
     return axiosUtil.post(`/api/category/save/${id}`, category)
-        .then(data => {
+        .then(result => {
             if (id > 0) {
-                dispatch(categoryEditAction(data));
+                dispatch(categoryEditAction(result.data));
             } else {
-                dispatch(categoryAddAction(data));
+                dispatch(categoryAddAction(result.data));
             }
             message.success('保存成功');
             return Promise.resolve();

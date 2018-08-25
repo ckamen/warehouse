@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class DateDeserializer extends JsonDeserializer<Date> {
     @Override
-    public Date deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        return DateUtils.parseTimestamp(p.getValueAsString());
+    public Date deserialize(JsonParser p, DeserializationContext ctx) throws IOException {
+        return DateUtils.parseDate(p.getValueAsString());
     }
 }

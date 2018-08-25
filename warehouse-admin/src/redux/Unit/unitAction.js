@@ -25,10 +25,10 @@ const getUnits = () => (dispatch) => {
         params: {
             limit: MAX_SIZE
         }
-    }).then(data => {
+    }).then(result => {
         dispatch({
             type: types.UNIT_PAGE,
-            data: data.records
+            data: result.data
         });
         return Promise.resolve();
     })
@@ -36,11 +36,11 @@ const getUnits = () => (dispatch) => {
 
 const saveUnit = ({id, ...rest}) => (dispatch) => {
     return axiosUtil.post(`/api/unit/save/${id}`, {id, ...rest})
-        .then(data => {
+        .then(result => {
             if (id > 0) {
-                dispatch(UnitEditAction(data));
+                dispatch(UnitEditAction(result.data));
             } else {
-                dispatch(UnitAddAction(data));
+                dispatch(UnitAddAction(result.data));
             }
             message.success('保存成功');
             return Promise.resolve();

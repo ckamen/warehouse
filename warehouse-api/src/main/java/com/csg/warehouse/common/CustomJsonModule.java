@@ -1,10 +1,10 @@
 package com.csg.warehouse.common;
 
 import com.csg.warehouse.common.jackson.DateDeserializer;
+import com.csg.warehouse.common.jackson.DateSerializer;
 import com.csg.warehouse.common.jackson.TimestampDeserializer;
 import com.csg.warehouse.common.jackson.TimestampSerializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 
 import java.sql.Timestamp;
 import java.util.Date;

@@ -2,15 +2,15 @@ import React from 'react';
 import {Table, Icon, Divider, Button, Popconfirm} from 'antd';
 
 import './index.css';
-import utils from "../../utils/utils";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {delUnit, getUnits, updateUnitModal} from "../../redux/Unit/unitAction";
+import * as actions from "../../redux/Unit/unitAction";
 import UnitForm from "../../components/UnitForm";
 
 class UnitRdx extends React.Component {
     constructor(props) {
         super(props);
+        this.actions = this.props.actions;
         this.state = {
             loading: true
         }
@@ -18,7 +18,8 @@ class UnitRdx extends React.Component {
     }
 
     componentDidMount() {
-        this.props.actions.getUnits().then(() => {
+        let {getUnits} = this.actions;
+        getUnits().then(() => {
             this.setState({
                 loading: false
             })
@@ -49,7 +50,8 @@ class UnitRdx extends React.Component {
     }
 
     handleAdd = () => {
-        this.props.actions.updateUnitModal({
+        let {updateUnitModal} = this.actions;
+        updateUnitModal({
             visible: true,
             title: '创建计量单位',
             id: -1,
@@ -58,11 +60,13 @@ class UnitRdx extends React.Component {
     }
 
     handleDelete = (record) => {
-        this.props.actions.delUnit(record.key);
+        let {delUnit} = this.actions;
+        delUnit(record.key);
     }
 
     handleEdit = (record) => {
-        this.props.actions.updateUnitModal({
+        let {updateUnitModal} = this.actions;
+        updateUnitModal({
             visible: true,
             title: '编辑计量单位',
             id: record.id,
@@ -98,7 +102,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({getUnits, delUnit, updateUnitModal}, dispatch)
+    actions: bindActionCreators({...actions}, dispatch)
 });
 const Unit = connect(mapStateToProps, mapDispatchToProps)(UnitRdx);
 export default Unit;

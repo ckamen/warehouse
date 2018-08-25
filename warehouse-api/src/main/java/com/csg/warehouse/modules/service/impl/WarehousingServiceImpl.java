@@ -1,6 +1,7 @@
 package com.csg.warehouse.modules.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.service.impl.BaseServiceImpl;
 import com.csg.warehouse.modules.entity.ProductWarehouse;
 import com.csg.warehouse.modules.entity.Warehousing;
@@ -12,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -34,6 +37,7 @@ public class WarehousingServiceImpl extends BaseServiceImpl<WarehousingMapper, W
         if (warehousings != null && warehousings.size() > 0) {
             for (Warehousing wh : warehousings) {
                 if (isValidId(wh.getProductId())) {
+                    wh.setCreatedTime(new Date());
                     super.save(wh);
 
                     ProductWarehouse param = new ProductWarehouse();
@@ -52,6 +56,14 @@ public class WarehousingServiceImpl extends BaseServiceImpl<WarehousingMapper, W
                 }
             }
         }
+    }
+
+    @Override
+    public Page<Warehousing> selectPage(Page<Warehousing> page, Map<String, String> params) {
+        List<Warehousing> warehousings = this.baseMapper.findPage(page, params);
+        page.setRecords(warehousings);
+
+        return page;
     }
 
 }

@@ -8,9 +8,9 @@ class Routes extends React.Component {
     render() {
         return (
             <Switch>
-                <Route exact path='/login' component={Login}/>
+                <Route exact path='/' component={Login}/>
                 <AuthRoute path='/home' component={App} />
-                <Redirect to="/home" />
+                <Redirect to="/" />
             </Switch>
         );
     }

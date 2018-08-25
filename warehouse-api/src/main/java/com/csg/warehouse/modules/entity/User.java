@@ -74,6 +74,11 @@ public class User extends IdEntity {
      */
     private Date deletedTime;
 
+    /**
+     * 最近访问时间
+     */
+    private Date lastAccessTime;
+
 
     public String getUsername() {
         return username;
@@ -177,6 +182,14 @@ public class User extends IdEntity {
 
     public void setDeletedTime(Date deletedTime) {
         this.deletedTime = deletedTime;
+    }
+
+    public Date getLastAccessTime() {
+        return lastAccessTime;
+    }
+
+    public void setLastAccessTime(Date lastAccessTime) {
+        this.lastAccessTime = lastAccessTime;
     }
 
     @Override

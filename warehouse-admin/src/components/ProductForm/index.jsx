@@ -12,6 +12,7 @@ import {getUnits} from "../../redux/Unit/unitAction";
 import {getWarehouses} from "../../redux/Warehouse/warehouseAction";
 import {numberOrUndefined} from "../../utils/utils";
 import {ISelect} from "../Commons";
+import PicturesWall from "./pictures";
 
 const {Option} = Select;
 
@@ -329,6 +330,11 @@ class ProductFormRdx extends React.Component {
                                         <InputNumber min={0}/>
                                     )}
                                 </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span={20} offset={4}>
+                                <PicturesWall/>
                             </Col>
                         </Row>
                         <Row style={{marginTop: 10}}>

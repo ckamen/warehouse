@@ -24,10 +24,10 @@ export const getBrands = (pager) => (dispatch) => {
         params: {
             ...pager
         }
-    }).then(data => {
+    }).then(result => {
         dispatch({
             type: types.BRAND_PAGE,
-            data: data
+            data: result.data
         });
         return Promise.resolve();
     })
@@ -35,11 +35,11 @@ export const getBrands = (pager) => (dispatch) => {
 
 export const saveBrand = ({id, ...rest}) => (dispatch) => {
     return axiosUtil.post(`/api/brand/save/${id}`, {id, ...rest})
-        .then(data => {
+        .then(result => {
             if (id > 0) {
-                dispatch(brandEditAction(data));
+                dispatch(brandEditAction(result.data));
             } else {
-                dispatch(brandAddAction(data));
+                dispatch(brandAddAction(result.data));
             }
             message.success('保存成功');
             return Promise.resolve();

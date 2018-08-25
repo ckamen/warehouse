@@ -1,9 +1,11 @@
 package com.csg.warehouse.modules.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.service.BaseService;
 import com.csg.warehouse.modules.entity.Warehousing;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -16,4 +18,6 @@ import java.util.List;
 public interface WarehousingService extends BaseService<Warehousing> {
 
     void saveBatch(List<Warehousing> warehousings);
+
+    Page<Warehousing> selectPage(Page<Warehousing> page, Map<String, String> params);
 }

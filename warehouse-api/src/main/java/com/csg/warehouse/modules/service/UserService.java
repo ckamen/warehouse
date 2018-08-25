@@ -13,4 +13,7 @@ import com.csg.warehouse.common.service.BaseService;
  */
 public interface UserService extends BaseService<User> {
 
+    User findByActiveUsername(String username, String password);
+
+    User findByActiveUsername(String username);
 }
