@@ -13,6 +13,7 @@ import {getWarehouses} from "../../redux/Warehouse/warehouseAction";
 import {numberOrUndefined} from "../../utils/utils";
 import {ISelect} from "../Commons";
 import PicturesWall from "./pictures";
+import * as Utils from "../../utils/utils";
 
 const {Option} = Select;
 
@@ -137,6 +138,11 @@ class ProductFormRdx extends React.Component {
         }
     }
 
+    validateUnique = (rule, value, callback) => {
+        let {id} = this.props.modal;
+        Utils.validateUnique(`/api/product/exist/${id}?value=${value}`, '该编码已经存在系统中', callback);
+    }
+
     render() {
         let {
             title, visible, confirmLoading, id, code, categoryId, supplierId, parameter, device, remark,
@@ -176,6 +182,7 @@ class ProductFormRdx extends React.Component {
                                 <Form.Item label="商品编码" {...formItemLayout}>
                                     {getFieldDecorator('code', {
                                         initialValue: code,
+                                        rules: [{validator: this.validateUnique}]
                                     })(
                                         <Input disabled={true}/>
                                     )}
