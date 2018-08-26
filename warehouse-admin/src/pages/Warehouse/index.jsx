@@ -14,7 +14,8 @@ class WarehouseRdx extends React.Component {
         super(props);
         this.actions = this.props.actions;
         this.state = {
-            loading: true
+            loading: true,
+            modalForm: null
         }
         this.buildColumns();
     }
@@ -65,6 +66,9 @@ class WarehouseRdx extends React.Component {
     }
 
     handleAdd = () => {
+        this.setState({
+            modalForm:  <WarehouseForm/>
+        });
         let {updateWarehouseModal} = this.actions;
         updateWarehouseModal({
             visible: true,
@@ -79,6 +83,9 @@ class WarehouseRdx extends React.Component {
     }
 
     handleEdit = (record) => {
+        this.setState({
+            modalForm:  <WarehouseForm/>
+        });
         let {updateWarehouseModal} = this.actions;
         updateWarehouseModal({
             visible: true,
@@ -128,7 +135,7 @@ class WarehouseRdx extends React.Component {
                                bordered={true}/>
                     </div>
                 </div>
-                <WarehouseForm/>
+                {this.state.modalForm}
             </div>
         )
     }

@@ -12,7 +12,8 @@ class BrandRdx extends React.Component {
         super(props);
         this.actions = this.props.actions;
         this.state = {
-            loading: true
+            loading: true,
+            modalForm: null
         }
         this.buildColumns();
     }
@@ -60,6 +61,9 @@ class BrandRdx extends React.Component {
     }
 
     handleAdd = () => {
+        this.setState({
+            modalForm:  <BrandForm/>
+        });
         let {updateBrandModal} = this.actions;
         updateBrandModal({
             visible: true,
@@ -75,6 +79,9 @@ class BrandRdx extends React.Component {
     }
 
     handleEdit = (record) => {
+        this.setState({
+            modalForm:  <BrandForm/>
+        });
         let {updateBrandModal} = this.actions;
         updateBrandModal({
             visible: true,
@@ -123,7 +130,7 @@ class BrandRdx extends React.Component {
                                bordered={true}/>
                     </div>
                 </div>
-                <BrandForm/>
+                {this.state.modalForm}
             </div>
         )
     }

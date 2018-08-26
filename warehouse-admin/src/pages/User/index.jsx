@@ -13,7 +13,8 @@ class UserRdx extends React.Component {
         super(props);
         this.actions = this.props.actions;
         this.state = {
-            loading: true
+            loading: true,
+            modalForm: null
         }
         this.buildColumns();
     }
@@ -64,6 +65,9 @@ class UserRdx extends React.Component {
     }
 
     handleAdd = () => {
+        this.setState({
+            modalForm:  <UserForm/>
+        });
         let {updateUserModal} = this.actions;
         updateUserModal({
             visible: true,
@@ -78,6 +82,9 @@ class UserRdx extends React.Component {
     }
 
     handleEdit = (record) => {
+        this.setState({
+            modalForm:  <UserForm/>
+        });
         let {updateUserModal} = this.actions;
         updateUserModal({
             visible: true,
@@ -129,7 +136,7 @@ class UserRdx extends React.Component {
                                bordered={true}/>
                     </div>
                 </div>
-                <UserForm/>
+                {this.state.modalForm}
             </div>
         )
     }

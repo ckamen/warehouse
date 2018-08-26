@@ -14,7 +14,8 @@ class CategoryRdx extends React.Component {
         super(props);
         this.actions = this.props.actions;
         this.state = {
-            loading: true
+            loading: true,
+            modalForm: null
         }
         this.buildColumns();
     }
@@ -58,6 +59,9 @@ class CategoryRdx extends React.Component {
         }];
     }
     handleAdd = () => {
+        this.setState({
+            modalForm:  <CategoryForm/>
+        });
         let {updateCategoryModal} = this.actions;
         updateCategoryModal({
             visible: true,
@@ -71,6 +75,9 @@ class CategoryRdx extends React.Component {
     }
 
     handleEdit = (record) => {
+        this.setState({
+            modalForm:  <CategoryForm/>
+        });
         let {updateCategoryModal} = this.actions;
         updateCategoryModal({
             visible: true,
@@ -125,7 +132,7 @@ class CategoryRdx extends React.Component {
                                bordered={true}/>
                     </div>
                 </div>
-                <CategoryForm/>
+                {this.state.modalForm}
             </div>
         )
     }
