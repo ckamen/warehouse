@@ -1,12 +1,16 @@
 package com.csg.warehouse.modules.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.service.impl.BaseServiceImpl;
 import com.csg.warehouse.modules.entity.Warehouse;
 import com.csg.warehouse.modules.mapper.WarehouseMapper;
 import com.csg.warehouse.modules.service.WarehouseService;
 import com.csg.warehouse.utils.StringUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -44,6 +48,13 @@ public class WarehouseServiceImpl extends BaseServiceImpl<WarehouseMapper, Wareh
         } else {
             return null;
         }
+    }
+
+    @Override
+    public Page<Warehouse> selectPage(Page<Warehouse> page, Map<String, String> params) {
+        List<Warehouse> warehouses = this.baseMapper.findPage(page, params);
+        page.setRecords(warehouses);
+        return page;
     }
 
 }

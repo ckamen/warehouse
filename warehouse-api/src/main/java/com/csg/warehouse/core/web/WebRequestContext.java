@@ -60,7 +60,7 @@ public class WebRequestContext implements Serializable {
         // 分页请求的排序方式
         this.order = ConvertUtils.convert(request.getParameter("order"), String.class);
         // 请求的搜索关键字
-        this.q = ConvertUtils.convert(request.getParameter("q"), String.class);
+        this.q = ConvertUtils.convert(request.getParameter("queryValue"), String.class);
     }
 
     /**

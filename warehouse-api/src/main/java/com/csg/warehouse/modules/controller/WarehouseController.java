@@ -4,6 +4,7 @@ package com.csg.warehouse.modules.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.controller.BaseController;
 import com.csg.warehouse.core.web.WebApiResponse;
+import com.csg.warehouse.core.web.WebRequestContext;
 import com.csg.warehouse.modules.entity.Warehouse;
 import com.csg.warehouse.modules.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class WarehouseController extends BaseController {
     }
 
     @GetMapping("/page")
-    public WebApiResponse page(Page<Warehouse> page) {
-        page = warehouseService.selectPage(page);
+    public WebApiResponse page(Page<Warehouse> page, WebRequestContext requestContext) {
+        page = warehouseService.selectPage(page, requestContext.getParams());
         return WebApiResponse.success(page);
     }
 

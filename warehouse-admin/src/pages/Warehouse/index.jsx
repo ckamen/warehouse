@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table, Icon, Divider, Button, Switch, Popconfirm} from 'antd';
+import {Table, Icon, Divider, Button, Switch, Popconfirm, Form, Input} from 'antd';
 
 import './index.css';
 import {connect} from "react-redux";
@@ -7,7 +7,9 @@ import {bindActionCreators} from "redux";
 import * as actions from "../../redux/Warehouse/warehouseAction";
 import WarehouseForm from "../../components/WarehouseForm";
 import WarehouseModel from "../../model/WarehouseModel";
-import {DEFAULT_PAGE_SIZE} from "../../utils/constants";
+import {DATE_FORMAT, DEFAULT_PAGE_SIZE, OUT} from "../../utils/constants";
+import moment from "moment/moment";
+import {ISearchForm} from "../../components/Commons";
 
 class WarehouseRdx extends React.Component {
     constructor(props) {
@@ -67,7 +69,7 @@ class WarehouseRdx extends React.Component {
 
     handleAdd = () => {
         this.setState({
-            modalForm:  <WarehouseForm/>
+            modalForm: <WarehouseForm/>
         });
         let {updateWarehouseModal} = this.actions;
         updateWarehouseModal({
@@ -84,7 +86,7 @@ class WarehouseRdx extends React.Component {
 
     handleEdit = (record) => {
         this.setState({
-            modalForm:  <WarehouseForm/>
+            modalForm: <WarehouseForm/>
         });
         let {updateWarehouseModal} = this.actions;
         updateWarehouseModal({
@@ -118,12 +120,25 @@ class WarehouseRdx extends React.Component {
         });
     }
 
+    handleSearch = (values) => {
+        this.setState({
+            loading: true
+        })
+        let {getWarehouses} = this.actions;
+        getWarehouses({...this.props.pagination, queryValue: values.queryValue}).then(() => {
+            this.setState({
+                loading: false
+            })
+        });
+    }
+
     render() {
-
-
         return (
             <div className={'grid-wrapper'}>
                 <h3>
+                    <div>
+                        <ISearchForm handleSearch={this.handleSearch}/>
+                    </div>
                     <Button type="primary" onClick={this.handleAdd}>新增仓库</Button>
                 </h3>
                 <div>

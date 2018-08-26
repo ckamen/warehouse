@@ -7,6 +7,7 @@ import {bindActionCreators} from "redux";
 import * as actions from "../../redux/Product/productAction";
 import ProductForm from "../../components/ProductForm";
 import {ProductModel} from "../../model/ProductModel";
+import {ISearchForm} from "../../components/Commons";
 
 class ProductRdx extends React.Component {
     constructor(props) {
@@ -126,10 +127,25 @@ class ProductRdx extends React.Component {
         });
     }
 
+    handleSearch = (values) => {
+        this.setState({
+            loading: true
+        })
+        let {getProducts} = this.actions;
+        getProducts({...this.props.pagination, queryValue: values.queryValue}).then(() => {
+            this.setState({
+                loading: false
+            })
+        });
+    }
+
     render() {
         return (
             <div className={'grid-wrapper'}>
                 <h3>
+                    <div>
+                        <ISearchForm handleSearch={this.handleSearch}/>
+                    </div>
                     <Button type="primary" onClick={this.handleAdd}>新增商品</Button>
                 </h3>
                 <div>

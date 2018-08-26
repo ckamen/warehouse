@@ -77,10 +77,7 @@ class WarehousingHistoryRdx extends React.Component {
             if (err) {
                 return;
             }
-            console.log(values);
-
             let receiptStartDate, receiptEndDate;
-
             if (values.receiptRange && values.receiptRange.length > 1) {
                 receiptStartDate = values.receiptRange[0].format(DATE_FORMAT);
                 receiptEndDate = values.receiptRange[1].format(DATE_FORMAT);
@@ -111,14 +108,14 @@ class WarehousingHistoryRdx extends React.Component {
                         <Form layout={'inline'}>
                             <Form.Item label={this.whAction === OUT ? "使用站点" : "供应商"}  {...formItemLayout}>
                                 {getFieldDecorator('merchantName', {
-                                    rules: [{max: 50, message: '输入长度不能超过50个字符'}]
+                                    rules: [{max: 30, message: '输入长度不能超过30个字符'}]
                                 })(
                                     <Input/>
                                 )}
                             </Form.Item>
                             <Form.Item label="商品编码"  {...formItemLayout}>
                                 {getFieldDecorator('productCode', {
-                                    rules: [{max: 100, message: '输入长度不能超过100个字符'}]
+                                    rules: [{max: 30, message: '输入长度不能超过30个字符'}]
                                 })(
                                     <Input/>
                                 )}

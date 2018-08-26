@@ -5,4 +5,15 @@
     <!-- 开启二级缓存 -->
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
+    <select id="findPage" resultType="com.csg.warehouse.modules.entity.Warehouse">
+        select w.* from t_warehouse w where w.deleted_ind = 0
+        <if test="queryValue != null and queryValue != ''">
+            and ( upper(w.code) like concat('%', upper(#{queryValue}), '%')
+            or upper(w.name) like concat('%', upper(#{queryValue}), '%')
+            )
+        </if>
+        <if test="active != null and active >= 0">
+            and w.active = #{active}
+        </if>
+    </select>
 </mapper>

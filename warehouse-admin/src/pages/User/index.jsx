@@ -7,6 +7,7 @@ import {bindActionCreators} from "redux";
 import * as actions from "../../redux/User/userAction";
 import UserForm from "../../components/UserForm";
 import UserModel from "../../model/UserModel";
+import {ISearchForm} from "../../components/Commons";
 
 class UserRdx extends React.Component {
     constructor(props) {
@@ -52,7 +53,7 @@ class UserRdx extends React.Component {
             title: '姓名',
             dataIndex: 'name'
         }, {
-            title: '手机',
+            title: '手机号',
             dataIndex: 'phone'
         }, {
             title: '状态',
@@ -118,12 +119,25 @@ class UserRdx extends React.Component {
         });
     }
 
+    handleSearch = (values) => {
+        this.setState({
+            loading: true
+        })
+        let {getUsers} = this.actions;
+        getUsers({...this.props.pagination, queryValue: values.queryValue}).then(() => {
+            this.setState({
+                loading: false
+            })
+        });
+    }
+
     render() {
-
-
         return (
             <div className={'grid-wrapper'}>
                 <h3>
+                    <div>
+                        <ISearchForm handleSearch={this.handleSearch} placeholder={'请输入账号、姓名或者手机号'}/>
+                    </div>
                     <Button type="primary" onClick={this.handleAdd}>新增用户</Button>
                 </h3>
                 <div>

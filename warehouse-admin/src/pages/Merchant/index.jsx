@@ -8,6 +8,7 @@ import * as actions from "../../redux/Merchant/merchantAction";
 import MerchantForm from "../../components/MerchantForm";
 import {DEFAULT_PAGE_SIZE, SUPPLIER} from "../../utils/constants";
 import {getContacts, initContact} from "../../redux/Contact/contactAction";
+import {ISearchForm} from "../../components/Commons";
 
 class MerchantRdx extends React.Component {
     constructor(props) {
@@ -126,10 +127,25 @@ class MerchantRdx extends React.Component {
         });
     }
 
+    handleSearch = (values) => {
+        this.setState({
+            loading: true
+        });
+        let {getMerchants} = this.actions;
+        getMerchants({...this.props.pagination, queryValue: values.queryValue, type: this.props.type}).then(() => {
+            this.setState({
+                loading: false
+            })
+        });
+    }
+
     render() {
         return (
             <div className={'grid-wrapper'}>
                 <h3>
+                    <div>
+                        <ISearchForm handleSearch={this.handleSearch}/>
+                    </div>
                     <Button type="primary" onClick={this.handleAdd}>{`新增${this.state.title}`}</Button>
                 </h3>
                 <div>
