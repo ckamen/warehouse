@@ -53,5 +53,10 @@ public class UserController extends BaseController {
         return WebApiResponse.success();
     }
 
+    @GetMapping("/exist/{id}")
+    public WebApiResponse exist(User user, String value) {
+        return WebApiResponse.success(userService.exist(user, value));
+    }
+
 }
 

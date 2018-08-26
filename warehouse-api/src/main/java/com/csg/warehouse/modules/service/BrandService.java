@@ -13,4 +13,5 @@ import com.csg.warehouse.common.service.BaseService;
  */
 public interface BrandService extends BaseService<Brand> {
 
+    boolean exist(Brand brand, String value);
 }

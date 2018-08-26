@@ -16,4 +16,6 @@ public interface UserService extends BaseService<User> {
     User findByActiveUsername(String username, String password);
 
     User findByActiveUsername(String username);
+
+    boolean exist(User user, String value);
 }

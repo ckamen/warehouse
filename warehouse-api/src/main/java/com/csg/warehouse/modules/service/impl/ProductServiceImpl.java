@@ -6,6 +6,7 @@ import com.csg.warehouse.common.service.impl.BaseServiceImpl;
 import com.csg.warehouse.modules.entity.*;
 import com.csg.warehouse.modules.mapper.ProductMapper;
 import com.csg.warehouse.modules.service.*;
+import com.csg.warehouse.utils.StringUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,4 +90,30 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         }
     }
 
+    @Override
+    public boolean exist(Product product, String value) {
+        boolean isExist = false;
+        if (isValidEntityId(product)) {
+            Product productDb = findByCode(value);
+            if (productDb != null && !product.getId().equals(productDb.getId())) {
+                isExist = true;
+            }
+        } else {
+            Product productDb = findByCode(value);
+            if (productDb != null) {
+                isExist = true;
+            }
+        }
+        return isExist;
+    }
+
+    private Product findByCode(String code) {
+        if (StringUtils.isNotBlank(code)) {
+            Product param = new Product();
+            param.setCode(code);
+            return this.selectOne(new EntityWrapper<>(param));
+        } else {
+            return null;
+        }
+    }
 }

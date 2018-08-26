@@ -54,5 +54,10 @@ public class ProductController extends BaseController {
         return WebApiResponse.success();
     }
 
+    @GetMapping("/exist/{id}")
+    public WebApiResponse exist(Product product, String value) {
+        return WebApiResponse.success(productService.exist(product, value));
+    }
+
 }
 

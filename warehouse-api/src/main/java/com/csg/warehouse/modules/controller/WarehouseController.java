@@ -53,5 +53,9 @@ public class WarehouseController extends BaseController {
         return WebApiResponse.success();
     }
 
+    @GetMapping("/exist/{id}")
+    public WebApiResponse exist(Warehouse warehouse, String value) {
+        return WebApiResponse.success(warehouseService.exist(warehouse, value));
+    }
 }
 

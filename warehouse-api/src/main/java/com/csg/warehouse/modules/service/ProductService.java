@@ -17,4 +17,6 @@ import java.util.Map;
 public interface ProductService extends BaseService<Product> {
 
     Page<Product> selectPage(Page<Product> page, Map<String, String> params);
+
+    boolean exist(Product product, String value);
 }

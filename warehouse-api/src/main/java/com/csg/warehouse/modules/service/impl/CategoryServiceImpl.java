@@ -9,6 +9,7 @@ import com.csg.warehouse.modules.mapper.CategoryMapper;
 import com.csg.warehouse.modules.service.CategoryRelationService;
 import com.csg.warehouse.modules.service.CategoryService;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -121,5 +122,32 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, Categor
             }
         }
         return parent;
+    }
+
+    @Override
+    public boolean exist(Category category, String value) {
+        boolean isExist = false;
+        if (isValidEntityId(category)) {
+            Category categoryDb = findByCode(value);
+            if (categoryDb != null && !category.getId().equals(categoryDb.getId())) {
+                isExist = true;
+            }
+        } else {
+            Category categoryDb = findByCode(value);
+            if (categoryDb != null) {
+                isExist = true;
+            }
+        }
+        return isExist;
+    }
+
+    private Category findByCode(String code) {
+        if (StringUtils.isNotBlank(code)) {
+            Category param = new Category();
+            param.setCode(code);
+            return this.selectOne(new EntityWrapper<>(param));
+        } else {
+            return null;
+        }
     }
 }

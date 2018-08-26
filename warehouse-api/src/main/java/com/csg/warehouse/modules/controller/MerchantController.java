@@ -54,5 +54,9 @@ public class MerchantController extends BaseController {
         return WebApiResponse.success();
     }
 
+    @GetMapping("/exist/{id}")
+    public WebApiResponse exist(Merchant merchant, String value) {
+        return WebApiResponse.success(merchantService.exist(merchant, value));
+    }
 }
 

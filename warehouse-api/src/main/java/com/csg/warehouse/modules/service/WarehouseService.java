@@ -13,4 +13,5 @@ import com.csg.warehouse.common.service.BaseService;
  */
 public interface WarehouseService extends BaseService<Warehouse> {
 
+    boolean exist(Warehouse warehouse, String value);
 }

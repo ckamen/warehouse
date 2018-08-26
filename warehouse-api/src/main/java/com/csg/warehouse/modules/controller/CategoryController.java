@@ -54,5 +54,9 @@ public class CategoryController extends BaseController {
         return WebApiResponse.success();
     }
 
+    @GetMapping("/exist/{id}")
+    public WebApiResponse exist(Category category, String value) {
+        return WebApiResponse.success(categoryService.exist(category, value));
+    }
 }
 

@@ -17,4 +17,6 @@ import java.util.Map;
 public interface MerchantService extends BaseService<Merchant> {
 
     Page<Merchant> selectPage(Page page, Map<String, String> params);
+
+    boolean exist(Merchant merchant, String value);
 }

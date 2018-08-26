@@ -5,6 +5,7 @@ import com.csg.warehouse.common.service.impl.BaseServiceImpl;
 import com.csg.warehouse.modules.entity.User;
 import com.csg.warehouse.modules.mapper.UserMapper;
 import com.csg.warehouse.modules.service.UserService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -32,8 +33,33 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         User param = new User();
         param.setUsername(username);
         param.setActive(1);
-        User user = this.selectOne(new EntityWrapper<>(param));
-        return user;
+        return this.selectOne(new EntityWrapper<>(param));
     }
 
+    private User findByUsername(String username) {
+        if (StringUtils.isNotBlank(username)) {
+            User param = new User();
+            param.setUsername(username);
+            return this.selectOne(new EntityWrapper<>(param));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean exist(User user, String value) {
+        boolean isExist = false;
+        if (isValidEntityId(user)) {
+            User userDb = findByUsername(value);
+            if (userDb != null && !user.getId().equals(userDb.getId())) {
+                isExist = true;
+            }
+        } else {
+            User userDb = findByUsername(value);
+            if (userDb != null) {
+                isExist = true;
+            }
+        }
+        return isExist;
+    }
 }

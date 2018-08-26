@@ -53,5 +53,10 @@ public class UnitController extends BaseController {
         return WebApiResponse.success();
     }
 
+    @GetMapping("/exist/{id}")
+    public WebApiResponse exist(Unit unit, String value) {
+        return WebApiResponse.success(unitService.exist(unit, value));
+    }
+
 }
 
