@@ -6,9 +6,14 @@
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <select id="findPage" resultType="com.csg.warehouse.modules.entity.Merchant">
-        select * from t_merchant where deleted_ind = 0
+        select m.* from t_merchant m where m.deleted_ind = 0
         <if test="type != null and type > 0">
-            and type = #{type}
+            and m.type = #{type}
+        </if>
+        <if test="queryValue != null and queryValue != ''">
+            and ( upper(m.code) like concat('%', upper(#{queryValue}), '%')
+            or upper(m.name) like concat('%', upper(#{queryValue}), '%')
+            )
         </if>
     </select>
 

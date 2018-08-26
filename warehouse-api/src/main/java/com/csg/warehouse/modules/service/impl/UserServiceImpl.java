@@ -1,12 +1,15 @@
 package com.csg.warehouse.modules.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.service.impl.BaseServiceImpl;
 import com.csg.warehouse.modules.entity.User;
 import com.csg.warehouse.modules.mapper.UserMapper;
 import com.csg.warehouse.modules.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -44,6 +47,12 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         } else {
             return null;
         }
+    }
+
+    @Override
+    public Page<User> selectPage(Page<User> page, Map<String, String> params) {
+        page.setRecords(this.baseMapper.findPage(page, params));
+        return page;
     }
 
     @Override

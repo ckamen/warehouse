@@ -8,8 +8,8 @@
     <select id="findPage" resultType="com.csg.warehouse.modules.entity.Product">
         select p.* from t_product p where p.deleted_ind = 0
         <if test="queryValue != null and queryValue != ''">
-            and (upper(p.code) like concat('%', #{queryValue}, '%')
-            or upper(p.specification) like concat('%', #{queryValue}, '%'))
+            and (upper(p.code) like concat('%', upper(#{queryValue}), '%')
+            or upper(p.specification) like concat('%', upper(#{queryValue}), '%'))
         </if>
         <if test="warehouseId != null and warehouseId > 0">
             and p.preferred_warehouse_id = #{warehouseId}
