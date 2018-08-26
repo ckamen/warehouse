@@ -20,7 +20,14 @@ axiosUtil.interceptors.response.use(function (response) {
     }
     return response;
 }, function (error) {
-    message.error('请求遇到网络错误：' + error.message);
+    if (error.response.status === 403) {
+        message.warn('登录会话已经失效，请重新登录');
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 3000);
+    } else {
+        message.error('请求遇到网络错误：' + error.message);
+    }
     return Promise.reject(error);
 });
 

@@ -5,7 +5,7 @@ import './index.css';
 import {saveUnit, updateUnitModal} from "../../redux/Unit/unitAction";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-
+import * as Utils from "../../utils/utils";
 
 class UnitFormRdx extends React.Component {
 
@@ -39,8 +39,8 @@ class UnitFormRdx extends React.Component {
     }
 
     validateUnique = (rule, value, callback) => {
-        console.log('validateUnique', rule, value, callback);
-
+        let {id} = this.props.modal;
+        Utils.validateUnique(`/api/unit/exist/${id}?value=${value}`, '该名称已经存在系统中', callback);
     }
 
     render() {
@@ -49,8 +49,6 @@ class UnitFormRdx extends React.Component {
         return (
             <div>
                 <Modal
-                    okText='确定'
-                    cancelText='取消'
                     width={400}
                     maskClosable={false}
                     title={title}

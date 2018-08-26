@@ -5,6 +5,7 @@ import './index.css';
 import {saveWarehouse, updateWarehouseModal} from "../../redux/Warehouse/warehouseAction";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import * as Utils from "../../utils/utils";
 
 const formItemLayout = {
     labelCol: {
@@ -49,15 +50,18 @@ class WarehouseFormRdx extends React.Component {
         this.props.form.resetFields();
     }
 
+    validateUnique = (rule, value, callback) => {
+        let {id} = this.props.modal;
+        Utils.validateUnique(`/api/warehouse/exist/${id}?value=${value}`, '该编码已经存在系统中', callback);
+    }
+
     render() {
         let {title, visible, confirmLoading, name, code, rackNum} = this.props.modal;
         let {getFieldDecorator} = this.props.form;
         return (
             <div>
                 <Modal
-                    okText='确定'
-                    cancelText='取消'
-                    width = {400}
+                    width={400}
                     maskClosable={false}
                     title={title}
                     visible={visible}
@@ -69,7 +73,10 @@ class WarehouseFormRdx extends React.Component {
                         <Form.Item label="仓库编码" {...formItemLayout}>
                             {getFieldDecorator('code', {
                                 initialValue: code,
-                                rules: [{required: true, message: '请输入仓库编码'}, {max: 30, message: '仓库编码不能超过30个字符'}],
+                                rules: [{required: true, message: '请输入仓库编码'},
+                                    {max: 30, message: '仓库编码不能超过30个字符'},
+                                    {validator: this.validateUnique}
+                                ],
                             })(
                                 <Input/>
                             )}
@@ -77,7 +84,8 @@ class WarehouseFormRdx extends React.Component {
                         <Form.Item label="仓库名称" {...formItemLayout}>
                             {getFieldDecorator('name', {
                                 initialValue: name,
-                                rules: [{required: true, message: '请输入仓库名称'}, {max: 30, message: '仓库名称不能超过30个字符'}],
+                                rules: [{required: true, message: '请输入仓库名称'},
+                                    {max: 30, message: '仓库名称不能超过30个字符'}],
                             })(
                                 <Input/>
                             )}
@@ -87,7 +95,7 @@ class WarehouseFormRdx extends React.Component {
                                 initialValue: rackNum,
                                 rules: [{required: true, message: '货架数量不能为空'}],
                             })(
-                                <InputNumber/>
+                                <InputNumber min={1}/>
                             )}
                         </Form.Item>
                     </Form>

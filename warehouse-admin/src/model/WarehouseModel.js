@@ -2,7 +2,7 @@ const WarehouseModel = {
     id: -1,
     code: '',
     name: '',
-    rackNum: 0,
+    rackNum: 1,
     active: 1
 }
 

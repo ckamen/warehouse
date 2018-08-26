@@ -93,6 +93,7 @@ class WarehouseRdx extends React.Component {
             id: record.id,
             code: record.code,
             name: record.name,
+            rackNum: record.rackNum
         });
     }
 

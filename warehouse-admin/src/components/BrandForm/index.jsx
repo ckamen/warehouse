@@ -5,6 +5,7 @@ import './index.css';
 import {saveBrand, updateBrandModal} from "../../redux/Brand/brandAction";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import * as Utils from "../../utils/utils";
 
 
 class BrandFormRdx extends React.Component {
@@ -39,15 +40,18 @@ class BrandFormRdx extends React.Component {
         this.props.form.resetFields();
     }
 
+    validateUnique = (rule, value, callback) => {
+        let {id} = this.props.modal;
+        Utils.validateUnique(`/api/brand/exist/${id}?value=${value}`, '该编码已经存在系统中', callback);
+    }
+
     render() {
         let {title, visible, confirmLoading, name, code} = this.props.modal;
         let {getFieldDecorator} = this.props.form;
         return (
             <div>
                 <Modal
-                    okText='确定'
-                    cancelText='取消'
-                    width = {400}
+                    width={400}
                     maskClosable={false}
                     title={title}
                     visible={visible}
@@ -59,7 +63,9 @@ class BrandFormRdx extends React.Component {
                         <Form.Item label="编码">
                             {getFieldDecorator('code', {
                                 initialValue: code,
-                                rules: [{required: true, message: '请输入编码'}, {max: 20, message: '名称不能超过20个字符'}],
+                                rules: [{required: true, message: '请输入编码'},
+                                    {max: 20, message: '名称不能超过20个字符'},
+                                    {validator: this.validateUnique}],
                             })(
                                 <Input/>
                             )}
@@ -67,7 +73,8 @@ class BrandFormRdx extends React.Component {
                         <Form.Item label="名称">
                             {getFieldDecorator('name', {
                                 initialValue: name,
-                                rules: [{required: true, message: '请输入名称'}, {max: 50, message: '名称不能超过50个字符'}],
+                                rules: [{required: true, message: '请输入名称'},
+                                    {max: 50, message: '名称不能超过50个字符'}],
                             })(
                                 <Input/>
                             )}

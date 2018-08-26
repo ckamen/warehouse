@@ -5,6 +5,7 @@ import './index.css';
 import {saveUser, updateUserModal} from "../../redux/User/userAction";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import * as Utils from "../../utils/utils";
 
 const formItemLayout = {
     labelCol: {
@@ -36,7 +37,6 @@ class UserFormRdx extends React.Component {
             let {id, active} = this.props.modal;
             saveUser({...values, id, active}).then(() => {
                 updateUserModal({visible: false, confirmLoading: false});
-                form.resetFields();
             })
         });
     }
@@ -46,7 +46,15 @@ class UserFormRdx extends React.Component {
         updateUserModal({
             visible: false
         });
+    }
+
+    handleClose = () => {
         this.props.form.resetFields();
+    }
+
+    validateUnique = (rule, value, callback) => {
+        let {id} = this.props.modal;
+        Utils.validateUnique(`/api/user/exist/${id}?value=${value}`, '该账号已经存在系统中', callback);
     }
 
     render() {
@@ -55,26 +63,26 @@ class UserFormRdx extends React.Component {
         return (
             <div>
                 <Modal
-                    okText='确定'
-                    cancelText='取消'
-                    width = {400}
+                    width={400}
                     maskClosable={false}
                     title={title}
                     visible={visible}
                     confirmLoading={confirmLoading}
+                    afterClose={this.handleClose}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                 >
                     <Form layout="inline" className={'modal-form'}>
-                        <Form.Item label="账号" {...formItemLayout}>
+                        <Form.Item label="账号" {...formItemLayout} hasFeedback>
                             {getFieldDecorator('username', {
                                 initialValue: username,
-                                rules: [{required: true, message: '请输入账号'}, {max: 30, message: '账号不能超过30个字符'}],
+                                rules: [{required: true, message: '请输入账号'}, {max: 30, message: '账号不能超过30个字符'},
+                                    {validator: this.validateUnique}],
                             })(
                                 <Input/>
                             )}
                         </Form.Item>
-                        <Form.Item label="姓名" {...formItemLayout}>
+                        <Form.Item label="姓名" {...formItemLayout} hasFeedback>
                             {getFieldDecorator('name', {
                                 initialValue: name,
                                 rules: [{required: true, message: '请输入姓名'}, {max: 30, message: '姓名不能超过30个字符'}],
@@ -82,15 +90,15 @@ class UserFormRdx extends React.Component {
                                 <Input/>
                             )}
                         </Form.Item>
-                        <Form.Item label="密码" {...formItemLayout}>
+                        <Form.Item label="密码" {...formItemLayout} hasFeedback>
                             {getFieldDecorator('password', {
                                 initialValue: password,
                                 rules: [{required: true, message: '请输入密码'}, {max: 30, message: '密码不能超过30个字符'}],
                             })(
-                                <Input/>
+                                <Input type={'password'}/>
                             )}
                         </Form.Item>
-                        <Form.Item label="手机" {...formItemLayout}>
+                        <Form.Item label="手机" {...formItemLayout} hasFeedback>
                             {getFieldDecorator('phone', {
                                 initialValue: phone,
                                 rules: [{required: true, message: '请输入手机号'}, {max: 30, message: '手机号不能超过30个字符'}],

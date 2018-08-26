@@ -8,6 +8,7 @@ import {bindActionCreators} from "redux";
 import {getCategories} from "../../redux/Category/categoryAction";
 import {MAX_SIZE} from "../../utils/constants";
 import ContactTable from "../ContactTable";
+import * as Utils from "../../utils/utils";
 
 const formItemLayout = {
     labelCol: {
@@ -59,10 +60,11 @@ class MerchantFormRdx extends React.Component {
 
     handleNodeSelect = (value, node) => {
         console.log('handleTreeChange', value, node);
-        /*let {updateMerchantModal} = this.props.actions;
-        updateMerchantModal({
-            level: node.props.level
-        })*/
+    }
+
+    validateUnique = (rule, value, callback) => {
+        let {id} = this.props.modal;
+        Utils.validateUnique(`/api/merchant/exist/${id}?value=${value}`, '该编码已经存在系统中', callback);
     }
 
     render() {
@@ -72,8 +74,6 @@ class MerchantFormRdx extends React.Component {
         return (
             <div>
                 <Modal
-                    okText='确定'
-                    cancelText='取消'
                     width={800}
                     maskClosable={false}
                     title={title}
@@ -88,7 +88,9 @@ class MerchantFormRdx extends React.Component {
                                 <Form.Item label="编码" {...formItemLayout}>
                                     {getFieldDecorator('code', {
                                         initialValue: code,
-                                        rules: [{required: true, message: '请输入编码'}, {max: 30, message: '编码不能超过30个字符'}],
+                                        rules: [{required: true, message: '请输入编码'},
+                                            {max: 30, message: '编码不能超过30个字符'},
+                                            {validator: this.validateUnique}],
                                     })(
                                         <Input/>
                                     )}
