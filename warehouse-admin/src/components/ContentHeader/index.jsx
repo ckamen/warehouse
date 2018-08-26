@@ -17,8 +17,7 @@ class ContentHeader extends React.Component {
         showConfirm({
             title: '确认退出库存管理系统吗?',
             onOk() {
-                sessionStorage.removeItem("username");
-                sessionStorage.removeItem("token");
+                sessionStorage.clear();
                 that.props.history.push("/");
             }
         })

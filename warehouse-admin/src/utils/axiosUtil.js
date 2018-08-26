@@ -23,6 +23,7 @@ axiosUtil.interceptors.response.use(function (response) {
     if (error.response.status === 403) {
         message.warn('登录会话已经失效，请重新登录');
         setTimeout(() => {
+            sessionStorage.clear();
             window.location.href = '/';
         }, 3000);
     } else {
