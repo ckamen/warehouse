@@ -59,14 +59,25 @@ class ProductRdx extends React.Component {
             title: '商品类别',
             dataIndex: 'categoryName'
         }, {
-            title: '单位',
-            dataIndex: 'unitName'
-        }, {
             title: '适用装置',
             dataIndex: 'device'
         }, {
             title: '参数',
             dataIndex: 'parameter'
+        }, {
+            title: '当前库存',
+            dataIndex: 'prodWh.inventory'
+        }, {
+            title: '单位',
+            dataIndex: 'unitName'
+        }, {
+            title: '库存下限',
+            dataIndex: 'prodWh.minInventory',
+            render: value => value >= 0 ? value : ''
+        }, {
+            title: '库存上限',
+            dataIndex: 'prodWh.maxInventory',
+            render: value => value >= 0 ? value : ''
         }, {
             title: '状态',
             dataIndex: 'active',
