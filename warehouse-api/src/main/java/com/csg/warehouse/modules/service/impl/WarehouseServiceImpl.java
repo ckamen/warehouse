@@ -57,4 +57,13 @@ public class WarehouseServiceImpl extends BaseServiceImpl<WarehouseMapper, Wareh
         return page;
     }
 
+    @Override
+    public Warehouse findBy(String name) {
+        Warehouse param = new Warehouse();
+        param.setName(name);
+        param.setActive(1);
+        param.setDeletedInd(0);
+        return this.selectOne(new EntityWrapper<>(param));
+    }
+
 }

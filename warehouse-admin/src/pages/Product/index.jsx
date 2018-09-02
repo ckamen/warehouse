@@ -8,6 +8,8 @@ import * as actions from "../../redux/Product/productAction";
 import ProductForm from "../../components/ProductForm";
 import {ProductModel} from "../../model/ProductModel";
 import {ISearchForm} from "../../components/Commons";
+import {updateImportModal} from "../../redux/Import/importAction";
+import ImportModal from "../../components/import";
 
 class ProductRdx extends React.Component {
     constructor(props) {
@@ -15,7 +17,8 @@ class ProductRdx extends React.Component {
         this.actions = this.props.actions;
         this.state = {
             loading: true,
-            modalForm: null
+            modalForm: null,
+            importModal: null
         }
         this.buildColumns();
     }
@@ -150,6 +153,20 @@ class ProductRdx extends React.Component {
         });
     }
 
+    handleImport = () => {
+        this.setState({
+            importModal: <ImportModal/>
+        });
+        let {updateImportModal} = this.actions;
+        updateImportModal({
+            visible: true
+        });
+    }
+
+    handleExport = () => {
+
+    }
+
     render() {
         return (
             <div className={'grid-wrapper'}>
@@ -157,7 +174,11 @@ class ProductRdx extends React.Component {
                     <div>
                         <ISearchForm handleSearch={this.handleSearch}/>
                     </div>
-                    <Button type="primary" onClick={this.handleAdd}>新增商品</Button>
+                    <div className={'btn-area'}>
+                        <Button icon="download" onClick={this.handleImport}>导入商品</Button>
+                        <Button icon="export" onClick={this.handleExport}>导出商品</Button>
+                        <Button type="primary" onClick={this.handleAdd}>新增商品</Button>
+                    </div>
                 </h3>
                 <div>
                     <div>
@@ -170,6 +191,7 @@ class ProductRdx extends React.Component {
                     </div>
                 </div>
                 {this.state.modalForm}
+                {this.state.importModal}
             </div>
         )
     }
@@ -181,7 +203,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({...actions}, dispatch)
+    actions: bindActionCreators({...actions, updateImportModal}, dispatch)
 });
 const Product = connect(mapStateToProps, mapDispatchToProps)(ProductRdx);
 export default Product;

@@ -36,10 +36,12 @@ public class UnitServiceImpl extends BaseServiceImpl<UnitMapper, Unit> implement
         return isExist;
     }
 
-    private Unit findByName(String name) {
+    @Override
+    public Unit findByName(String name) {
         if (StringUtils.isNotBlank(name)) {
             Unit param = new Unit();
             param.setName(name);
+            param.setDeletedInd(0);
             return this.selectOne(new EntityWrapper<>(param));
         } else {
             return null;

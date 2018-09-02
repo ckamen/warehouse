@@ -23,4 +23,6 @@ public interface CategoryService extends BaseService<Category> {
     Category findParent(Category category);
 
     boolean exist(Category category, String value);
+
+    Category findBy(String name, Integer type);
 }

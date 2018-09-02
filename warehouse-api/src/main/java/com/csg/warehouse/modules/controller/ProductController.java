@@ -7,8 +7,15 @@ import com.csg.warehouse.core.web.WebApiResponse;
 import com.csg.warehouse.core.web.WebRequestContext;
 import com.csg.warehouse.modules.entity.Product;
 import com.csg.warehouse.modules.service.ProductService;
+import com.csg.warehouse.modules.vo.ProductVo;
+import com.csg.warehouse.utils.excel.ImportExcel;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * <p>
@@ -57,6 +64,14 @@ public class ProductController extends BaseController {
     @GetMapping("/exist/{id}")
     public WebApiResponse exist(Product product, String value) {
         return WebApiResponse.success(productService.exist(product, value));
+    }
+
+    @RequestMapping("upload")
+    public WebApiResponse upload(MultipartFile file) throws IOException, InvalidFormatException, IllegalAccessException, InstantiationException {
+        ImportExcel ie = new ImportExcel(file, 0, 0);
+        List<ProductVo> productVoList = ie.getDataList(ProductVo.class);
+        List<String> messages = productService.saveUpload(productVoList);
+        return WebApiResponse.success(messages);
     }
 
 }

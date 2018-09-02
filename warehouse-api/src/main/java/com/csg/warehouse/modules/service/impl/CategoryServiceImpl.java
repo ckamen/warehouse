@@ -150,4 +150,13 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, Categor
             return null;
         }
     }
+
+    @Override
+    public Category findBy(String name, Integer type) {
+        Category param = new Category();
+        param.setName(name);
+        param.setType(type);
+        param.setDeletedInd(0);
+        return this.selectOne(new EntityWrapper<>(param));
+    }
 }

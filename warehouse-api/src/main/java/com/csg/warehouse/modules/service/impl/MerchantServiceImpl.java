@@ -64,6 +64,16 @@ public class MerchantServiceImpl extends BaseServiceImpl<MerchantMapper, Merchan
         return isExist;
     }
 
+    @Override
+    public Merchant findBy(String name, Integer type) {
+        Merchant param = new Merchant();
+        param.setType(type);
+        param.setName(name);
+        param.setActive(1);
+        param.setDeletedInd(0);
+        return this.selectOne(new EntityWrapper<>(param));
+    }
+
     private Merchant findByCode(String code) {
         if (StringUtils.isNotBlank(code)) {
             Merchant param = new Merchant();

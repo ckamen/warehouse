@@ -4,16 +4,23 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.service.impl.BaseServiceImpl;
 import com.csg.warehouse.modules.entity.*;
+import com.csg.warehouse.modules.enums.CategoryTypeEnum;
+import com.csg.warehouse.modules.enums.MerchantTypeEnum;
 import com.csg.warehouse.modules.mapper.ProductMapper;
 import com.csg.warehouse.modules.service.*;
+import com.csg.warehouse.modules.vo.ProductVo;
 import com.csg.warehouse.utils.StringUtils;
+import com.google.common.collect.Lists;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>
@@ -37,6 +44,9 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     private UnitService unitService;
     @Autowired
     private WarehouseService warehouseService;
+
+    @Autowired
+    private Validator validator;
 
     @Transactional
     public void save(Product product) {
@@ -64,7 +74,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     }
 
     private void buildExtra(Product product) {
-        Merchant supplier =  merchantService.selectById(product.getSupplierId());
+        Merchant supplier = merchantService.selectById(product.getSupplierId());
         if (supplier != null) {
             product.setSupplierName(supplier.getName());
         }
@@ -115,5 +125,77 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         } else {
             return null;
         }
+    }
+
+    @Override
+    public List<String> saveUpload(List<ProductVo> productVoList) {
+        List<String> messages = Lists.newArrayList();
+        if (CollectionUtils.isNotEmpty(productVoList)) {
+            for (int i = 0; i < productVoList.size(); i++) {
+                ProductVo vo = productVoList.get(i);
+                Set<ConstraintViolation<Object>> constraintViolations = validator.validate(vo);
+                int lineNum = i + 1;
+                if (constraintViolations.size() > 0) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("第" + lineNum + "行导入失败：");
+                    for (ConstraintViolation cv : constraintViolations) {
+                        sb.append(cv.getMessage());
+                        sb.append(";");
+                    }
+                    messages.add(sb.toString());
+                } else {
+                    Product product = new Product();
+                    Merchant supplier = merchantService.findBy(vo.getSupplierName(), MerchantTypeEnum.SUPPLIER.getValue());
+                    Category category = categoryService.findBy(vo.getCategoryName(), CategoryTypeEnum.PRODUCT.getValue());
+                    Warehouse warehouse = warehouseService.findBy(vo.getWarehouseName());
+                    Unit unit = unitService.findByName(vo.getUnitName());
+                    String code = buildCode(supplier, category, warehouse, vo);
+                    Product productDb = findByCode(code);
+                    if (productDb != null) {
+                        messages.add("第" + lineNum + "行导入失败：" + "商品[" + code + "]已存在于系统中");
+                    } else {
+                        product.setCode(code);
+                        product.setActive(1);
+                        product.setCategoryId(category.getId());
+                        product.setPreferredWarehouseId(warehouse.getId());
+                        product.setSupplierId(supplier.getId());
+                        product.setParameter(vo.getParameter());
+                        product.setSpecification(vo.getSpecification());
+                        product.setDevice(vo.getDevice());
+                        if (unit != null) {
+                            product.setUnitId(unit.getId());
+                        }
+                        product.setRemark(vo.getRemark());
+
+                        ProductWarehouse pw = new ProductWarehouse();
+                        product.setProdWh(pw);
+                        pw.setInitQuantity(vo.getInitQuantity());
+                        pw.setMinInventory(vo.getMinInventory());
+                        pw.setMaxInventory(vo.getMaxInventory());
+                        pw.setRackCode(vo.getRackCode());
+                        pw.setLayerNum(vo.getLayerNum());
+                        pw.setPlaceNum(vo.getPlaceNum());
+
+                        this.save(product);
+                        messages.add("第" + lineNum + "行导入成功。");
+                    }
+                }
+            }
+        }
+        return messages;
+    }
+
+    private String buildCode(Merchant supplier, Category category, Warehouse warehouse, ProductVo vo) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(supplier.getCode());
+        sb.append("-");
+        sb.append(category.getCode());
+        sb.append("-");
+        sb.append(warehouse.getCode());
+        sb.append("-");
+        sb.append(vo.getRackCode());
+        sb.append(vo.getLayerNum() > 9 ? vo.getLayerNum() : "0" + vo.getLayerNum());
+        sb.append(vo.getPlaceNum() > 9 ? vo.getPlaceNum() : "0" + vo.getPlaceNum());
+        return sb.toString();
     }
 }

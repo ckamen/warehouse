@@ -19,4 +19,6 @@ public interface WarehouseService extends BaseService<Warehouse> {
     boolean exist(Warehouse warehouse, String value);
 
     Page<Warehouse> selectPage(Page<Warehouse> page, Map<String, String> params);
+
+    Warehouse findBy(String name);
 }

@@ -14,4 +14,6 @@ import com.csg.warehouse.common.service.BaseService;
 public interface UnitService extends BaseService<Unit> {
 
     boolean exist(Unit unit, String value);
+
+    Unit findByName(String name);
 }
