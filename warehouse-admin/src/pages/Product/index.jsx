@@ -179,7 +179,7 @@ class ProductRdx extends React.Component {
                     </div>
                     <div className={'btn-area'}>
                         <Button icon="download" onClick={this.handleImport}>导入商品</Button>
-                        <Button icon="export" onClick={this.handleExport}>导出商品</Button>
+                        <Button icon="export" href={`${process.env.REACT_APP_SERVER_HOST}/export/product`} target={'blank'}>导出商品</Button>
                         <Button type="primary" onClick={this.handleAdd}>新增商品</Button>
                     </div>
                 </h3>

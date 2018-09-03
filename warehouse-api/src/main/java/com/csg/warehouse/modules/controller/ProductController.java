@@ -8,7 +8,6 @@ import com.csg.warehouse.core.web.WebRequestContext;
 import com.csg.warehouse.modules.entity.Product;
 import com.csg.warehouse.modules.service.ProductService;
 import com.csg.warehouse.modules.vo.ProductVo;
-import com.csg.warehouse.utils.excel.ExportExcel;
 import com.csg.warehouse.utils.excel.ImportExcel;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,14 +74,7 @@ public class ProductController extends BaseController {
         return WebApiResponse.success(messages);
     }
 
-    @RequestMapping("export")
-    public WebApiResponse export(WebRequestContext requestContext) {
-        Page<Product> page = new Page<>(1, Integer.MAX_VALUE);
-        page = this.productService.selectPage(page, requestContext.getParams());
 
-        ExportExcel ee = new ExportExcel("Product", ProductVo.class);
-        return  WebApiResponse.success();
-    }
 
 }
 

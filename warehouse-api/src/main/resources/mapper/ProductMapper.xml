@@ -15,4 +15,25 @@
             and p.preferred_warehouse_id = #{warehouseId}
         </if>
     </select>
+    <select id="findVoList" resultType="com.csg.warehouse.modules.vo.ProductVo">
+        select
+            p.*,
+            m.name 'supplierName',
+            c.name 'categoryName',
+            w.name 'warehouseName',
+            u.name 'unitName',
+            pw.inventory,
+            pw.min_inventory,
+            pw.max_inventory
+        from t_product p
+            left join t_merchant m on m.id = p.supplier_id
+            left join t_category c on c.id = p.category_id
+            left join t_warehouse w on w.id = p.preferred_warehouse_id
+            left join t_unit u on u.id = p.unit_id
+            left join t_product_warehouse pw on pw.product_id = p.id
+        where p.deleted_ind = 0
+
+    </select>
+
+
 </mapper>

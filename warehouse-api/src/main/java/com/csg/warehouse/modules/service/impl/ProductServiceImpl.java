@@ -198,4 +198,9 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         sb.append(vo.getPlaceNum() > 9 ? vo.getPlaceNum() : "0" + vo.getPlaceNum());
         return sb.toString();
     }
+
+    @Override
+    public List<ProductVo> findVoList() {
+        return this.baseMapper.findVoList();
+    }
 }

@@ -23,4 +23,6 @@ public interface ProductService extends BaseService<Product> {
     boolean exist(Product product, String value);
 
     List<String> saveUpload(List<ProductVo> productVoList);
+
+    List<ProductVo> findVoList();
 }
