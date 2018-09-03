@@ -67,6 +67,9 @@ class ProductRdx extends React.Component {
         }, {
             title: '参数',
             dataIndex: 'parameter'
+        },{
+            title: '仓库',
+            dataIndex: 'warehouseName'
         }, {
             title: '当前库存',
             dataIndex: 'prodWh.inventory'
