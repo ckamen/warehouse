@@ -184,7 +184,6 @@ class ContactTableRdx extends React.Component {
         }];
     }
     handleDelete = (key) => {
-        console.log('handleDelete', key);
         let {delContact} = this.actions;
         delContact(key);
         // const dataSource = [...this.state.dataSource];
@@ -192,13 +191,11 @@ class ContactTableRdx extends React.Component {
     }
 
     handleAdd = () => {
-        console.log('handleAdd');
         let {addContact} = this.actions;
         addContact();
     }
 
     handleSave = (record) => {
-        console.log('handleSave', record);
         let {saveContact} = this.actions;
         saveContact(record);
     }

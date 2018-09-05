@@ -35,7 +35,6 @@ class WarehousingRdx extends React.Component {
             if (err) {
                 return;
             }
-            console.log('handleSave', values);
             let records = this.props.tableList;
             if (records.length > 0) {
                 let {clientId, receiptDate} = values;

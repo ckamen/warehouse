@@ -112,7 +112,6 @@ class WarehouseRdx extends React.Component {
     }
 
     handleActiveChange = (checked, record) => {
-        console.log('handleActiveChange', checked, record);
         let {saveWarehouse} = this.actions;
         saveWarehouse({
             id: record.id,

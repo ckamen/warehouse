@@ -104,7 +104,6 @@ class BrandRdx extends React.Component {
     }
 
     handleActiveChange = (checked, record) => {
-        console.log('handleActiveChange', checked, record);
         let {saveBrand} = this.actions;
         saveBrand({
             id: record.id,

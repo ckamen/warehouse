@@ -124,7 +124,6 @@ class ProductSelectableTableRdx extends React.Component {
             if (err) {
                 return;
             }
-            console.log('handleSearch', values);
             this.setState({
                 loading: true
             })

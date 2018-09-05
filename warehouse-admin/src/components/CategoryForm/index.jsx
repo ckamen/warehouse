@@ -54,7 +54,6 @@ class CategoryFormRdx extends React.Component {
     }
 
     handleNodeSelect = (value, node) => {
-        console.log('handleTreeChange', value, node);
         let {updateCategoryModal} = this.props.actions;
         updateCategoryModal({
             level: node.props.level

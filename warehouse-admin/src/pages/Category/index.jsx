@@ -102,7 +102,6 @@ class CategoryRdx extends React.Component {
     }
 
     handleRadioChange = (e) => {
-        console.log('handleRadioChange', e);
         let {getCategories, updateCategoryType} = this.actions;
         updateCategoryType(e.target.value);
         getCategories({...this.props.pagination, type: e.target.value});

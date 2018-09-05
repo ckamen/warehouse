@@ -89,7 +89,6 @@ class WarehousingHistoryRdx extends React.Component {
                 receiptStartDate,
                 receiptEndDate
             };
-            console.log(pager);
             let {getWarehousings} = this.actions;
             getWarehousings(pager).then(() => {
                 this.setState({

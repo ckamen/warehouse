@@ -45,7 +45,6 @@ class ProductFormRdx extends React.Component {
     }
 
     componentDidMount() {
-        console.log('componentDidMount');
         let {getCategories, getMerchants, getUnits, getWarehouses} = this.actions;
         getCategories({pageSize: MAX_SIZE, type: 3});
         getMerchants({pageSize: MAX_SIZE, type: SUPPLIER});

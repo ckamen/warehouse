@@ -136,7 +136,6 @@ class ProductRdx extends React.Component {
     }
 
     handleActiveChange = (checked, record) => {
-        console.log('handleActiveChange', checked, record);
         let {saveProduct} = this.actions;
         saveProduct({
             id: record.id,

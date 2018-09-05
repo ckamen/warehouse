@@ -111,7 +111,6 @@ class UserRdx extends React.Component {
     }
 
     handleActiveChange = (checked, record) => {
-        console.log('handleActiveChange', checked, record);
         let {saveUser} = this.actions;
         saveUser({
             id: record.id,

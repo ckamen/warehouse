@@ -48,7 +48,6 @@ const WarehousingReducer = (state = initWarehousingState, action) => {
             let product = action.data;
             let index = newState.tableList.findIndex(record => record.key === product.key);
             let record = newState.tableList[index];
-            console.log('WAREHOUSING_SELECT_PRODUCT', record);
             record.productCode = product.code;
             record.supplierName = product.supplierName;
             record.specification = product.specification;

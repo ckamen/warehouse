@@ -35,8 +35,6 @@ class ImportModalRdx extends React.Component {
             },
             accept: '.xls, .xlsx',
             beforeUpload: file => {
-                console.log('beforeUpload', file);
-
                 const isLt5M = file.size / 1024 / 1024 < 5;
                 if (!isLt5M) {
                     message.error('上传文件大小不能超过5M');
@@ -44,7 +42,6 @@ class ImportModalRdx extends React.Component {
                 return isLt5M;
             },
             onChange(info) {
-                console.log(info);
                 if (info.file.status === 'done') {
                     // message.success(`${info.file.name} file uploaded successfully`);
                     let messages = info.file.response.data;
