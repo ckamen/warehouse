@@ -64,7 +64,7 @@ class WarehousingHistoryRdx extends React.Component {
             dataIndex: 'createdByName'
         }, {
             title: '制单时间',
-            dataIndex: 'createdAt'
+            dataIndex: 'createdTime'
         }, {
             title: '备注',
             dataIndex: 'remark'
