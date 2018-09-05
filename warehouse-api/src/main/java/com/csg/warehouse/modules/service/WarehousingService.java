@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public interface WarehousingService extends BaseService<Warehousing> {
 
-    void saveBatch(List<Warehousing> warehousings);
+    void saveBatch(List<Warehousing> warehousings, Integer userId);
 
     Page<Warehousing> selectPage(Page<Warehousing> page, Map<String, String> params);
 }

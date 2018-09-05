@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -48,18 +49,20 @@ public class WarehousingController extends BaseController {
     }
 
     @PostMapping("/save/{id}")
-    public WebApiResponse save(Warehousing warehousing) {
-        warehousingService.save(warehousing);
+    public WebApiResponse save(Warehousing warehousing, HttpSession session) {
+        Integer userId = super.getLoginUserId(session);
+        warehousingService.save(warehousing, userId);
         return WebApiResponse.success(warehousing);
     }
 
     @PostMapping("/save-batch")
-    public WebApiResponse saveBatch(String jsonStr) throws IOException {
+    public WebApiResponse saveBatch(String jsonStr, HttpSession session) throws IOException {
+        Integer userId = super.getLoginUserId(session);
         ObjectMapper mapper = new ObjectMapper();
         List<Warehousing> warehousings = mapper.readValue(jsonStr,
                 new TypeReference<List<Warehousing>>() {
                 });
-        warehousingService.saveBatch(warehousings);
+        warehousingService.saveBatch(warehousings, userId);
         return WebApiResponse.success(warehousings);
     }
 

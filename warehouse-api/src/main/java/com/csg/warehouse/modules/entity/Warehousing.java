@@ -106,6 +106,7 @@ public class Warehousing extends IdEntity {
     @TableField(exist = false)
     private String createdByName;
 
+
     public Integer getInventory() {
         return inventory;
     }

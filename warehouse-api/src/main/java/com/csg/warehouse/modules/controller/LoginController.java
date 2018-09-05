@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
 
@@ -23,14 +23,15 @@ public class LoginController extends BaseController {
     private UserService userService;
 
     @PostMapping(value = "/login")
-    public WebApiResponse<ApiData> login(String username, String password, HttpServletResponse response) throws IOException {
+    public WebApiResponse<ApiData> login(String username, String password, HttpSession session) throws IOException {
         User user = userService.findByActiveUsername(username, password);
         if (StringUtils.isBlank(username) || user == null) {
             return WebApiResponse.error("用户名或者密码不正确");
         } else {
             String token = JwtUtils.getToken(username);
             user.setLastAccessTime(new Date());
-            userService.save(user);
+            Integer userId = super.getLoginUserId(session);
+            userService.save(user, userId);
             ApiData apiData = new ApiData();
             apiData.token = token;
             return WebApiResponse.success(apiData);

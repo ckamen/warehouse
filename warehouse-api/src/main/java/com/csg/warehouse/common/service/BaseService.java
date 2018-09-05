@@ -5,7 +5,7 @@ import com.csg.warehouse.common.entity.IdEntity;
 
 public interface BaseService<T extends IdEntity> extends IService<T> {
 
-    void save(T t);
+    void save(T t, Integer userId);
 
     boolean isValidId(Integer id);
 

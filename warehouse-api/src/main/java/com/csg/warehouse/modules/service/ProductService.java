@@ -22,7 +22,7 @@ public interface ProductService extends BaseService<Product> {
 
     boolean exist(Product product, String value);
 
-    List<String> saveUpload(List<ProductVo> productVoList);
+    List<String> saveUpload(List<ProductVo> productVoList, Integer userId);
 
     List<ProductVo> findVoList();
 }

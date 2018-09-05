@@ -10,6 +10,8 @@ import com.csg.warehouse.modules.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * <p>
  * 联系人表 前端控制器
@@ -42,8 +44,9 @@ public class ContactController extends BaseController {
     }
 
     @PostMapping("/save/{id}")
-    public WebApiResponse save(Contact contact) {
-        contactService.save(contact);
+    public WebApiResponse save(Contact contact, HttpSession session) {
+        Integer userId = super.getLoginUserId(session);
+        contactService.save(contact, userId);
         return WebApiResponse.success(contact);
     }
 

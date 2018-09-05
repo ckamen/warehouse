@@ -30,7 +30,8 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, Categor
     @Autowired
     private CategoryRelationService categoryRelationService;
 
-    public void save(Category category) {
+    @Override
+    public void save(Category category, Integer userId) {
         if (isValidEntityId(category)) {
             if (isValidEntityId(category.getParent())) {
                 CategoryRelation param = new CategoryRelation();
@@ -49,7 +50,7 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, Categor
             }
             this.updateById(category);
         } else {
-            this.insert(category);
+            super.save(category, userId);
             this.insertRelations(category);
         }
     }

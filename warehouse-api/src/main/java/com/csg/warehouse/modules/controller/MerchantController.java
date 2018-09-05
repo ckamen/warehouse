@@ -10,6 +10,8 @@ import com.csg.warehouse.modules.service.MerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * <p>
  * 供应商客户表 前端控制器
@@ -43,8 +45,9 @@ public class MerchantController extends BaseController {
     }
 
     @PostMapping("/save/{id}")
-    public WebApiResponse save(Merchant merchant) {
-        merchantService.save(merchant);
+    public WebApiResponse save(Merchant merchant, HttpSession session) {
+        Integer userId = super.getLoginUserId(session);
+        merchantService.save(merchant, userId);
         return WebApiResponse.success(merchant);
     }
 

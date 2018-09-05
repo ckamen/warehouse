@@ -10,10 +10,12 @@
         w.*,
         w2.name 'warehouseName',
         m.name 'merchantName',
-        p.code 'productCode'
+        p.code 'productCode',
+        u.name 'createdByName'
         from t_warehousing w left join t_warehouse w2 on w.warehouse_id = w2.id
         left join t_merchant m on w.merchant_id = m.id
         left join t_product p on w.product_id = p.id
+        left join t_user u on u.id = w.created_by
         where w.deleted_ind = 0
         <if test="action != null and action > 0">
             and w.action = #{action}

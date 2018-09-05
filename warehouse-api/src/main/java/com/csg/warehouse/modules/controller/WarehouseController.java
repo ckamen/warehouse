@@ -10,6 +10,8 @@ import com.csg.warehouse.modules.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * <p>
  * 仓库表 前端控制器
@@ -43,8 +45,9 @@ public class WarehouseController extends BaseController {
     }
 
     @PostMapping("/save/{id}")
-    public WebApiResponse save(Warehouse warehouse) {
-        warehouseService.save(warehouse);
+    public WebApiResponse save(Warehouse warehouse, HttpSession session) {
+        Integer userId = super.getLoginUserId(session);
+        warehouseService.save(warehouse, userId);
         return WebApiResponse.success(warehouse);
     }
 

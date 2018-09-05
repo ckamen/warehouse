@@ -48,15 +48,16 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     @Autowired
     private Validator validator;
 
+    @Override
     @Transactional
-    public void save(Product product) {
-        super.save(product);
+    public void save(Product product, Integer userId) {
+        super.save(product, userId);
         ProductWarehouse productWarehouse = product.getProdWh();
         if (productWarehouse != null) {
             productWarehouse.setProductId(product.getId());
             productWarehouse.setInventory(productWarehouse.getInitQuantity());
             productWarehouse.setWarehouseId(product.getPreferredWarehouseId());
-            productWarehouseService.save(productWarehouse);
+            productWarehouseService.save(productWarehouse, userId);
         }
         buildExtra(product);
     }
@@ -128,7 +129,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     }
 
     @Override
-    public List<String> saveUpload(List<ProductVo> productVoList) {
+    public List<String> saveUpload(List<ProductVo> productVoList, Integer userId) {
         List<String> messages = Lists.newArrayList();
         if (CollectionUtils.isNotEmpty(productVoList)) {
             for (int i = 0; i < productVoList.size(); i++) {
@@ -176,7 +177,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
                         pw.setLayerNum(vo.getLayerNum());
                         pw.setPlaceNum(vo.getPlaceNum());
 
-                        this.save(product);
+                        this.save(product, userId);
                         messages.add("第" + lineNum + "行导入成功。");
                     }
                 }

@@ -9,6 +9,8 @@ import com.csg.warehouse.modules.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * <p>
  * 品牌表 前端控制器
@@ -42,8 +44,9 @@ public class BrandController extends BaseController {
     }
 
     @PostMapping("/save/{id}")
-    public WebApiResponse save(Brand brand) {
-        brandService.save(brand);
+    public WebApiResponse save(Brand brand, HttpSession session) {
+        Integer userId = super.getLoginUserId(session);
+        brandService.save(brand, userId);
         return WebApiResponse.success(brand);
     }
 

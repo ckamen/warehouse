@@ -33,12 +33,12 @@ public class WarehousingServiceImpl extends BaseServiceImpl<WarehousingMapper, W
 
     @Override
     @Transactional
-    public void saveBatch(List<Warehousing> warehousings) {
+    public void saveBatch(List<Warehousing> warehousings, Integer userId) {
         if (warehousings != null && warehousings.size() > 0) {
             for (Warehousing wh : warehousings) {
                 if (isValidId(wh.getProductId())) {
                     wh.setCreatedTime(new Date());
-                    super.save(wh);
+                    super.save(wh, userId);
 
                     ProductWarehouse param = new ProductWarehouse();
                     param.setWarehouseId(wh.getWarehouseId());
@@ -52,7 +52,7 @@ public class WarehousingServiceImpl extends BaseServiceImpl<WarehousingMapper, W
                     wh.setInventory(pw.getInventory());
                     super.updateById(wh);
 
-                    productWarehouseService.save(pw);
+                    productWarehouseService.save(pw, userId);
                 }
             }
         }

@@ -10,6 +10,8 @@ import com.csg.warehouse.modules.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * <p>
  * 用户表 前端控制器
@@ -43,8 +45,9 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/save/{id}")
-    public WebApiResponse save(User user) {
-        userService.save(user);
+    public WebApiResponse save(User user, HttpSession session) {
+        Integer userId = super.getLoginUserId(session);
+        userService.save(user, userId);
         return WebApiResponse.success(user);
     }
 

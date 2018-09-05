@@ -3,11 +3,13 @@ package com.csg.warehouse.modules.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.csg.warehouse.common.controller.BaseController;
+import com.csg.warehouse.core.web.WebApiResponse;
 import com.csg.warehouse.modules.entity.Unit;
 import com.csg.warehouse.modules.service.UnitService;
-import com.csg.warehouse.core.web.WebApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * <p>
@@ -42,8 +44,9 @@ public class UnitController extends BaseController {
     }
 
     @PostMapping("/save/{id}")
-    public WebApiResponse save(Unit unit) {
-        unitService.save(unit);
+    public WebApiResponse save(Unit unit, HttpSession session) {
+        Integer userId = super.getLoginUserId(session);
+        unitService.save(unit, userId);
         return WebApiResponse.success(unit);
     }
 

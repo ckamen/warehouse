@@ -9,6 +9,8 @@ import com.csg.warehouse.modules.service.RackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * <p>
  * 货架表 前端控制器
@@ -42,8 +44,9 @@ public class RackController extends BaseController {
     }
 
     @PostMapping("/save/{id}")
-    public WebApiResponse save(Rack rack) {
-        rackService.save(rack);
+    public WebApiResponse save(Rack rack, HttpSession session) {
+        Integer userId = super.getLoginUserId(session);
+        rackService.save(rack, userId);
         return WebApiResponse.success(rack);
     }
 

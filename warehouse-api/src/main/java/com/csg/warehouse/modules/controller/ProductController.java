@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -50,8 +51,9 @@ public class ProductController extends BaseController {
     }
 
     @PostMapping("/save/{id}")
-    public WebApiResponse save(Product product) {
-        productService.save(product);
+    public WebApiResponse save(Product product, HttpSession session) {
+        Integer userId = super.getLoginUserId(session);
+        productService.save(product, userId);
         return WebApiResponse.success(product);
     }
 
@@ -67,10 +69,11 @@ public class ProductController extends BaseController {
     }
 
     @RequestMapping("upload")
-    public WebApiResponse upload(MultipartFile file) throws IOException, InvalidFormatException, IllegalAccessException, InstantiationException {
+    public WebApiResponse upload(MultipartFile file, HttpSession session) throws IOException, InvalidFormatException, IllegalAccessException, InstantiationException {
+        Integer userId = super.getLoginUserId(session);
         ImportExcel ie = new ImportExcel(file, 0, 0);
         List<ProductVo> productVoList = ie.getDataList(ProductVo.class);
-        List<String> messages = productService.saveUpload(productVoList);
+        List<String> messages = productService.saveUpload(productVoList, userId);
         return WebApiResponse.success(messages);
     }
 

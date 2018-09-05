@@ -35,8 +35,8 @@ public class MerchantServiceImpl extends BaseServiceImpl<MerchantMapper, Merchan
     }
 
     @Override
-    public void save(Merchant merchant) {
-        super.save(merchant);
+    public void save(Merchant merchant, Integer userId) {
+        super.save(merchant, userId);
         contactService.deleteByMerchantId(merchant.getId());
         if (merchant.getContacts().length > 0) {
             for (Contact contact : merchant.getContacts()) {

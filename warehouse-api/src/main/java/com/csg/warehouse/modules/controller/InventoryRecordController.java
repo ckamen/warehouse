@@ -9,6 +9,8 @@ import com.csg.warehouse.modules.service.InventoryRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * <p>
  * 盘点记录表 前端控制器
@@ -42,8 +44,9 @@ public class InventoryRecordController extends BaseController {
     }
 
     @PostMapping("/save/{id}")
-    public WebApiResponse save(InventoryRecord inventoryRecord) {
-        inventoryRecordService.save(inventoryRecord);
+    public WebApiResponse save(InventoryRecord inventoryRecord, HttpSession session) {
+        Integer userId = super.getLoginUserId(session);
+        inventoryRecordService.save(inventoryRecord, userId);
         return WebApiResponse.success();
     }
 

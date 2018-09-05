@@ -10,6 +10,8 @@ import com.csg.warehouse.modules.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * <p>
  * 分类表 前端控制器
@@ -43,8 +45,9 @@ public class CategoryController extends BaseController {
     }
 
     @PostMapping("/save/{id}")
-    public WebApiResponse save(Category category) {
-        categoryService.save(category);
+    public WebApiResponse save(Category category, HttpSession session) {
+        Integer userId = super.getLoginUserId(session);
+        categoryService.save(category, userId);
         return WebApiResponse.success(category);
     }
 
