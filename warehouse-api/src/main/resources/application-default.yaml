@@ -4,13 +4,13 @@ spring:
       username: root
       password: Root2016
       driverClassName: com.mysql.jdbc.Driver
-  redis:
-    host: 127.0.0.1
-    port: 16379
-    password: sunon
-    database: 1
-  cache:
-    type: redis
+#  redis:
+#    host: 127.0.0.1
+#    port: 16379
+#    password: sunon
+#    database: 1
+#  cache:
+#    type: redis
 
 mybatis-plus:
   global-config:

@@ -188,7 +188,7 @@ CREATE TABLE t_merchant
 	id int NOT NULL AUTO_INCREMENT COMMENT 'id',
 	name varchar(500) DEFAULT '' NOT NULL COMMENT '名称',
 	code varchar(100) DEFAULT '' NOT NULL COMMENT '编号',
-	category_id int NOT NULL COMMENT '类别id',
+	category_id int DEFAULT -1 COMMENT '类别id',
 	type tinyint DEFAULT 1 NOT NULL COMMENT '类别,1-供应商;2-客户',
   remark varchar(200) COMMENT '备注',
   active tinyint DEFAULT 1 COMMENT '是否启用,1-启用;0-不启用',
@@ -274,6 +274,7 @@ CREATE TABLE t_user
   deleted_by int DEFAULT -1 NOT NULL COMMENT '删除人',
   deleted_time datetime COMMENT '删除时间',
   last_access_time datetime COMMENT '最近访问时间',
+  admin_ind tinyint default 0 comment '是否管理员',
 	PRIMARY KEY (id)
 ) COMMENT = '用户表';
 

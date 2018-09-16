@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table, Icon, Divider, Button, Switch, Popconfirm} from 'antd';
+import {Table, Icon, Divider, Button, Switch, Popconfirm, message} from 'antd';
 
 import './index.css';
 import {connect} from "react-redux";
@@ -55,11 +55,14 @@ class UserRdx extends React.Component {
         }, {
             title: '手机号',
             dataIndex: 'phone'
+        },{
+            title: '最近登录时间',
+            dataIndex: 'lastAccessTime'
         }, {
             title: '状态',
             dataIndex: 'active',
             render: (value, record) => (
-                <Switch checked={value > 0} onChange={(checked) => this.handleActiveChange(checked, record)}/>
+                record.adminInd > 0 ? null: <Switch checked={value > 0} onChange={(checked) => this.handleActiveChange(checked, record)}/>
             )
 
         }];
@@ -79,7 +82,11 @@ class UserRdx extends React.Component {
 
     handleDelete = (record) => {
         let {delUser} = this.actions;
-        delUser(record.key)
+        if(record.adminInd > 0) {
+            message.error("不能删除管理员账号");
+        } else {
+            delUser(record.key)
+        }
     }
 
     handleEdit = (record) => {

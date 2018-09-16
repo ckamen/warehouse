@@ -79,6 +79,11 @@ public class User extends IdEntity {
      */
     private Date lastAccessTime;
 
+    /**
+     * 是否管理员
+     */
+    private Integer adminInd;
+
 
     public String getUsername() {
         return username;
@@ -190,6 +195,14 @@ public class User extends IdEntity {
 
     public void setLastAccessTime(Date lastAccessTime) {
         this.lastAccessTime = lastAccessTime;
+    }
+
+    public Integer getAdminInd() {
+        return adminInd;
+    }
+
+    public void setAdminInd(Integer adminInd) {
+        this.adminInd = adminInd;
     }
 
     @Override
