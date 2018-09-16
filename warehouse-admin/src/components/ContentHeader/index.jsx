@@ -4,6 +4,7 @@ import {Layout, Icon, Avatar} from 'antd';
 import './index.css';
 import {showConfirm} from "../../utils/utils";
 import {withRouter} from "react-router-dom";
+import logo from "../../assets/logo.png";
 
 const {Header} = Layout;
 
@@ -27,11 +28,14 @@ class ContentHeader extends React.Component {
         let username = sessionStorage.getItem('username');
         return (
             <Header className="header-div">
-                <Icon
-                    className="trigger"
-                    type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
-                    onClick={this.props.toggle}
-                />
+                <div style={{float: 'left'}}>
+                    <Icon
+                        className="trigger"
+                        type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
+                        onClick={this.props.toggle}
+                    />
+                    <img alt="logo" src={logo} width={60} height={50}/>
+                </div>
                 <div className="userprofile-div">
                     <div className="userprofile-content">
                         <div>
