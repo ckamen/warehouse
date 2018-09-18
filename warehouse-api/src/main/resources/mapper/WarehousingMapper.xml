@@ -42,4 +42,13 @@
             and upper(p.code) like concat('%', upper(#{productCode}), '%')
         </if>
     </select>
+
+    <select id="findStatisticGroupByMerchant" resultType="com.csg.warehouse.modules.vo.PieChartDataVo">
+        select
+            sum(w.quantity) 'count',
+            m.name 'item'
+        from t_warehousing w left join t_merchant m on w.merchant_id = m.id
+        where w.action = #{action}
+        group by w.merchant_id
+    </select>
 </mapper>

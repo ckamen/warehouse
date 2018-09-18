@@ -9,6 +9,7 @@ import com.csg.warehouse.modules.enums.WarehouseActionEnum;
 import com.csg.warehouse.modules.mapper.WarehousingMapper;
 import com.csg.warehouse.modules.service.ProductWarehouseService;
 import com.csg.warehouse.modules.service.WarehousingService;
+import com.csg.warehouse.modules.vo.PieChartDataVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,4 +67,8 @@ public class WarehousingServiceImpl extends BaseServiceImpl<WarehousingMapper, W
         return page;
     }
 
+    @Override
+    public List<PieChartDataVo> findStatisticGroupByMerchant(int action) {
+        return this.baseMapper.findStatisticGroupByMerchant(action);
+    }
 }

@@ -72,5 +72,9 @@ public class WarehousingController extends BaseController {
         return WebApiResponse.success();
     }
 
+    @GetMapping("/findPieChartData")
+    public WebApiResponse findPieChartData(int action) {
+        return WebApiResponse.success(warehousingService.findStatisticGroupByMerchant(action));
+    }
 }
 

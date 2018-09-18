@@ -111,7 +111,7 @@ class MerchantFormRdx extends React.Component {
                             <Col span={12}>
                                 <Form.Item label="分类" {...formItemLayout}>
                                     {getFieldDecorator('categoryId', {
-                                        initialValue: categoryId != null && categoryId != -1 ? categoryId: undefined
+                                        initialValue: categoryId != null && categoryId !== -1 ? categoryId: undefined
                                     })(
                                         <TreeSelect
                                             allowClear={true}

@@ -273,7 +273,7 @@ class ProductFormRdx extends React.Component {
                         </Row>
                         <Row>
                             <Col span={12}>
-                                <Form.Item label="默认仓库" {...formItemLayout}>
+                                <Form.Item label="存放仓库" {...formItemLayout}>
                                     {getFieldDecorator('preferredWarehouseId', {
                                         initialValue: preferredWarehouseId > 0 ? preferredWarehouseId.toString() : undefined,
                                         rules: [{required: true, message: '请选择仓库'}],

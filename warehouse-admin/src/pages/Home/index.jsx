@@ -1,11 +1,16 @@
 import React from 'react';
 
 import './index.css';
+import PieChart from "../../components/PieChart";
+import {Col, Row} from "antd";
 
 const Home = () => (
-    <div>
-        <p className={'welcome'}>欢迎使用库存管理系统</p>
-    </div>
+    <Row>
+        <Col span={12}>
+            <PieChart/>
+        </Col>
+        <Col span={12}></Col>
+    </Row>
 
 );
 
