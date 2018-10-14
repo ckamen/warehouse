@@ -22,7 +22,8 @@ const initProductState = {
     selectableModal: {
         visible: false,
         title: '选择商品'
-    }
+    },
+    globalQuery: ''
 }
 const ProductReducer = (state = initProductState, action) => {
     let newState = _.merge({}, state);
@@ -58,6 +59,9 @@ const ProductReducer = (state = initProductState, action) => {
                 racks.push(String.fromCharCode(value + i));
             }
             newState.racks = racks;
+            break;
+        case types.PRODUCT_UPDATE_GLOBAL_QUERY:
+            newState.globalQuery = action.data;
             break;
     }
     return newState;

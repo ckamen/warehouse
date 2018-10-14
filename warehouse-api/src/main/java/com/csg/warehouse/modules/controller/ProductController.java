@@ -68,7 +68,7 @@ public class ProductController extends BaseController {
         return WebApiResponse.success(productService.exist(product, value));
     }
 
-    @RequestMapping("upload")
+    @RequestMapping("/upload")
     public WebApiResponse upload(MultipartFile file, HttpSession session) throws IOException, InvalidFormatException, IllegalAccessException, InstantiationException {
         Integer userId = super.getLoginUserId(session);
         ImportExcel ie = new ImportExcel(file, 0, 0);
@@ -77,7 +77,10 @@ public class ProductController extends BaseController {
         return WebApiResponse.success(messages);
     }
 
-
+    @GetMapping("/find-warning")
+    public WebApiResponse findWarningInventory() {
+        return WebApiResponse.success(productService.findWarningInventory());
+    }
 
 }
 

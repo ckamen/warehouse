@@ -41,6 +41,7 @@
         <if test=" productCode != null and productCode != ''">
             and upper(p.code) like concat('%', upper(#{productCode}), '%')
         </if>
+        order by w.created_time desc
     </select>
 
     <select id="findStatisticGroupByMerchant" resultType="com.csg.warehouse.modules.vo.PieChartDataVo">

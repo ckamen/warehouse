@@ -2,6 +2,9 @@ import React from "react";
 import {Icon, Menu, Layout} from "antd";
 import {NavLink} from "react-router-dom";
 import './index.css';
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {updateSelectedKey} from "../../redux/Menu/menuAction";
 
 const {Sider} = Layout;
 const {SubMenu} = Menu;
@@ -9,23 +12,24 @@ const {SubMenu} = Menu;
 class SideNavMenu extends React.Component {
     constructor(props) {
         super(props);
+        this.actions  = this.props.actions;
+        let {updateSelectedKey} = this.actions;
+
         let activeMenu = sessionStorage.getItem('ACTIVE_MENU');
         if (activeMenu) {
             let keyPath = activeMenu.split('|');
+            updateSelectedKey(keyPath[0]);
             if (keyPath.length > 1) {
                 this.state = {
-                    selectedKey: keyPath[0],
                     openKey: keyPath.slice(1, keyPath.length)
                 };
             } else {
                 this.state = {
-                    selectedKey: keyPath[0],
                     openKey: []
                 };
             }
         } else {
             this.state = {
-                selectedKey: 'home',
                 openKey: []
             };
         }
@@ -33,6 +37,8 @@ class SideNavMenu extends React.Component {
 
     handleClick = ({key, keyPath}) => {
         sessionStorage.setItem('ACTIVE_MENU', keyPath.join('|'));
+        let {updateSelectedKey} = this.actions;
+        updateSelectedKey(key);
     }
 
     render() {
@@ -46,7 +52,7 @@ class SideNavMenu extends React.Component {
                     库存管理系统
                 </div>
                 <Menu theme="dark" mode="inline" defaultOpenKeys={this.state.openKey}
-                      defaultSelectedKeys={[this.state.selectedKey]}
+                      defaultSelectedKeys={[this.props.selectedKey]} selectedKeys={[this.props.selectedKey]}
                       onClick={this.handleClick}>
                     <Menu.Item key="home">
                         <NavLink to="/home/"><Icon type="home"/><span>首页</span></NavLink>
@@ -88,4 +94,11 @@ class SideNavMenu extends React.Component {
     }
 }
 
-export default SideNavMenu;
+const mapStateToProps = state => ({
+    selectedKey: state.MenuReducer.selectedKey
+});
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({updateSelectedKey}, dispatch)
+});
+export default connect(mapStateToProps, mapDispatchToProps)(SideNavMenu);

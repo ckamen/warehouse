@@ -6,10 +6,17 @@
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <select id="findPage" resultType="com.csg.warehouse.modules.entity.Product">
-        select p.* from t_product p where p.deleted_ind = 0
+        select p.* from t_product p left join t_merchant m on p.supplier_id = m.id
+        left join t_warehouse w on p.preferred_warehouse_id = w.id
+        where p.deleted_ind = 0
         <if test="queryValue != null and queryValue != ''">
             and (upper(p.code) like concat('%', upper(#{queryValue}), '%')
-            or upper(p.specification) like concat('%', upper(#{queryValue}), '%'))
+            or upper(p.specification) like concat('%', upper(#{queryValue}), '%')
+            or upper(p.parameter) like concat('%', upper(#{queryValue}), '%')
+            or upper(p.remark) like concat('%', upper(#{queryValue}), '%')
+            or upper(m.name) like concat('%', upper(#{queryValue}), '%')
+            or upper(w.name) like concat('%', upper(#{queryValue}), '%')
+            )
         </if>
         <if test="warehouseId != null and warehouseId > 0">
             and p.preferred_warehouse_id = #{warehouseId}
@@ -33,6 +40,17 @@
             left join t_product_warehouse pw on pw.product_id = p.id
         where p.deleted_ind = 0
 
+    </select>
+
+    <select id="findWarningInventory" resultType="com.csg.warehouse.modules.vo.ProductVo">
+        select
+            p.*,
+            pw.inventory,
+            pw.min_inventory,
+            pw.max_inventory
+        from t_product_warehouse pw left join t_product p on pw.product_id = p.id
+        where (pw.`inventory` >= pw.`max_inventory` and pw.`max_inventory` >= 0) ||
+              (pw.inventory &lt;= pw.`min_inventory` and pw.`min_inventory` >= 0)
     </select>
 
 

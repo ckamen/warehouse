@@ -9,9 +9,10 @@ import {
     Legend,
 } from "bizcharts";
 import DataSet from "@antv/data-set";
+import './index.css';
 import {Radio} from 'antd';
 import axiosUtil from "../../utils/axiosUtil";
-import {AJAX_SUCCESS} from "../../utils/constants";
+import {AJAX_SUCCESS, IN} from "../../utils/constants";
 
 class PieChart extends React.Component {
 
@@ -19,16 +20,16 @@ class PieChart extends React.Component {
         super(props);
         this.state = {
             data: [],
-            action: '2'
+            action: IN.toString()
         }
     }
 
     componentDidMount() {
-        this.getPieChartData(2);
+        this.getPieChartData(IN);
     }
 
     getPieChartData(action) {
-        let url = '/api/warehousing/findPieChartData?action='+action;
+        let url = '/api/warehousing/findPieChartData?action=' + action;
         axiosUtil.get(url).then(result => {
             if (result.code === AJAX_SUCCESS) {
                 if (result.data && result.data.length > 0) {
@@ -41,7 +42,6 @@ class PieChart extends React.Component {
     }
 
     handleChange = (e) => {
-        console.log('handleChange', e.target.value);
         this.setState({
             action: e.target.value
         });
@@ -77,8 +77,7 @@ class PieChart extends React.Component {
                     height={500}
                     data={dv}
                     scale={cols}
-                    padding={[40, 50]}
-                    forceFit
+                    padding={80}
                 >
                     <Coord type="theta" radius={0.75}/>
                     <Axis name="percent"/>
@@ -98,7 +97,7 @@ class PieChart extends React.Component {
                         tooltip={[
                             "item*percent",
                             (item, percent) => {
-                                percent = percent * 100 + "%";
+                                percent = Math.round(percent * 10000) / 100 + "%";
                                 return {
                                     name: item,
                                     value: percent

@@ -25,4 +25,6 @@ public interface ProductService extends BaseService<Product> {
     List<String> saveUpload(List<ProductVo> productVoList, Integer userId);
 
     List<ProductVo> findVoList();
+
+    List<ProductVo> findWarningInventory();
 }

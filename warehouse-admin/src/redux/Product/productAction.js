@@ -9,6 +9,7 @@ export const types = {
     PRODUCT_MODAL_UPDATE: 'PRODUCT_MODAL_UPDATE',
     PRODUCT_RACKS_UPDATE: 'PRODUCT_RACKS_UPDATE',
     PRODUCT_SELECT_MODAL_UPDATE: 'PRODUCT_SELECT_MODAL_UPDATE',
+    PRODUCT_UPDATE_GLOBAL_QUERY: 'PRODUCT_UPDATE_GLOBAL_QUERY',
 }
 
 const productAddAction = data => ({
@@ -77,4 +78,8 @@ export const updateRacks = data => dispatch => (dispatch({
     data
 }));
 
+export const updateGlobalQuery = data => dispatch => (dispatch({
+    type: types.PRODUCT_UPDATE_GLOBAL_QUERY,
+    data
+}));
 

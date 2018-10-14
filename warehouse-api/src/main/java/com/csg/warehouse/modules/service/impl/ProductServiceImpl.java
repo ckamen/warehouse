@@ -204,4 +204,9 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     public List<ProductVo> findVoList() {
         return this.baseMapper.findVoList();
     }
+
+    @Override
+    public List<ProductVo> findWarningInventory() {
+        return baseMapper.findWarningInventory();
+    }
 }

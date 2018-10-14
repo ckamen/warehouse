@@ -1,11 +1,12 @@
 package com.csg.warehouse.modules.vo;
 
+import com.csg.warehouse.common.entity.IdEntity;
 import com.csg.warehouse.utils.excel.annotation.ExcelField;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 
-public class ProductVo {
+public class ProductVo extends IdEntity {
 
     @ExcelField(title = "商品编码", sort = 10, type = 1)
     private String code;

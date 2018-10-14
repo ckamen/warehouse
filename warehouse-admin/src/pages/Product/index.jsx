@@ -14,6 +14,7 @@ import ImportModal from "../../components/import";
 class ProductRdx extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.actions = this.props.actions;
         this.state = {
             loading: true,
@@ -25,7 +26,7 @@ class ProductRdx extends React.Component {
 
     componentDidMount() {
         let {getProducts} = this.actions;
-        getProducts(this.props.pagination).then(() => {
+        getProducts({...this.props.pagination, queryValue: this.props.globalQuery}).then(() => {
             this.setState({
                 loading: false
             })
@@ -124,7 +125,7 @@ class ProductRdx extends React.Component {
     }
 
     handleTableChange = (pagination, filters, sorter) => {
-        let pager = {...this.props.pagination};
+        let pager = {...this.props.pagination, queryValue: this.props.globalQuery};
         pager.current = pagination.current;
         pager.pageSize = pagination.pageSize;
         let {getProducts} = this.actions;
@@ -147,7 +148,8 @@ class ProductRdx extends React.Component {
         this.setState({
             loading: true
         })
-        let {getProducts} = this.actions;
+        let {getProducts, updateGlobalQuery} = this.actions;
+        updateGlobalQuery(values.queryValue);
         getProducts({...this.props.pagination, queryValue: values.queryValue}).then(() => {
             this.setState({
                 loading: false
@@ -165,16 +167,12 @@ class ProductRdx extends React.Component {
         });
     }
 
-    handleExport = () => {
-
-    }
-
     render() {
         return (
             <div className={'grid-wrapper'}>
                 <h3>
                     <div>
-                        <ISearchForm handleSearch={this.handleSearch}/>
+                        <ISearchForm handleSearch={this.handleSearch} placeholder={'请输入搜索关键字'}/>
                     </div>
                     <div className={'btn-area'}>
                         <Button icon="download" onClick={this.handleImport}>导入商品</Button>
@@ -201,7 +199,8 @@ class ProductRdx extends React.Component {
 
 const mapStateToProps = state => ({
     tableList: state.ProductReducer.tableList,
-    pagination: state.ProductReducer.pagination
+    pagination: state.ProductReducer.pagination,
+    globalQuery: state.ProductReducer.globalQuery
 });
 
 const mapDispatchToProps = dispatch => ({

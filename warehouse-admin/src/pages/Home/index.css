@@ -3,3 +3,7 @@
     padding-left: 35%;
     font-size: 24px;
 }
+
+.c_left {
+    border-right: 1px solid #e8e8e8;
+}
