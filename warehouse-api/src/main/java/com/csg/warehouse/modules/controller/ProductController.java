@@ -58,8 +58,9 @@ public class ProductController extends BaseController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public WebApiResponse delete(@PathVariable Integer id) {
-        productService.deleteById(id);
+    public WebApiResponse delete(Product product, HttpSession session) {
+        Integer userId = super.getLoginUserId(session);
+        productService.delete(product, userId);
         return WebApiResponse.success();
     }
 

@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -116,6 +117,16 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
             }
         }
         return isExist;
+    }
+
+    @Override
+    public void delete(Product product, Integer userId) {
+        if (isValidEntityId(product)) {
+          product.setDeletedInd(1);
+          product.setDeletedTime(new Date());
+          product.setDeletedBy(userId);
+        }
+        this.updateById(product);
     }
 
     private Product findByCode(String code) {
