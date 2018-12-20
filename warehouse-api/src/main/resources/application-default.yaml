@@ -2,7 +2,7 @@ spring:
   datasource:
       url: jdbc:mysql://localhost:3306/warehouse?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&useSSL=false&zeroDateTimeBehavior=convertToNull
       username: root
-      password: Root2016
+      password: Root2018
       driverClassName: com.mysql.jdbc.Driver
 #  redis:
 #    host: 127.0.0.1
