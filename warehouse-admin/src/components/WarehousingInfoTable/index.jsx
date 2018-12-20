@@ -10,24 +10,32 @@ class WarehousingInfoTable extends React.Component {
         super(props);
         this.state = {
             tableList: [],
-            loading: true
+            loading: true,
+            showMoreBtn: false
         }
         this.buildColumns();
 
     }
 
     componentDidMount() {
-        let url = '/api/warehousing/page?pageSize=5';
+        this.loadData(5);
+    }
+
+    loadData(pageSize) {
+        let url = '/api/warehousing/page?pageSize='+ pageSize;
         axiosUtil.get(url).then(result => {
             let tableList = [];
+            let showMoreBtn = false;
             if (result.code === AJAX_SUCCESS) {
                 if (result.data) {
                     tableList = result.data.records;
+                    showMoreBtn = result.data.pages > 1;
                 }
             }
             this.setState({
                 tableList: tableList,
-                loading: false
+                loading: false,
+                showMoreBtn: showMoreBtn
             });
         });
     }
@@ -49,6 +57,11 @@ class WarehousingInfoTable extends React.Component {
         }];
     }
 
+    moreHandle = () => {
+        console.log('more');
+        this.loadData(100);
+    }
+
     render() {
         return (
             <div>
@@ -60,6 +73,9 @@ class WarehousingInfoTable extends React.Component {
                        pagination={false}
                        loading={this.state.loading}
                        bordered={true}/>
+                <div style={{float: "right", padding: 5, display: this.state.showMoreBtn ? "block": "none"}}>
+                    <a href="javascript:void(0);" onClick={this.moreHandle}>更多>></a>
+                </div>
             </div>
         )
     }

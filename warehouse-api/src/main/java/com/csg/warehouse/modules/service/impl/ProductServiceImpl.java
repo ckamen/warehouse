@@ -122,9 +122,9 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     @Override
     public void delete(Product product, Integer userId) {
         if (isValidEntityId(product)) {
-          product.setDeletedInd(1);
-          product.setDeletedTime(new Date());
-          product.setDeletedBy(userId);
+            product.setDeletedInd(1);
+            product.setDeletedTime(new Date());
+            product.setDeletedBy(userId);
         }
         this.updateById(product);
     }
@@ -217,7 +217,9 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
     }
 
     @Override
-    public List<ProductVo> findWarningInventory() {
-        return baseMapper.findWarningInventory();
+    public Page<ProductVo> findWarningInventory(Page<ProductVo> page) {
+        List<ProductVo> records = baseMapper.findWarningInventory(page);
+        page.setRecords(records);
+        return page;
     }
 }

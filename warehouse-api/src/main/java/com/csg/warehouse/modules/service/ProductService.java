@@ -28,5 +28,5 @@ public interface ProductService extends BaseService<Product> {
 
     List<ProductVo> findVoList();
 
-    List<ProductVo> findWarningInventory();
+    Page<ProductVo> findWarningInventory(Page<ProductVo> page);
 }

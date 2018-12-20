@@ -79,8 +79,8 @@ public class ProductController extends BaseController {
     }
 
     @GetMapping("/find-warning")
-    public WebApiResponse findWarningInventory() {
-        return WebApiResponse.success(productService.findWarningInventory());
+    public WebApiResponse findWarningInventory(Page<ProductVo> page) {
+        return WebApiResponse.success(productService.findWarningInventory(page));
     }
 
 }

@@ -22,5 +22,5 @@ public interface ProductMapper extends BaseMapper<Product> {
 
     List<ProductVo> findVoList();
 
-    List<ProductVo> findWarningInventory();
+    List<ProductVo> findWarningInventory(Page page);
 }

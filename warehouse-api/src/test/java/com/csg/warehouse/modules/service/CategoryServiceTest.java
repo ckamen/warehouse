@@ -20,21 +20,21 @@ public class CategoryServiceTest extends BaseTest{
         top.setType(CategoryTypeEnum.SUPPLIER.getValue());
         top.setName("一级供应商");
         top.setLevel(0);
-        categoryService.save(top);
+        categoryService.save(top, -1);
 
         Category category2a = new Category();
         category2a.setName("二级供应商a");
         category2a.setType(CategoryTypeEnum.SUPPLIER.getValue());
         category2a.setParent(top);
         category2a.setLevel(top.getLevel()+1);
-        categoryService.save(category2a);
+        categoryService.save(category2a, -1);
 
         Category category2b = new Category();
         category2b.setName("二级供应商b");
         category2b.setType(CategoryTypeEnum.SUPPLIER.getValue());
         category2b.setParent(top);
         category2b.setLevel(top.getLevel()+1);
-        categoryService.save(category2b);
+        categoryService.save(category2b, -1);
 
         int count = categoryService.selectCount(new Condition());
         Assert.assertTrue(count == 3);
@@ -43,7 +43,7 @@ public class CategoryServiceTest extends BaseTest{
         category3a.setName("三级供应商a");
         category3a.setType(CategoryTypeEnum.SUPPLIER.getValue());
         category3a.setParent(category2a);
-        categoryService.save(category3a);
+        categoryService.save(category3a, -1);
 
         int relationCount = categoryRelationService.selectCount(new Condition());
         Assert.assertTrue(relationCount == 5);
@@ -53,7 +53,7 @@ public class CategoryServiceTest extends BaseTest{
 
         category3a.setParent(category2b);
         category3a.setName("三级供应商b");
-        categoryService.save(category3a);
+        categoryService.save(category3a, -1);
 
         category3a = categoryService.findWithParent(category3a.getId());
         Assert.assertTrue(category3a.getName().equals("三级供应商b"));
