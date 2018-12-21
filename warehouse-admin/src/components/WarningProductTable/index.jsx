@@ -52,7 +52,7 @@ class WarningProductTable extends React.Component {
             title: '供应商',
             dataIndex: 'supplierName'
         },{
-            title: '类别',
+            title: '商品类型',
             dataIndex: 'categoryName'
         }, /*{
             title: '库存下限',
