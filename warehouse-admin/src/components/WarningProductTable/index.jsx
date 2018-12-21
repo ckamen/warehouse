@@ -54,7 +54,7 @@ class WarningProductTable extends React.Component {
         },{
             title: '类别',
             dataIndex: 'categoryName'
-        }, {
+        }, /*{
             title: '库存下限',
             dataIndex: 'minInventory',
             render: (value, record) => {
@@ -65,10 +65,10 @@ class WarningProductTable extends React.Component {
                     return oValue;
                 }
             }
-        }, {
+        },*/ {
             title: '当前库存',
             dataIndex: 'inventory'
-        }, {
+        }/*, {
             title: '库存上限',
             dataIndex: 'maxInventory',
             render: (value, record) => {
@@ -79,7 +79,7 @@ class WarningProductTable extends React.Component {
                     return oValue;
                 }
             }
-        }];
+        }*/];
     }
 
     moreHandle = () => {
