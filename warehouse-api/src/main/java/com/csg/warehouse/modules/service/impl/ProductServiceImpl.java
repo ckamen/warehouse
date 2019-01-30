@@ -221,8 +221,16 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         sb.append(warehouse.getCode());
         sb.append("-");
         sb.append(vo.getRackCode());
-        sb.append(vo.getLayerNum() > 9 ? vo.getLayerNum() : "0" + vo.getLayerNum());
-        sb.append(vo.getPlaceNum() > 9 ? vo.getPlaceNum() : "0" + vo.getPlaceNum());
+        if(vo.getLayerNum() == null) {
+            sb.append(0);
+        } else {
+            sb.append(vo.getLayerNum() > 9 ? vo.getLayerNum() : "0" + vo.getLayerNum());
+        }
+        if (vo.getPlaceNum() == null) {
+            sb.append(0);
+        } else {
+            sb.append(vo.getPlaceNum() > 9 ? vo.getPlaceNum() : "0" + vo.getPlaceNum());
+        }
         return sb.toString();
     }
 
