@@ -145,6 +145,9 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         if (CollectionUtils.isNotEmpty(productVoList)) {
             for (int i = 0; i < productVoList.size(); i++) {
                 ProductVo vo = productVoList.get(i);
+                if (vo == null || StringUtils.isBlank(vo.getSupplierName())) {
+                    continue;
+                }
                 Set<ConstraintViolation<Object>> constraintViolations = validator.validate(vo);
                 int lineNum = i + 1;
                 if (constraintViolations.size() > 0) {
@@ -158,8 +161,20 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
                 } else {
                     Product product = new Product();
                     Merchant supplier = merchantService.findBy(vo.getSupplierName(), MerchantTypeEnum.SUPPLIER.getValue());
+                    if(supplier == null) {
+                        messages.add("第" + lineNum + "行导入失败：" + "供应商名称[" + vo.getSupplierName() + "]不存在于系统中");
+                        continue;
+                    }
                     Category category = categoryService.findBy(vo.getCategoryName(), CategoryTypeEnum.PRODUCT.getValue());
+                    if (category == null) {
+                        messages.add("第" + lineNum + "行导入失败：" + "商品类别名称[" + vo.getCategoryName() + "]不存在于系统中");
+                        continue;
+                    }
                     Warehouse warehouse = warehouseService.findBy(vo.getWarehouseName());
+                    if (warehouse == null) {
+                        messages.add("第" + lineNum + "行导入失败：" + "仓库名称[" + vo.getCategoryName() + "]不存在于系统中");
+                        continue;
+                    }
                     Unit unit = unitService.findByName(vo.getUnitName());
                     String code = buildCode(supplier, category, warehouse, vo);
                     Product productDb = findByCode(code);
