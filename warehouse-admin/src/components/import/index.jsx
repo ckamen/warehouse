@@ -68,7 +68,7 @@ class ImportModalRdx extends React.Component {
                 >
                     <Timeline>
                         <Timeline.Item>
-                            <a href={`http://207.148.111.254/public/item_template.xlsx`} target={'blank'}>点击下载模板</a>
+                            <a href={`${process.env.REACT_APP_SERVER_HOST}/static/item_template.xlsx`} target={'blank'}>点击下载模板</a>
                         </Timeline.Item>
                         <Timeline.Item>
                             <Upload {...uploadProps}>
