@@ -49,7 +49,7 @@
             sum(w.quantity) 'count',
             m.name 'item'
         from t_warehousing w left join t_merchant m on w.merchant_id = m.id
-        where w.action = #{action}
+        where w.deleted_ind = 0 and m.deleted_ind =0 and w.action = #{action}
         group by w.merchant_id
     </select>
 </mapper>
