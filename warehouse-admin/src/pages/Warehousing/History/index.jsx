@@ -148,9 +148,9 @@ class WarehousingHistoryRdx extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    tableList: state.WarehousingReducer.tableList,
-    pagination: state.WarehousingReducer.pagination
+const mapStateToProps = reducers => ({
+    tableList: reducers.WarehousingReducer.tableList,
+    pagination: reducers.WarehousingReducer.pagination
 });
 
 const mapDispatchToProps = dispatch => ({

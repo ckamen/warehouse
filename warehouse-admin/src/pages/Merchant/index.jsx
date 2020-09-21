@@ -164,9 +164,9 @@ class MerchantRdx extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    tableList: state.MerchantReducer.tableList,
-    pagination: state.MerchantReducer.pagination
+const mapStateToProps = reducers => ({
+    tableList: reducers.MerchantReducer.tableList,
+    pagination: reducers.MerchantReducer.pagination
 });
 
 const mapDispatchToProps = dispatch => ({

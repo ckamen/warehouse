@@ -137,10 +137,10 @@ class CategoryRdx extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    tableList: state.CategoryReducer.tableList,
-    pagination: state.CategoryReducer.pagination,
-    selectedType: state.CategoryReducer.selectedType
+const mapStateToProps = reducers => ({
+    tableList: reducers.CategoryReducer.tableList,
+    pagination: reducers.CategoryReducer.pagination,
+    selectedType: reducers.CategoryReducer.selectedType
 });
 
 const mapDispatchToProps = dispatch => ({

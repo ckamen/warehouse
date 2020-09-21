@@ -135,9 +135,9 @@ class BrandRdx extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    tableList: state.BrandReducer.tableList,
-    pagination: state.BrandReducer.pagination
+const mapStateToProps = reducers => ({
+    tableList: reducers.BrandReducer.tableList,
+    pagination: reducers.BrandReducer.pagination
 });
 
 const mapDispatchToProps = dispatch => ({

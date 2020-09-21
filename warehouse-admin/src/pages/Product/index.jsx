@@ -199,9 +199,9 @@ class ProductRdx extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    tableList: state.ProductReducer.tableList,
-    pagination: state.ProductReducer.pagination
+const mapStateToProps = reducers => ({
+    tableList: reducers.ProductReducer.tableList,
+    pagination: reducers.ProductReducer.pagination
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -98,10 +98,10 @@ class WarehousingRdx extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    tableList: state.WarehousingReducer.tableList,
-    pagination: state.WarehousingReducer.pagination,
-    clients: state.MerchantReducer.tableList
+const mapStateToProps = reducers => ({
+    tableList: reducers.WarehousingReducer.tableList,
+    pagination: reducers.WarehousingReducer.pagination,
+    clients: reducers.MerchantReducer.tableList
 });
 
 const mapDispatchToProps = dispatch => ({

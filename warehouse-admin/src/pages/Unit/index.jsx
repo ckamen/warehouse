@@ -104,8 +104,8 @@ class UnitRdx extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    tableList: state.UnitReducer.tableList
+const mapStateToProps = reducers => ({
+    tableList: reducers.UnitReducer.tableList
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -162,9 +162,9 @@ class UserRdx extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    tableList: state.UserReducer.tableList,
-    pagination: state.UserReducer.pagination
+const mapStateToProps = reducers => ({
+    tableList: reducers.UserReducer.tableList,
+    pagination: reducers.UserReducer.pagination
 });
 
 const mapDispatchToProps = dispatch => ({
